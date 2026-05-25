@@ -288,19 +288,32 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .aw-year{font-size:11px;color:var(--gold);margin-top:3px;font-family:'Josefin Sans',sans-serif;}
 
 /* ══ PANE 2: MAP ══ */
-#map-canvas{display:block;width:100%;height:100%;}
+/* ══ 3D MAP ══ */
+.scroll-pane2 .scroll-body{background:#b8d4e8;overflow:hidden;}
+#map3d-wrap{
+  position:absolute;inset:0;
+  perspective:900px;
+  display:flex;align-items:center;justify-content:center;
+}
+#map-canvas{
+  display:block;
+  transform-origin:center center;
+  transform:rotateX(22deg) scale(1.05);
+  box-shadow:0 40px 80px rgba(0,0,0,.45),0 8px 20px rgba(0,0,0,.3);
+  border-radius:4px;
+}
 .map-dot-tip{
   position:absolute;
-  background:rgba(40,20,5,.88);
-  border:1px solid rgba(200,168,80,.6);
-  color:#f0e0b0;
-  padding:7px 13px;border-radius:4px;
+  background:rgba(15,25,45,.92);
+  border:1px solid rgba(255,200,80,.5);
+  color:#f0e8cc;
+  padding:8px 14px;border-radius:5px;
   font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.07em;
-  pointer-events:none;opacity:0;transition:opacity .2s;z-index:20;
-  white-space:nowrap;box-shadow:0 4px 18px rgba(0,0,0,.35);
+  pointer-events:none;opacity:0;transition:opacity .18s;z-index:30;
+  white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.4);
 }
-.map-dot-tip .tip-name{font-size:13px;font-weight:600;color:#d4a840;margin-bottom:3px;letter-spacing:.1em;text-transform:uppercase;}
-.map-dot-tip .tip-cities{font-size:11px;color:#c8b078;line-height:1.7;}
+.map-dot-tip .tip-name{font-size:13px;font-weight:600;color:#ffd060;margin-bottom:3px;letter-spacing:.1em;text-transform:uppercase;}
+.map-dot-tip .tip-cities{font-size:11px;color:#c8c090;line-height:1.7;}
 
 /* ══ TRANSITION BUTTON ══ */
 .pane-switch{
@@ -472,11 +485,13 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
       <div class="roller roller-bot" id="roller1-bot"></div>
     </div><!-- /pane1 -->
 
-    <!-- ══ PANE 2: World Map ══ -->
+    <!-- ══ PANE 2: World Map 3D ══ -->
     <div class="scroll-pane scroll-pane2" id="pane2" style="display:none;">
       <div class="roller roller-top" id="roller2-top"></div>
-      <div class="scroll-body" id="body2" style="position:relative;">
-        <canvas id="map-canvas"></canvas>
+      <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;background:#b8d4e8;">
+        <div id="map3d-wrap">
+          <canvas id="map-canvas"></canvas>
+        </div>
         <div class="map-dot-tip" id="map-tip">
           <div class="tip-name" id="tip-name"></div>
           <div class="tip-cities" id="tip-cities"></div>
@@ -708,7 +723,7 @@ window.addEventListener('load',function(){
   setTimeout(function(){goPane(1);},200);
 });
 
-/* ── VINTAGE MAP (Pane 2) ── */
+/* ── 3D MAP (Pane 2) ── */
 (function(){
   var cv=document.getElementById('map-canvas');
   if(!cv)return;
@@ -717,213 +732,269 @@ window.addEventListener('load',function(){
   var tipName=document.getElementById('tip-name');
   var tipCities=document.getElementById('tip-cities');
 
-  var LON_MIN=-170,LON_MAX=170;
-  var LAT_MAX=80,LAT_MIN=-20;
+  // Image natural size: 1408 x 768
+  var IMG_W=1408,IMG_H=768;
 
-  function mercY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
-  var yMax=mercY(LAT_MAX),yMin=mercY(LAT_MIN);
-  var W,H,hov=null,pulse=0,frame=0;
-
-  function proj(lo,la){
-    var xFrac=(lo-LON_MIN)/(LON_MAX-LON_MIN);
-    var yFrac=(yMax-mercY(la))/(yMax-yMin);
-    return{x:xFrac*W, y:yFrac*H};
-  }
-
-  // Country capitals/centers with correct list
-  var LOCS=[
-    {n:'Turkey',   lo:29,  la:41,  home:true, cities:['Istanbul','Bursa','Ankara','Gaziantep'], ox:0, oy:0},
-    {n:'USA',      lo:-98, la:39,  cities:['Washington DC','New York'],                         ox:0, oy:0},
-    {n:'France',   lo:2.35,la:46.5,cities:['Paris','Strasbourg'],                               ox:-18,oy:0},
-    {n:'Italy',    lo:12.5,la:42.5,cities:['Rome','Milan'],                                     ox:10, oy:0},
-    {n:'Spain',    lo:-3.7,la:40.4,cities:['Madrid','Barcelona'],                               ox:-10,oy:0},
-    {n:'Germany',  lo:10.5,la:51.2,cities:['Berlin','Munich'],                                  ox:8,  oy:-8},
-    {n:'Netherlands',lo:5.3,la:52.1,cities:['Amsterdam','The Hague'],                           ox:14, oy:-12},
-    {n:'Belgium',  lo:4.5, la:50.5,cities:['Brussels'],                                         ox:-16,oy:10},
-    {n:'Luxembourg',lo:6.1,la:49.6,cities:['Luxembourg City'],                                  ox:18, oy:0},
-    {n:'Switzerland',lo:8.2,la:46.8,cities:['Bern','Zürich'],                                  ox:0,  oy:14},
-    {n:'Austria',  lo:14.5,la:47.5,cities:['Vienna'],                                           ox:18, oy:8},
-    {n:'Slovenia', lo:14.8,la:46.1,cities:['Ljubljana'],                                        ox:20, oy:16},
-    {n:'Hungary',  lo:19.5,la:47.2,cities:['Budapest'],                                         ox:14, oy:20},
-    {n:'Serbia',   lo:20.9,la:44.0,cities:['Belgrade'],                                         ox:18, oy:22},
-    {n:'Romania',  lo:25.0,la:45.9,cities:['Bucharest'],                                        ox:22, oy:0},
-    {n:'Bulgaria', lo:25.5,la:42.7,cities:['Sofia'],                                            ox:22, oy:14},
-    {n:'Greece',   lo:22.0,la:39.5,cities:['Athens','Thessaloniki'],                            ox:0,  oy:22},
-    {n:'Denmark',  lo:10.0,la:56.0,cities:['Copenhagen'],                                       ox:0,  oy:-12},
-    {n:'Syria',    lo:38.0,la:34.8,cities:['Damascus','Aleppo'],                                ox:-18,oy:0},
-    {n:'Saudi Arabia',lo:45,la:24, cities:['Riyadh','Mecca','Medina'],                         ox:0,  oy:0},
+  // Countries with pixel coords (center of each country on the 1408x768 image)
+  // Derived from map.png visual analysis
+  var COUNTRIES=[
+    {n:'Turkey',     px:980,  py:320, cities:['Istanbul','Bursa','Ankara','Gaziantep'], color:'#e05030', home:true, scale:1.5},
+    {n:'USA',        px:230,  py:290, cities:['Washington DC','New York','Los Angeles'], color:'#2060a0', scale:1.5},
+    {n:'Denmark',    px:657,  py:175, cities:['Copenhagen'],                             color:'#e06820', scale:1.5},
+    {n:'Netherlands',px:626,  py:232, cities:['Amsterdam','The Hague'],                  color:'#20a0a0', scale:1.5},
+    {n:'Belgium',    px:622,  py:258, cities:['Brussels'],                               color:'#a030c0', scale:1.5},
+    {n:'Luxembourg', px:638,  py:264, cities:['Luxembourg City'],                        color:'#c08020', scale:1.5},
+    {n:'Switzerland',px:648,  py:290, cities:['Bern','Zürich'],                          color:'#206080', scale:1.5},
+    {n:'France',     px:612,  py:290, cities:['Paris','Strasbourg'],                     color:'#e0a020', scale:1.5},
+    {n:'Spain',      px:575,  py:318, cities:['Madrid','Barcelona'],                     color:'#c05020', scale:1.5},
+    {n:'Germany',    px:664,  py:258, cities:['Berlin','Munich'],                        color:'#308030', scale:1.5},
+    {n:'Austria',    px:678,  py:278, cities:['Vienna'],                                 color:'#a04040', scale:1.5},
+    {n:'Slovenia',   px:678,  py:290, cities:['Ljubljana'],                              color:'#50a050', scale:1.5},
+    {n:'Italy',      px:685,  py:310, cities:['Rome','Milan'],                           color:'#d04060', scale:1.5},
+    {n:'Hungary',    px:700,  py:278, cities:['Budapest'],                               color:'#6060c0', scale:1.5},
+    {n:'Serbia',     px:708,  py:292, cities:['Belgrade'],                               color:'#c06040', scale:1.5},
+    {n:'Romania',    px:732,  py:278, cities:['Bucharest'],                              color:'#40a080', scale:1.5},
+    {n:'Bulgaria',   px:740,  py:302, cities:['Sofia'],                                  color:'#8050a0', scale:1.5},
+    {n:'Greece',     px:728,  py:322, cities:['Athens','Thessaloniki'],                  color:'#2080c0', scale:1.5},
+    {n:'Syria',      px:990,  py:332, cities:['Damascus','Aleppo'],                      color:'#c08030', scale:1.5},
+    {n:'Saudi Arabia',px:980, py:392, cities:['Riyadh','Mecca','Medina'],               color:'#607030', scale:1.5},
   ];
 
-  // Country border polygons (simplified) for glow outline effect
-  // [lon, lat] pairs — enough points to trace each country's shape
-  var BORDERS={
-    'Turkey':[[26,42],[30,42],[36,38],[40,37],[44,38],[44,40],[43,42],[41,42],[38,42],[35,37],[32,37],[29,37],[27,38],[26,40]],
-    'USA':[[-125,48],[-124,48],[-120,49],[-110,49],[-100,49],[-90,48],[-82,46],[-77,43],[-70,42],[-80,25],[-90,26],[-97,26],[-110,32],[-117,33],[-122,37],[-124,40],[-125,48]],
-    'France':[[-5,43],[-2,43],[3,43],[7,44],[7,47],[4,49],[2,51],[0,50],[-2,48],[-5,48],[-5,43]],
-    'Italy':[[8,44],[9,44],[12,44],[14,41],[16,38],[16,38],[13,38],[12,38],[10,43],[8,44]],
-    'Spain':[[-9,37],[-9,43],[-5,44],[0,43],[3,43],[3,42],[0,40],[-1,37],[-6,36],[-9,37]],
-    'Germany':[[6,47],[8,47],[10,47],[12,47],[14,51],[14,54],[10,55],[7,53],[6,51],[6,47]],
-    'Netherlands':[[4,51],[5,51],[7,53],[5,53],[4,53],[3,52],[4,51]],
-    'Belgium':[[3,49],[5,49],[6,51],[4,51],[3,50],[3,49]],
-    'Luxembourg':[[6,50],[6,50],[6,49],[6,49],[6,50]],
-    'Switzerland':[[6,47],[8,47],[10,47],[10,47],[8,46],[6,47]],
-    'Austria':[[10,47],[12,47],[14,47],[16,48],[16,48],[14,48],[11,47],[10,47]],
-    'Slovenia':[[13,46],[15,46],[15,46],[14,46],[13,46]],
-    'Hungary':[[16,47],[18,48],[20,48],[22,48],[22,46],[20,46],[17,46],[16,47]],
-    'Serbia':[[19,46],[22,46],[22,44],[21,44],[19,44],[19,46]],
-    'Romania':[[22,48],[24,48],[26,48],[30,46],[30,44],[28,44],[24,44],[22,46],[22,48]],
-    'Bulgaria':[[22,44],[24,44],[26,44],[28,44],[28,42],[26,42],[22,42],[22,44]],
-    'Greece':[[20,42],[22,42],[24,42],[24,40],[22,38],[20,38],[20,40],[20,42]],
-    'Denmark':[[8,55],[10,57],[12,57],[12,55],[10,55],[8,55]],
-    'Syria':[[36,37],[38,37],[40,36],[42,37],[42,34],[40,33],[38,33],[36,33],[36,37]],
-    'Saudi Arabia':[[37,22],[40,22],[44,20],[50,20],[55,22],[56,24],[56,28],[50,32],[46,30],[40,28],[37,26],[37,22]],
+  var bgImg=new Image();
+  bgImg.src='map.png';
+
+  var W=IMG_W,H=IMG_H;
+  var hov=null,frame=0,pulse=0;
+
+  // Scale factors: visited countries 1.5x, rest 0.6x visually
+  // We achieve this by drawing the image and then overlaying colored fills
+  // with CSS perspective 3D on the canvas wrapper
+
+  // Bounding boxes (px on 1408x768) for each country fill region
+  // These are approximate rectangles/polygons for the colored overlay
+  var FILLS={
+    'Turkey':    {cx:980, cy:318, rx:75, ry:22},
+    'USA':       {cx:235, cy:285, rx:115,ry:60},
+    'Denmark':   {cx:657, cy:178, rx:18, ry:15},
+    'Netherlands':{cx:620,cy:234, rx:12, ry:10},
+    'Belgium':   {cx:620, cy:256, rx:10, ry:8},
+    'Luxembourg':{cx:636, cy:263, rx:5,  ry:5},
+    'Switzerland':{cx:648,cy:288, rx:12, ry:8},
+    'France':    {cx:606, cy:290, rx:28, ry:25},
+    'Spain':     {cx:574, cy:318, rx:35, ry:22},
+    'Germany':   {cx:665, cy:258, rx:22, ry:22},
+    'Austria':   {cx:678, cy:277, rx:18, ry:8},
+    'Slovenia':  {cx:678, cy:289, rx:7,  ry:5},
+    'Italy':     {cx:688, cy:308, rx:12, ry:22},
+    'Hungary':   {cx:700, cy:276, rx:15, ry:10},
+    'Serbia':    {cx:708, cy:292, rx:10, ry:12},
+    'Romania':   {cx:732, cy:277, rx:20, ry:14},
+    'Bulgaria':  {cx:740, cy:302, rx:18, ry:10},
+    'Greece':    {cx:730, cy:322, rx:14, ry:14},
+    'Syria':     {cx:992, cy:332, rx:20, ry:12},
+    'Saudi Arabia':{cx:978,cy:392, rx:50,ry:35},
   };
 
-  var bgImg=new Image();
-  bgImg.src='world_map_1.jpg';
+  function drawEllipseGlow(cx,cy,rx,ry,color,glow,alpha){
+    ctx.save();
+    ctx.globalAlpha=alpha;
+    // Drop shadow for 3D raised effect
+    ctx.shadowColor=color;ctx.shadowBlur=glow;
+    ctx.shadowOffsetY=4;
+    ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
+    ctx.fillStyle=color;ctx.fill();
+    ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+    ctx.restore();
+  }
 
-  // Glow orbit animation state per country
-  var glowAngle=0;
+  function drawGlowBorder(cx,cy,rx,ry,color,t){
+    // Orbiting glow — two bright spots travel around ellipse perimeter
+    for(var pass=0;pass<2;pass++){
+      var angle=(t+pass*Math.PI)%(Math.PI*2);
+      var gx=cx+rx*Math.cos(angle)*1.05;
+      var gy=cy+ry*Math.sin(angle)*1.05;
+      var gr=ctx.createRadialGradient(gx,gy,0,gx,gy,20);
+      gr.addColorStop(0,'rgba(255,255,255,.95)');
+      gr.addColorStop(0.3,'rgba(255,255,255,.5)');
+      gr.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.save();ctx.globalAlpha=1;
+      ctx.beginPath();ctx.arc(gx,gy,20,0,Math.PI*2);
+      ctx.fillStyle=gr;ctx.fill();
+      ctx.restore();
+    }
+    // Border stroke
+    ctx.save();
+    ctx.beginPath();ctx.ellipse(cx,cy,rx+3,ry+3,0,0,Math.PI*2);
+    ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=2.5;
+    ctx.shadowColor='#fff';ctx.shadowBlur=10;
+    ctx.stroke();ctx.shadowBlur=0;
+    ctx.restore();
+  }
 
-  function drawCountryGlow(pts,color,t){
-    if(!pts||pts.length<2)return;
-    var mapped=pts.map(function(pt){return proj(pt[0],pt[1]);});
-    // Fill highlight
+  function drawPin(px,py,color,isHov,blink){
+    // Location pin shape
+    var r=isHov?9:6;
+    var bounce=isHov?-6*Math.abs(Math.sin(pulse*3)):0;
+    var py2=py+bounce;
+
+    // Pin shadow
+    ctx.save();ctx.globalAlpha=0.3;
+    ctx.beginPath();ctx.ellipse(px,py+r+2,r*0.7,r*0.25,0,0,Math.PI*2);
+    ctx.fillStyle='#000';ctx.fill();ctx.restore();
+
+    // Pin body
+    ctx.save();
+    ctx.shadowColor=color;ctx.shadowBlur=isHov?14:6;
     ctx.beginPath();
-    mapped.forEach(function(p,i){i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);});
+    ctx.arc(px,py2-r,r,Math.PI*0.15,Math.PI*0.85,true);
+    ctx.lineTo(px,py2+r*0.8);
     ctx.closePath();
     ctx.fillStyle=color;ctx.fill();
-    // Orbiting white glow — draw 2 arcs that travel around perimeter
-    var totalLen=0;
-    var segs=[];
-    for(var i=0;i<mapped.length;i++){
-      var a=mapped[i],b=mapped[(i+1)%mapped.length];
-      var d=Math.hypot(b.x-a.x,b.y-a.y);
-      segs.push({ax:a.x,ay:a.y,bx:b.x,by:b.y,len:d,start:totalLen});
-      totalLen+=d;
-    }
-    // Two glows 180° apart
-    for(var pass=0;pass<2;pass++){
-      var pos=(t+pass*0.5)*totalLen%totalLen;
-      var gx=mapped[0].x,gy=mapped[0].y;
-      for(var si=0;si<segs.length;si++){
-        var seg=segs[si];
-        if(pos>=seg.start&&pos<seg.start+seg.len){
-          var frac=(pos-seg.start)/seg.len;
-          gx=seg.ax+(seg.bx-seg.ax)*frac;
-          gy=seg.ay+(seg.by-seg.ay)*frac;
-          break;
-        }
-      }
-      var gr=ctx.createRadialGradient(gx,gy,0,gx,gy,18);
-      gr.addColorStop(0,'rgba(255,255,255,.9)');
-      gr.addColorStop(0.4,'rgba(255,255,255,.4)');
-      gr.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.beginPath();ctx.arc(gx,gy,18,0,Math.PI*2);
-      ctx.fillStyle=gr;ctx.fill();
-    }
-    // Border stroke glow
-    ctx.beginPath();
-    mapped.forEach(function(p,i){i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);});
-    ctx.closePath();
-    ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1.5;
-    ctx.shadowColor='rgba(255,255,255,.8)';ctx.shadowBlur=6;
-    ctx.stroke();
-    ctx.shadowBlur=0;
+    // Inner dot
+    ctx.beginPath();ctx.arc(px,py2-r,r*0.38,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,.75)';ctx.fill();
+    ctx.shadowBlur=0;ctx.restore();
+
+    // Pulse ring
+    var pR=r+6+blink*8;
+    ctx.beginPath();ctx.arc(px,py2-r,pR,0,Math.PI*2);
+    ctx.strokeStyle=color.replace(')',','+(0.15+blink*0.25)+')').replace('rgb(','rgba(');
+    ctx.lineWidth=1.5;ctx.stroke();
   }
 
   function draw(){
-    frame++;
+    frame++;pulse+=0.04;
     ctx.clearRect(0,0,W,H);
 
+    // Draw base map image
     if(bgImg.complete&&bgImg.naturalWidth){
       ctx.drawImage(bgImg,0,0,W,H);
     } else {
-      ctx.fillStyle='#c8a044';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#b8d4e8';ctx.fillRect(0,0,W,H);
     }
 
-    // Vignette
-    var vig=ctx.createRadialGradient(W/2,H/2,H*0.25,W/2,H/2,H*0.72);
-    vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,'rgba(0,0,0,0.3)');
-    ctx.fillStyle=vig;ctx.fillRect(0,0,W,H);
+    var t=frame*0.04; // glow orbit speed
 
-    var t=frame*0.008; // glow orbit speed
-
-    // Draw hovered country glow
-    if(hov&&BORDERS[hov.n]){
-      var fillColor=hov.home?'rgba(255,230,100,.28)':'rgba(200,230,255,.22)';
-      drawCountryGlow(BORDERS[hov.n],fillColor,t);
-    }
-
-    // Connection line from home on hover
-    var home=LOCS[0];
-    var hp=proj(home.lo,home.la);hp.x+=home.ox;hp.y+=home.oy;
-    if(hov&&!hov.home){
-      var cp2=proj(hov.lo,hov.la);cp2.x+=hov.ox;cp2.y+=hov.oy;
-      ctx.beginPath();ctx.moveTo(hp.x,hp.y);ctx.lineTo(cp2.x,cp2.y);
-      ctx.strokeStyle='rgba(255,230,100,.5)';ctx.lineWidth=1.2;
-      ctx.setLineDash([4,6]);ctx.stroke();ctx.setLineDash([]);
-    }
-
-    pulse+=0.028;
-    LOCS.forEach(function(loc){
-      var p=proj(loc.lo,loc.la);p.x+=loc.ox;p.y+=loc.oy;
-      if(p.x<-20||p.x>W+20||p.y<-20||p.y>H+20)return;
-      var isH=hov&&hov.n===loc.n;
-      var blink=Math.sin(pulse*1.3+loc.lo*0.08)*0.5+0.5;
-      var r=loc.home?7:isH?6:4;
-
-      ctx.beginPath();ctx.arc(p.x,p.y,r+(loc.home?10+blink*5:5+blink*3),0,Math.PI*2);
-      ctx.strokeStyle=loc.home?'rgba(255,230,80,'+(0.2+blink*0.4)+')':'rgba(220,170,50,'+(0.1+blink*0.25)+')';
-      ctx.lineWidth=loc.home?1.8:1;ctx.stroke();
-
-      ctx.beginPath();ctx.arc(p.x,p.y,r,0,Math.PI*2);
-      ctx.fillStyle=loc.home?'#fffacc':isH?'#ffe040':'rgba(248,208,80,.92)';ctx.fill();
-      ctx.strokeStyle='rgba(50,20,0,.65)';ctx.lineWidth=1;ctx.stroke();
-
-      var fs=loc.home?13:isH?12:10;
-      ctx.font=(loc.home?'700':'500')+' '+fs+'px "Josefin Sans",system-ui';
-      var lx=p.x+r+5,ly=p.y+4;
-      ctx.fillStyle='rgba(20,8,0,.7)';ctx.textAlign='left';ctx.fillText(loc.n,lx+1,ly+1);
-      ctx.fillStyle=loc.home?'#fffacc':isH?'#ffe040':'rgba(255,240,180,.95)';
-      ctx.fillText(loc.n,lx,ly);
+    // Draw country fills (non-hovered first, then hovered on top)
+    COUNTRIES.forEach(function(c){
+      var f=FILLS[c.n];if(!f)return;
+      var isH=hov&&hov.n===c.n;
+      if(isH)return; // draw hovered last
+      drawEllipseGlow(f.cx,f.cy,f.rx,f.ry,c.color,8,0.55);
     });
 
-    ctx.save();ctx.globalAlpha=0.18;
-    ctx.font='600 13px "Josefin Sans",system-ui';
-    ctx.fillStyle='#2a1000';ctx.textAlign='center';
-    ctx.fillText('WORLDWIDE EXPERIENCE',W/2,H-8);
-    ctx.restore();
+    // Hovered country: brighter + border glow
+    if(hov){
+      var f2=FILLS[hov.n];
+      if(f2){
+        drawEllipseGlow(f2.cx,f2.cy,f2.rx+6,f2.ry+4,hov.color,20,0.85);
+        drawGlowBorder(f2.cx,f2.cy,f2.rx+6,f2.ry+4,hov.color,t);
+      }
+    }
+
+    // Draw pins
+    COUNTRIES.forEach(function(c){
+      var blink=Math.sin(pulse*1.2+c.px*0.05)*0.5+0.5;
+      var isH=hov&&hov.n===c.n;
+      drawPin(c.px,c.py,c.color,isH,blink);
+    });
+
+    // Label for hovered
+    if(hov){
+      var fs=14;
+      ctx.font='700 '+fs+'px "Josefin Sans",system-ui';
+      ctx.textAlign='center';
+      var lx=hov.px,ly=hov.py-18;
+      ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillText(hov.n,lx+1,ly+1);
+      ctx.fillStyle='#fff';ctx.fillText(hov.n,lx,ly);
+    }
 
     requestAnimationFrame(draw);
   }
 
-  // Start draw immediately (image may already be cached)
+  // Resize canvas to fill container, keeping aspect ratio
   function resize(){
-    var p=cv.parentElement;
-    W=p.clientWidth||900;H=p.clientHeight||500;
-    cv.width=W;cv.height=H;cv.style.width='100%';cv.style.height='100%';
+    var wrap=document.getElementById('map3d-wrap');
+    if(!wrap)return;
+    var pw=wrap.clientWidth,ph=wrap.clientHeight;
+    if(!pw||!ph)return;
+    // Fit image inside container with letterbox
+    var scale=Math.min(pw/IMG_W, ph/IMG_H)*0.9;
+    cv.width=Math.round(IMG_W*scale);
+    cv.height=Math.round(IMG_H*scale);
+    W=cv.width;H=cv.height;
+    // Recompute country positions
+    COUNTRIES.forEach(function(c){c._sx=c.px*scale;c._sy=c.py*scale;});
+    Object.keys(FILLS).forEach(function(k){
+      var f=FILLS[k];
+      f._cx=f.cx*scale;f._cy=f.cy*scale;
+      f._rx=f.rx*scale;f._ry=f.ry*scale;
+    });
   }
-  new ResizeObserver(resize).observe(cv.parentElement);
+
+  // Use scaled coords in draw
+  var _drawEllipseGlow=drawEllipseGlow,_drawGlowBorder=drawGlowBorder,_drawPin=drawPin;
+  drawEllipseGlow=function(cx,cy,rx,ry,color,glow,alpha){_drawEllipseGlow(cx,cy,rx,ry,color,glow,alpha);};
+  drawGlowBorder=function(cx,cy,rx,ry,color,t){_drawGlowBorder(cx,cy,rx,ry,color,t);};
+
+  // Override draw to use scaled coords
+  function draw2(){
+    frame++;pulse+=0.04;
+    ctx.clearRect(0,0,W,H);
+    if(bgImg.complete&&bgImg.naturalWidth){ctx.drawImage(bgImg,0,0,W,H);}
+    else{ctx.fillStyle='#b8d4e8';ctx.fillRect(0,0,W,H);}
+    var t=frame*0.04;
+    var scale=W/IMG_W;
+
+    COUNTRIES.forEach(function(c){
+      var f=FILLS[c.n];if(!f)return;
+      var isH=hov&&hov.n===c.n;if(isH)return;
+      _drawEllipseGlow(f.cx*scale,f.cy*scale,f.rx*scale,f.ry*scale,c.color,8*scale,0.55);
+    });
+    if(hov){
+      var f2=FILLS[hov.n];
+      if(f2){
+        var s=scale;
+        _drawEllipseGlow(f2.cx*s,(f2.cy)*s,(f2.rx+6)*s,(f2.ry+4)*s,hov.color,20*s,0.85);
+        _drawGlowBorder(f2.cx*s,f2.cy*s,(f2.rx+6)*s,(f2.ry+4)*s,hov.color,t);
+      }
+    }
+    COUNTRIES.forEach(function(c){
+      var blink=Math.sin(pulse*1.2+c.px*0.05)*0.5+0.5;
+      var isH=hov&&hov.n===c.n;
+      drawPin(c.px*scale,c.py*scale,c.color,isH,blink);
+    });
+    if(hov){
+      var lx=hov.px*scale,ly=hov.py*scale-18*scale;
+      var fs=Math.max(10,14*scale);
+      ctx.font='700 '+fs+'px "Josefin Sans",system-ui';ctx.textAlign='center';
+      ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillText(hov.n,lx+1,ly+1);
+      ctx.fillStyle='#fff';ctx.fillText(hov.n,lx,ly);
+    }
+    requestAnimationFrame(draw2);
+  }
+
+  new ResizeObserver(function(){resize();}).observe(document.getElementById('map3d-wrap'));
   resize();
-  // Draw immediately regardless of image state, rAF loop will update when ready
-  draw();
-  bgImg.onload=function(){};  // image load triggers next frame automatically
+  draw2();
+  bgImg.onload=function(){resize();};
 
   cv.addEventListener('mousemove',function(e){
     var r=cv.getBoundingClientRect();
-    var mx=(e.clientX-r.left)*(W/r.width),my=(e.clientY-r.top)*(H/r.height);
+    var scale=W/IMG_W;
+    var mx=(e.clientX-r.left)*(W/r.width)/scale;
+    var my=(e.clientY-r.top)*(H/r.height)/scale;
     var best=null,bd=9999;
-    LOCS.forEach(function(l){
-      var p=proj(l.lo,l.la);p.x+=l.ox;p.y+=l.oy;
-      var d=Math.hypot(mx-p.x,my-p.y);if(d<bd){bd=d;best=l;}
+    COUNTRIES.forEach(function(c){
+      var d=Math.hypot(mx-c.px,my-c.py);if(d<bd){bd=d;best=c;}
     });
-    hov=bd<42?best:null;
-    if(hov&&bd<42){
+    hov=bd<55?best:null;
+    if(hov){
       tipName.textContent=hov.n;
       tipCities.textContent=hov.cities.join(' · ');
-      var rx=e.clientX-r.left,ry=e.clientY-r.top;
-      tip.style.left=(rx+16)+'px';tip.style.top=(ry-8)+'px';tip.style.opacity='1';
+      tip.style.left=(e.clientX-cv.getBoundingClientRect().left+14)+'px';
+      tip.style.top=(e.clientY-cv.getBoundingClientRect().top-10)+'px';
+      tip.style.opacity='1';
     } else {tip.style.opacity='0';}
     cv.style.cursor=hov?'pointer':'default';
   });
@@ -931,21 +1002,6 @@ window.addEventListener('load',function(){
 })();
 
 /* nav clock */
-
-  bgImg.src='world_map_1.jpg';
-
-  // Mercator Y helper
-  function mercY(lat){return Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));}
-  var yMax=mercY(LAT_MAX),yMin=mercY(LAT_MIN);
-
-  var W,H,hov=null,pulse=0;
-
-  function proj(lo,la){
-    var xFrac=(lo-LON_MIN)/(LON_MAX-LON_MIN);
-    var yFrac=(yMax-mercY(la))/(yMax-yMin);
-    return{x:xFrac*W, y:yFrac*H};
-  }
-
 /* nav clock */
 (function tick(){
   var d=new Date();
