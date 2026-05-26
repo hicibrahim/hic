@@ -6,6 +6,8 @@
 <title>Halil İbrahim Ciğer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Josefin+Sans:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@300;400;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
@@ -288,39 +290,32 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .aw-year{font-size:11px;color:var(--gold);margin-top:3px;font-family:'Josefin Sans',sans-serif;}
 
 /* ══ PANE 2: MAP ══ */
-/* ══ WORLDWIDE MAP ══ */
-:root{--wmap-bg:#f0f4f8;}
-[data-theme="dark"]{--wmap-bg:#0e141c;}
-.scroll-pane2 .scroll-body{background:var(--wmap-bg);}
-#wmap-container{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:2rem 1rem 3rem;}
-#wmap-svg{width:100%;height:100%;max-height:calc(100% - 1rem);}
-/* SVG land */
-#wmap-svg .land{fill:#c8d4c0;stroke:#a8b8a0;stroke-width:.4;transition:fill .2s;}
-[data-theme="dark"] #wmap-svg .land{fill:#2a3828;stroke:#3a5035;}
-#wmap-svg .visited{fill:#3a6b4a;cursor:pointer;}
-[data-theme="dark"] #wmap-svg .visited{fill:#4a8a5a;}
-#wmap-svg .visited:hover,.visited.hov{fill:#5aaa70!important;}
-#wmap-svg .home-country{fill:#1a4a6a;}
-[data-theme="dark"] #wmap-svg .home-country{fill:#2a6a9a;}
-/* Ping dot */
-.wmap-ping{position:absolute;pointer-events:none;transform:translate(-50%,-50%);}
-.ping-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:1.5px solid var(--gold);opacity:0;animation:pingA 2s ease-out infinite;}
-.ping-ring2{animation-delay:.7s;}
-.ping-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:var(--gold);border:1.5px solid #fff;box-shadow:0 0 6px rgba(184,137,42,.6);}
-.home-ping .ping-dot{background:#e05030;border-color:#fff;box-shadow:0 0 8px rgba(224,80,48,.7);}
-.home-ping .ping-ring{border-color:#e05030;}
-@keyframes pingA{0%{transform:translate(-50%,-50%) scale(.3);opacity:.9}100%{transform:translate(-50%,-50%) scale(2.2);opacity:0}}
-/* Country label */
-.wmap-label{position:absolute;transform:translate(-50%,-100%);margin-top:-14px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:var(--ink);background:rgba(255,255,255,.88);backdrop-filter:blur(4px);padding:2px 7px;border-radius:10px;border:.5px solid var(--border2);pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .18s;box-shadow:0 2px 8px rgba(0,0,0,.12);}
-[data-theme="dark"] .wmap-label{background:rgba(20,28,20,.9);color:var(--ink);}
-.wmap-label.vis{opacity:1;}
-/* Tooltip */
-#wmap-tooltip{position:absolute;background:rgba(15,25,15,.92);border:1px solid rgba(90,170,112,.5);color:#e8f0e0;padding:8px 14px;border-radius:6px;font-family:'Josefin Sans',sans-serif;font-size:11px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.35);}
-[data-theme="dark"] #wmap-tooltip{background:rgba(5,18,5,.94);}
-#wmap-tip-country{font-size:13px;font-weight:700;color:#7add96;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
-#wmap-tip-cities{font-size:11px;color:#a8c8a0;line-height:1.7;}
-/* Title */
-#wmap-title{position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+/* ══ WORLDWIDE MAP — Leaflet ══ */
+.scroll-pane2 .scroll-body{padding:0;overflow:hidden;}
+#leaflet-map{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+/* Custom popup */
+.lf-popup .leaflet-popup-content-wrapper{
+  background:rgba(20,16,10,.92);
+  border:1px solid rgba(184,137,42,.55);
+  border-radius:6px;
+  box-shadow:0 6px 24px rgba(0,0,0,.5);
+  color:#f0e8d0;
+  font-family:'Josefin Sans',sans-serif;
+  padding:0;
+}
+.lf-popup .leaflet-popup-content{margin:10px 14px;}
+.lf-popup .leaflet-popup-tip{background:rgba(20,16,10,.92);}
+.lf-popup .leaflet-popup-close-button{color:rgba(184,137,42,.7)!important;font-size:16px!important;}
+.lf-popup .pop-name{font-size:13px;font-weight:700;color:#d4a840;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+.lf-popup .pop-cities{font-size:11px;color:#c0b090;line-height:1.7;}
+/* Animated ping marker */
+@keyframes lf-ping{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.lf-pin-wrap{position:relative;width:14px;height:14px;}
+.lf-pin-dot{position:absolute;inset:3px;border-radius:50%;background:var(--gold,#b8892a);border:2px solid #fff;box-shadow:0 0 8px rgba(184,137,42,.8);}
+.lf-pin-ring{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(184,137,42,.6);animation:lf-ping 1.8s ease-out infinite;}
+.lf-pin-ring2{animation-delay:.9s;}
+.lf-pin-home .lf-pin-dot{background:#e05030;box-shadow:0 0 8px rgba(224,80,48,.8);}
+.lf-pin-home .lf-pin-ring{border-color:rgba(224,80,48,.6);}
 
 /* ══ TRANSITION BUTTON ══ */
 .pane-switch{
@@ -492,18 +487,11 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
       <div class="roller roller-bot" id="roller1-bot"></div>
     </div><!-- /pane1 -->
 
-    <!-- ══ PANE 2: Worldwide Experience ══ -->
+    <!-- ══ PANE 2: Worldwide Experience — Leaflet Map ══ -->
     <div class="scroll-pane scroll-pane2" id="pane2" style="display:none;">
       <div class="roller roller-top" id="roller2-top"></div>
-      <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;background:var(--wmap-bg);">
-        <div id="wmap-container">
-          <svg id="wmap-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
-          <div id="wmap-tooltip">
-            <div id="wmap-tip-country"></div>
-            <div id="wmap-tip-cities"></div>
-          </div>
-        </div>
-        <div id="wmap-title">WORLDWIDE EXPERIENCE</div>
+      <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;padding:0;">
+        <div id="leaflet-map"></div>
         <button class="pane-switch-back" onclick="goPane(1)"><i class="ti ti-arrow-left"></i> Back to Experience</button>
       </div>
       <div class="roller roller-bot" id="roller2-bot"></div>
@@ -665,20 +653,22 @@ var currentPane=0; // 0 = not opened yet
 var animating=false;
 
 function openScrollAnim(paneEl, topRoller, botRoller, cb){
-  // Start: rollers fill entire area
   var stageH=document.getElementById('scroll-stage').clientHeight;
   var half=Math.floor(stageH/2);
   topRoller.style.height=half+'px';
   botRoller.style.height=(stageH-half)+'px';
   paneEl.style.display='flex';
   paneEl.style.opacity='1';
-  // Force reflow
   topRoller.offsetHeight;
-  // Animate open
   setTimeout(function(){
     topRoller.style.height=ROLLER_H+'px';
     botRoller.style.height=ROLLER_H+'px';
-    setTimeout(function(){if(cb)cb();animating=false;},1150);
+    setTimeout(function(){
+      if(cb)cb();
+      animating=false;
+      // Leaflet needs size invalidation after becoming visible
+      if(window._leafletMap)setTimeout(function(){window._leafletMap.invalidateSize();},50);
+    },1150);
   },40);
 }
 
@@ -734,229 +724,167 @@ window.addEventListener('load',function(){
   },200);
 });
 
-/* ── WORLDWIDE MAP (SVG, minimal) ── */
+/* ── WORLDWIDE MAP — Leaflet ── */
 (function(){
-  var svg=document.getElementById('wmap-svg');
-  if(!svg)return;
-  var tip=document.getElementById('wmap-tooltip');
-  var tipC=document.getElementById('wmap-tip-country');
-  var tipCi=document.getElementById('wmap-tip-cities');
-  var wrap=document.getElementById('wmap-container');
+  var mapEl=document.getElementById('leaflet-map');
+  if(!mapEl)return;
 
-  // Visited countries data
   var VISITED={
-    'Turkey':    {cities:['Istanbul','Bursa','Ankara','Gaziantep'], home:true},
-    'USA':       {cities:['Washington DC','New York']},
-    'Canada':    {cities:['Toronto','Ottawa']},
-    'France':    {cities:['Paris','Strasbourg']},
-    'Spain':     {cities:['Madrid','Barcelona']},
-    'Italy':     {cities:['Rome','Milan']},
-    'Germany':   {cities:['Berlin','Munich']},
-    'Netherlands':{cities:['Amsterdam','The Hague']},
-    'Belgium':   {cities:['Brussels']},
-    'Luxembourg':{cities:['Luxembourg City']},
-    'Switzerland':{cities:['Bern','Zürich']},
-    'Austria':   {cities:['Vienna']},
-    'Slovenia':  {cities:['Ljubljana']},
-    'Hungary':   {cities:['Budapest']},
-    'Serbia':    {cities:['Belgrade']},
-    'Romania':   {cities:['Bucharest']},
-    'Bulgaria':  {cities:['Sofia']},
-    'Greece':    {cities:['Athens','Thessaloniki']},
-    'Denmark':   {cities:['Copenhagen']},
-    'Syria':     {cities:['Damascus','Aleppo']},
-    'Saudi Arabia':{cities:['Riyadh','Mecca','Medina']},
+    'Turkey':      {lat:39,   lng:35,   cities:['Istanbul','Bursa','Ankara','Gaziantep'], home:true},
+    'USA':         {lat:39,   lng:-98,  cities:['Washington DC','New York']},
+    'Canada':      {lat:56,   lng:-96,  cities:['Toronto','Ottawa']},
+    'France':      {lat:46.5, lng:2.5,  cities:['Paris','Strasbourg']},
+    'Spain':       {lat:40.4, lng:-3.7, cities:['Madrid','Barcelona']},
+    'Italy':       {lat:42.5, lng:12.5, cities:['Rome','Milan']},
+    'Germany':     {lat:51,   lng:10.5, cities:['Berlin','Munich']},
+    'Netherlands': {lat:52.4, lng:5.3,  cities:['Amsterdam','The Hague']},
+    'Belgium':     {lat:50.5, lng:4.5,  cities:['Brussels']},
+    'Luxembourg':  {lat:49.8, lng:6.1,  cities:['Luxembourg City']},
+    'Switzerland': {lat:46.8, lng:8.2,  cities:['Bern','Zürich']},
+    'Austria':     {lat:47.5, lng:14.5, cities:['Vienna']},
+    'Slovenia':    {lat:46.1, lng:14.8, cities:['Ljubljana']},
+    'Hungary':     {lat:47,   lng:19,   cities:['Budapest']},
+    'Serbia':      {lat:44,   lng:21,   cities:['Belgrade']},
+    'Romania':     {lat:45.9, lng:25,   cities:['Bucharest']},
+    'Bulgaria':    {lat:42.7, lng:25.5, cities:['Sofia']},
+    'Greece':      {lat:39.5, lng:22,   cities:['Athens','Thessaloniki']},
+    'Denmark':     {lat:56,   lng:10,   cities:['Copenhagen']},
+    'Syria':       {lat:34.8, lng:38.8, cities:['Damascus','Aleppo']},
+    'Saudi Arabia':{lat:24,   lng:45,   cities:['Riyadh','Mecca','Medina']},
   };
 
-  // Country centroids in SVG viewBox 0 0 1000 500 (Mercator-ish)
-  // x = (lon+180)/360 * 1000, y ≈ (90-lat)/180 * 500 (simple equirectangular)
-  function ll(lon,lat){return{x:(lon+180)/360*1000, y:(90-lat)/180*500};}
-  var CENTS={
-    'Turkey':    ll(35,39),
-    'USA':       ll(-100,38),
-    'Canada':    ll(-96,60),
-    'France':    ll(2,46),
-    'Spain':     ll(-3.7,40),
-    'Italy':     ll(12.5,42),
-    'Germany':   ll(10,51),
-    'Netherlands':ll(5.3,52.4),
-    'Belgium':   ll(4.5,50.5),
-    'Luxembourg':ll(6.1,49.8),
-    'Switzerland':ll(8.2,46.8),
-    'Austria':   ll(14.5,47.5),
-    'Slovenia':  ll(14.9,46.1),
-    'Hungary':   ll(19,47),
-    'Serbia':    ll(21,44),
-    'Romania':   ll(25,46),
-    'Bulgaria':  ll(25.5,42.7),
-    'Greece':    ll(22,39.5),
-    'Denmark':   ll(10,56),
-    'Syria':     ll(38,35),
-    'Saudi Arabia':ll(45,24),
+  // Map ISO codes to country names for GeoJSON matching
+  var ISO_MAP={
+    'TUR':'Turkey','USA':'USA','CAN':'Canada','FRA':'France',
+    'ESP':'Spain','ITA':'Italy','DEU':'Germany','NLD':'Netherlands',
+    'BEL':'Belgium','LUX':'Luxembourg','CHE':'Switzerland',
+    'AUT':'Austria','SVN':'Slovenia','HUN':'Hungary','SRB':'Serbia',
+    'ROU':'Romania','BGR':'Bulgaria','GRC':'Greece','DNK':'Denmark',
+    'SYR':'Syria','SAU':'Saudi Arabia',
   };
 
-  // Simplified world map paths (Natural Earth simplified) in equirectangular 1000x500
-  // Major country outlines — enough for clear recognition
-  var PATHS=[
-    // North America
-    {id:'Canada',   d:'M120,60 L180,50 L230,45 L260,55 L280,80 L260,95 L240,90 L200,100 L170,95 L140,80 Z'},
-    {id:'USA',      d:'M75,120 L80,115 L120,110 L160,112 L200,115 L240,118 L260,130 L255,155 L230,170 L200,175 L160,170 L130,165 L100,158 L75,148 Z'},
-    {id:'Mexico',   d:'M100,175 L160,172 L200,178 L195,195 L175,205 L150,210 L120,205 L100,195 Z'},
-    // Europe (individual countries rough polygons)
-    {id:'Iceland',  d:'M330,55 L345,50 L355,55 L350,65 L335,68 L328,62 Z'},
-    {id:'UK',       d:'M385,95 L392,88 L398,92 L398,105 L392,110 L386,106 Z'},
-    {id:'Ireland',  d:'M378,97 L384,93 L384,105 L378,107 Z'},
-    {id:'Norway',   d:'M420,55 L440,45 L455,50 L460,65 L450,75 L435,78 L420,72 Z'},
-    {id:'Sweden',   d:'M440,55 L455,50 L460,65 L462,85 L450,90 L440,80 L435,68 Z'},
-    {id:'Finland',  d:'M460,55 L478,48 L488,55 L490,70 L480,80 L462,80 L458,68 Z'},
-    {id:'Denmark',  d:'M430,88 L440,84 L444,88 L440,96 L432,95 Z', visited:true},
-    {id:'Netherlands',d:'M406,100 L415,97 L418,103 L413,108 L406,106 Z', visited:true},
-    {id:'Belgium',  d:'M406,106 L415,103 L417,110 L410,113 L405,110 Z', visited:true},
-    {id:'Luxembourg',d:'M414,108 L419,106 L420,112 L415,113 Z', visited:true},
-    {id:'France',   d:'M390,108 L406,106 L418,108 L420,125 L410,135 L395,132 L384,122 L385,110 Z', visited:true},
-    {id:'Spain',    d:'M360,125 L395,122 L398,142 L385,152 L360,148 L350,138 Z', visited:true},
-    {id:'Portugal', d:'M352,128 L360,125 L360,148 L352,148 Z'},
-    {id:'Germany',  d:'M418,96 L438,94 L442,100 L440,116 L428,120 L418,115 L415,105 Z', visited:true},
-    {id:'Switzerland',d:'M415,118 L428,115 L430,122 L420,126 L414,122 Z', visited:true},
-    {id:'Austria',  d:'M430,114 L448,112 L450,120 L438,124 L428,120 L430,116 Z', visited:true},
-    {id:'Slovenia', d:'M437,120 L444,118 L446,124 L440,126 L437,123 Z', visited:true},
-    {id:'Italy',    d:'M420,125 L432,120 L440,125 L442,140 L438,155 L430,158 L424,148 L420,138 Z', visited:true},
-    {id:'Hungary',  d:'M446,112 L462,112 L464,122 L452,126 L442,122 L444,115 Z', visited:true},
-    {id:'Poland',   d:'M438,92 L462,90 L468,100 L464,110 L446,112 L440,104 Z'},
-    {id:'Czech',    d:'M430,100 L445,98 L448,108 L436,110 L428,106 Z'},
-    {id:'Slovakia', d:'M446,104 L462,102 L464,110 L450,112 L447,107 Z'},
-    {id:'Serbia',   d:'M448,124 L460,122 L462,132 L452,136 L446,132 Z', visited:true},
-    {id:'Romania',  d:'M462,110 L482,110 L486,124 L474,132 L460,130 L460,118 Z', visited:true},
-    {id:'Bulgaria', d:'M460,130 L474,130 L476,140 L462,142 L458,136 Z', visited:true},
-    {id:'Greece',   d:'M448,136 L462,132 L464,148 L456,155 L446,150 L445,140 Z', visited:true},
-    {id:'Croatia',  d:'M436,122 L448,120 L450,128 L440,132 L434,128 Z'},
-    {id:'Bosnia',   d:'M440,128 L450,126 L452,134 L444,138 L438,134 Z'},
-    {id:'Albania',  d:'M446,138 L452,136 L454,145 L448,147 L444,143 Z'},
-    {id:'N.Macedonia',d:'M456,138 L464,136 L465,142 L457,144 Z'},
-    {id:'Ukraine',  d:'M464,98 L500,95 L505,112 L488,120 L466,116 L462,106 Z'},
-    {id:'Moldova',  d:'M484,112 L490,110 L492,118 L486,120 Z'},
-    {id:'Belarus',  d:'M462,82 L488,80 L492,92 L468,95 Z'},
-    {id:'Baltic',   d:'M456,74 L472,70 L475,82 L458,84 Z'},
-    // Russia (simplified)
-    {id:'Russia',   d:'M490,40 L700,30 L720,80 L680,100 L600,110 L520,100 L492,80 Z'},
-    // Middle East
-    {id:'Turkey',   d:'M490,130 L540,128 L548,142 L535,150 L505,152 L490,145 Z', visited:true},
-    {id:'Syria',    d:'M540,140 L560,138 L564,150 L550,155 L538,152 Z', visited:true},
-    {id:'Lebanon',  d:'M539,150 L544,148 L545,155 L539,156 Z'},
-    {id:'Israel',   d:'M533,150 L539,148 L540,158 L534,160 Z'},
-    {id:'Jordan',   d:'M538,152 L550,150 L552,165 L540,168 Z'},
-    {id:'Iraq',     d:'M548,140 L570,138 L574,158 L556,165 L544,160 L542,148 Z'},
-    {id:'Iran',     d:'M570,130 L615,130 L620,155 L600,165 L570,162 L558,148 Z'},
-    {id:'Saudi Arabia',d:'M535,160 L585,160 L592,195 L565,205 L540,200 L525,180 Z', visited:true},
-    {id:'Yemen',    d:'M540,200 L565,200 L568,215 L545,218 Z'},
-    {id:'Oman',     d:'M585,165 L604,168 L608,190 L598,200 L580,195 Z'},
-    {id:'UAE',      d:'M585,175 L598,172 L600,182 L588,184 Z'},
-    {id:'Kuwait',   d:'M568,158 L575,156 L577,163 L568,164 Z'},
-    // Africa
-    {id:'Africa',   d:'M390,155 L450,152 L490,160 L510,200 L505,260 L480,290 L440,300 L400,295 L370,270 L360,230 L365,190 Z'},
-    // South/Central America
-    {id:'SAmerica', d:'M190,220 L240,215 L258,250 L250,310 L225,340 L200,338 L180,310 L175,265 Z'},
-    // Central America / Caribbean rough
-    {id:'CAmerica', d:'M150,205 L190,200 L192,215 L175,220 L150,215 Z'},
-    // Asia
-    {id:'China',    d:'M640,110 L730,100 L748,130 L740,160 L700,165 L650,155 L635,135 Z'},
-    {id:'Mongolia', d:'M640,90 L710,85 L720,102 L648,108 Z'},
-    {id:'India',    d:'M600,165 L650,160 L660,200 L640,225 L615,228 L600,205 Z'},
-    {id:'SE Asia',  d:'M690,165 L740,162 L745,195 L710,200 L690,185 Z'},
-    {id:'Japan',    d:'M760,110 L768,105 L774,112 L770,125 L762,128 L756,118 Z'},
-    {id:'Korea',    d:'M740,115 L750,112 L752,125 L742,127 Z'},
-    // Australia
-    {id:'Australia',d:'M720,280 L790,275 L800,310 L785,340 L745,345 L718,325 L710,300 Z'},
-    // New Zealand
-    {id:'NZ',       d:'M810,330 L818,325 L820,340 L812,345 Z'},
-  ];
+  var map=L.map('leaflet-map',{
+    center:[30,15],
+    zoom:2,
+    minZoom:2,
+    maxZoom:6,
+    zoomControl:true,
+    attributionControl:true,
+    scrollWheelZoom:true,
+  });
 
-  var NS='http://www.w3.org/2000/svg';
-  var hovEl=null,hovKey=null;
+  // Stamen Toner Lite / CartoDB Positron — clean vintage political style
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains:'abcd',
+    maxZoom:19,
+  }).addTo(map);
 
-  // Build SVG
-  PATHS.forEach(function(p){
-    var el=document.createElementNS(NS,'path');
-    el.setAttribute('d',p.d);
-    var isVisited=p.visited||VISITED[p.id];
-    var isHome=p.id==='Turkey';
-    if(isHome) el.setAttribute('class','land home-country');
-    else if(isVisited) el.setAttribute('class','land visited');
-    else el.setAttribute('class','land');
-    el.setAttribute('data-id',p.id);
-    if(isVisited||isHome){
-      el.addEventListener('mouseenter',function(e){onHover(e,p.id,el);});
-      el.addEventListener('mouseleave',onLeave);
-      el.style.cursor='pointer';
+  // GeoJSON country boundaries from Natural Earth via unpkg
+  var geojsonUrl='https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+
+  var visitedLayers={};
+  var hoveredLayer=null;
+
+  function styleDefault(feature){
+    var name=feature.properties.ADMIN||'';
+    var iso=feature.properties.ISO_A3||'';
+    var country=VISITED[name]||VISITED[ISO_MAP[iso]];
+    if(!country)return{fillOpacity:0,opacity:0,weight:0};
+    return{
+      fillColor: country.home?'rgba(180,80,40,.35)':'rgba(90,140,100,.35)',
+      fillOpacity:0.45,
+      color: country.home?'#c06030':'#4a8a5a',
+      weight:1.5,
+      opacity:0.8,
+    };
+  }
+  function styleHover(layer,country){
+    layer.setStyle({
+      fillColor: country.home?'rgba(220,100,60,.5)':'rgba(90,180,120,.5)',
+      fillOpacity:0.65,
+      color:'#ffffff',
+      weight:2.5,
+      opacity:1,
+    });
+    // White glow via multiple strokes
+    if(layer._path){
+      layer._path.style.filter='drop-shadow(0 0 6px rgba(255,255,255,.8))';
     }
-    svg.appendChild(el);
-  });
-
-  function onHover(e,key,el){
-    hovKey=key;
-    var info=VISITED[key];
-    if(!info)return;
-    tipC.textContent=key;
-    tipCi.textContent=info.cities.join(' · ');
-    tip.style.opacity='1';
-    moveTip(e);
-    // Highlight label
-    var lbl=document.getElementById('lbl-'+key.replace(/\s/g,'_'));
-    if(lbl)lbl.classList.add('vis');
   }
-  function onLeave(){
-    hovKey=null;tip.style.opacity='0';
-    document.querySelectorAll('.wmap-label').forEach(function(l){l.classList.remove('vis');});
+  function styleReset(layer,country){
+    layer.setStyle(styleDefault({properties:{ADMIN:country}}));
+    if(layer._path)layer._path.style.filter='';
   }
-  function moveTip(e){
-    var r=wrap.getBoundingClientRect();
-    var x=e.clientX-r.left+14,y=e.clientY-r.top-10;
-    tip.style.left=x+'px';tip.style.top=y+'px';
-  }
-  wrap.addEventListener('mousemove',function(e){
-    if(hovKey)moveTip(e);
-  });
 
-  // Build ping dots + labels (positioned via JS after SVG renders)
-  function buildPings(){
-    // Remove old
-    document.querySelectorAll('.wmap-ping,.wmap-label').forEach(function(el){el.remove();});
-    var svgR=svg.getBoundingClientRect();
-    var wrapR=wrap.getBoundingClientRect();
-    var vbW=1000,vbH=500;
-    var scaleX=svgR.width/vbW,scaleY=svgR.height/vbH;
-    var offX=svgR.left-wrapR.left,offY=svgR.top-wrapR.top;
+  fetch(geojsonUrl)
+    .then(function(r){return r.json();})
+    .then(function(data){
+      L.geoJSON(data,{
+        style:styleDefault,
+        onEachFeature:function(feature,layer){
+          var name=feature.properties.ADMIN||'';
+          var iso=feature.properties.ISO_A3||'';
+          var country=VISITED[name]||VISITED[ISO_MAP[iso]];
+          if(!country)return;
+          var cname=name||Object.keys(ISO_MAP).find(function(k){return ISO_MAP[k]===name;});
+          visitedLayers[name]=layer;
+          layer.on('mouseover',function(){
+            styleHover(layer,country);
+          });
+          layer.on('mouseout',function(){
+            styleReset(layer,name);
+          });
+          layer.on('click',function(){
+            layer.bindPopup(
+              '<div class="pop-name">'+(name)+'</div>'+
+              '<div class="pop-cities">'+country.cities.join(' · ')+'</div>',
+              {className:'lf-popup',maxWidth:240}
+            ).openPopup();
+          });
+        }
+      }).addTo(map);
+    })
+    .catch(function(e){console.warn('GeoJSON load failed',e);});
 
-    Object.keys(CENTS).forEach(function(key){
-      var c=CENTS[key];
-      var px=offX+c.x*scaleX,py=offY+c.y*scaleY;
-
-      // Ping
-      var ping=document.createElement('div');
-      ping.className='wmap-ping'+(VISITED[key]&&VISITED[key].home?' home-ping':'');
-      ping.style.left=px+'px';ping.style.top=py+'px';
-      ping.innerHTML='<div class="ping-ring"></div><div class="ping-ring ping-ring2"></div><div class="ping-dot"></div>';
-      ping.addEventListener('mouseenter',function(e){
-        var svgEl=svg.querySelector('[data-id="'+key+'"]');
-        if(svgEl)onHover(e,key,svgEl);
-      });
-      ping.addEventListener('mouseleave',onLeave);
-      wrap.appendChild(ping);
-
-      // Label
-      var lbl=document.createElement('div');
-      lbl.className='wmap-label';
-      lbl.id='lbl-'+key.replace(/\s/g,'_');
-      lbl.textContent=key;
-      lbl.style.left=px+'px';
-      lbl.style.top=(py-4)+'px';
-      wrap.appendChild(lbl);
+  // Animated ping markers
+  function makePinIcon(isHome){
+    return L.divIcon({
+      className:'',
+      html:'<div class="lf-pin-wrap'+(isHome?' lf-pin-home':'')+'">'+
+           '<div class="lf-pin-ring"></div>'+
+           '<div class="lf-pin-ring lf-pin-ring2"></div>'+
+           '<div class="lf-pin-dot"></div>'+
+           '</div>',
+      iconSize:[14,14],
+      iconAnchor:[7,7],
     });
   }
 
-  // Build after layout settles
-  setTimeout(buildPings,400);
-  new ResizeObserver(function(){setTimeout(buildPings,100);}).observe(wrap);
+  Object.keys(VISITED).forEach(function(name){
+    var c=VISITED[name];
+    var marker=L.marker([c.lat,c.lng],{icon:makePinIcon(c.home)});
+    marker.bindTooltip('<strong>'+name+'</strong><br><span style="font-size:10px;opacity:.8">'+c.cities.join(', ')+'</span>',{
+      direction:'top',offset:[0,-8],
+      className:'lf-country-tooltip',
+    });
+    marker.bindPopup(
+      '<div class="pop-name">'+name+'</div>'+
+      '<div class="pop-cities">'+c.cities.join(' · ')+'</div>',
+      {className:'lf-popup',maxWidth:240}
+    );
+    marker.addTo(map);
+  });
+
+  // Tooltip style
+  var tooltipStyle=document.createElement('style');
+  tooltipStyle.textContent='.lf-country-tooltip{background:rgba(20,16,10,.92)!important;border:1px solid rgba(184,137,42,.5)!important;color:#f0e0b0!important;font-family:"Josefin Sans",sans-serif!important;font-size:11px!important;padding:4px 10px!important;border-radius:5px!important;box-shadow:0 4px 14px rgba(0,0,0,.4)!important;}'+
+    '.lf-country-tooltip::before{display:none!important;}'+
+    '.leaflet-tooltip-top.lf-country-tooltip::before{display:none!important;}';
+  document.head.appendChild(tooltipStyle);
+
+  // Reinitialise map when pane becomes visible
+  window._leafletMap=map;
 })();
 
 /* nav clock */
