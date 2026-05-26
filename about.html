@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halil İbrahim Ciğer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Josefin+Sans:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@300;400;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#b8892a;--gold2:#d4a840;--green:#3d7033;
+  --bg:#f5f2eb;--bg2:#ede9e0;--bg3:#e4dfd4;
+  --ink:#1c1a14;--ink2:#3a3628;--muted:rgba(28,26,20,.46);
+  --border:rgba(184,137,42,.18);--border2:rgba(28,26,20,.09);
+  --nav-bg:rgba(245,242,235,.96);
+  --scroll-bg:#f0e8d5;--scroll-edge:#c8a86a;
+  --parchment:#ede0c4;
+}
+[data-theme="dark"]{
+  --bg:#1a1814;--bg2:#201e18;--bg3:#252218;
+  --ink:#f0ece0;--ink2:#c8c0a8;--muted:rgba(240,236,224,.44);
+  --border:rgba(184,137,42,.2);--border2:rgba(240,236,224,.09);
+  --nav-bg:rgba(26,24,20,.96);
+  --scroll-bg:#2a2218;--scroll-edge:#8a6030;
+  --parchment:#2a2218;
+}
+body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--ink);overflow-x:hidden;transition:background .3s,color .3s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border2);z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;transition:background .3s}
+.logo{text-decoration:none;display:flex;flex-direction:column;gap:1px}
+.logo-hic{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold);letter-spacing:.08em}
+.logo-line{width:100%;height:1px;background:var(--gold);opacity:.35}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.06em;color:var(--ink2);text-decoration:none;transition:color .2s;text-transform:none;}
+.nav-links a:hover,.nav-links a.on{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-dt{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);white-space:nowrap;letter-spacing:.04em}
+.theme-toggle{background:none;border:.5px solid var(--border2);border-radius:20px;width:34px;height:18px;cursor:pointer;position:relative;transition:background .3s}
+.theme-toggle::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--gold);transition:transform .25s}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(16px)}
+.lang-btn{font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.1em;background:none;border:.5px solid var(--border2);color:var(--ink2);padding:2px 8px;border-radius:3px;cursor:pointer;transition:all .2s}
+.lang-btn:hover{border-color:var(--gold);color:var(--gold)}
+.burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.burger span{display:block;width:20px;height:1.5px;background:var(--ink)}
+@media(max-width:768px){.nav-links,.nav-dt{display:none}.burger{display:flex}}
+.mob-m{display:none;position:fixed;inset:58px 0 0;background:var(--bg);z-index:290;padding:2rem;flex-direction:column;gap:1.5rem}
+.mob-m.open{display:flex}
+.mob-m a{font-family:'Josefin Sans',sans-serif;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+
+/* ══ STAGE: full viewport between nav and footer ══ */
+.stage{
+  position:fixed;
+  top:58px;bottom:0;left:0;right:0;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+
+/* ══ SCROLL CONTAINER ══ */
+.scroll-stage{
+  flex:1;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Each rulo pane */
+.scroll-pane{
+  position:absolute;
+  top:0;bottom:0;left:0;right:0;
+  display:flex;
+  flex-direction:column;
+  pointer-events:none;
+}
+.scroll-pane.active{pointer-events:all;}
+
+/* The two rollers (top + bottom) */
+.roller{
+  flex-shrink:0;
+  height:0;
+  overflow:hidden;
+  position:relative;
+  z-index:2;
+  transition:height 1.1s cubic-bezier(.4,0,.2,1);
+}
+.roller-top{background:linear-gradient(to bottom,#8b6030,#c8a86a,#dfc080,#c8a86a,#8b6030);border-bottom:2px solid #6a4820;}
+.roller-bot{background:linear-gradient(to top,#8b6030,#c8a86a,#dfc080,#c8a86a,#8b6030);border-top:2px solid #6a4820;}
+
+/* The parchment content area */
+.scroll-body{
+  flex:1;
+  overflow:hidden;
+  position:relative;
+  clip-path:inset(0);
+  display:flex;
+  flex-direction:column;
+  background-image:
+    radial-gradient(ellipse at 20% 20%,rgba(200,168,106,.18) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 80%,rgba(160,120,60,.14) 0%,transparent 50%),
+    radial-gradient(ellipse at 60% 40%,rgba(220,195,140,.10) 0%,transparent 40%);
+  background-color:var(--scroll-bg);
+}
+[data-theme="dark"] .scroll-body{
+  background-color:#221e14;
+  background-image:
+    radial-gradient(ellipse at 20% 20%,rgba(120,88,30,.2) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 80%,rgba(90,60,15,.18) 0%,transparent 50%);
+}
+/* Pane 2 uses vintage map style */
+.scroll-pane2 .scroll-body{
+  background-color:#d4a84a;
+  background-image:none;
+  overflow:hidden;
+}
+
+/* Left/right shadow on parchment edges */
+.scroll-body::before,.scroll-body::after{
+  content:'';position:absolute;top:0;bottom:0;width:32px;z-index:1;pointer-events:none;
+}
+.scroll-body::before{left:0;background:linear-gradient(to right,rgba(120,80,20,.22),transparent);}
+.scroll-body::after{right:0;background:linear-gradient(to left,rgba(120,80,20,.22),transparent);}
+
+/* Roller texture stripes */
+.roller::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent 0,transparent 6px,
+    rgba(0,0,0,.06) 6px,rgba(0,0,0,.06) 7px
+  );
+}
+
+/* ══ SCROLL NAV (bottom bar) ══ */
+.scroll-nav{
+  flex-shrink:0;
+  height:44px;
+  background:var(--nav-bg);
+  border-top:.5px solid var(--border2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:2rem;
+  backdrop-filter:blur(12px);
+}
+.sn-btn{
+  font-family:'Josefin Sans',sans-serif;
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);
+  background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:.5rem;
+  padding:.3rem .8rem;border-radius:3px;
+  transition:color .2s,background .2s;
+}
+.sn-btn:hover,.sn-btn.active{color:var(--gold);background:rgba(184,137,42,.08);}
+.sn-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.4;transition:opacity .2s;}
+.sn-btn.active .sn-dot{opacity:1;}
+.sn-arrow{font-size:14px;opacity:.5;transition:opacity .2s;}
+.sn-btn:hover .sn-arrow{opacity:1;}
+
+/* ══ FOOTER BAR ══ */
+.page-footer{
+  flex-shrink:0;
+  padding:.7rem 2.5rem;
+  border-top:.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+  background:var(--nav-bg);
+  backdrop-filter:blur(12px);
+}
+.footer-left{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.f-link{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.35rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s;}
+.f-link i{color:var(--gold);font-size:11px;opacity:.7;}
+.f-link:hover{color:var(--gold);}
+.f-sep{color:var(--border);font-size:11px;opacity:.5;}
+.footer-center{font-family:'EB Garamond',serif;font-size:12px;color:var(--muted);font-style:italic;letter-spacing:.03em;}
+.footer-right{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.06em;}
+
+/* ══ PARCHMENT CONTENT ══ */
+.parchment-inner{
+  width:100%;
+  padding:.8rem 1.2rem .8rem;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  height:100%;
+  box-sizing:border-box;
+}
+
+/* ── Pillars ── */
+.pillars-row{
+  display:flex;
+  gap:0;
+  border:.5px solid var(--border2);
+  border-radius:4px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.pillar{
+  flex:1;padding:.45rem .4rem;text-align:center;
+  border-right:.5px solid var(--border2);
+  cursor:default;transition:background .2s;position:relative;
+}
+.pillar:last-child{border-right:none}
+.pillar:hover{background:rgba(184,137,42,.07)}
+.pillar:hover .pillar-icon{animation:pillar-bounce .35s ease;color:var(--gold2);}
+@keyframes pillar-bounce{0%{transform:translateY(0)}35%{transform:translateY(-5px)}65%{transform:translateY(-2px)}100%{transform:translateY(0)}}
+.pillar-icon{font-size:20px;color:var(--gold);display:block;margin-bottom:.3rem;transition:color .2s}
+.pillar-name{font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--ink);line-height:1.3;}
+.pillar-sub{font-family:'Nunito',sans-serif;font-size:12px;color:var(--muted);margin-top:2px;font-weight:400;}
+
+/* ── Timeline ── */
+.htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--border2);border-radius:1px}
+.htl-fill{position:absolute;top:0;left:0;height:1.5px;background:var(--gold);width:0;border-radius:1px;transition:width .5s}
+.htl-nodes{display:flex}
+.htl-n{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  cursor:pointer;padding:.12rem .05rem;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s,transform .35s;position:relative;user-select:none;
+}
+.htl-n.vis{opacity:1;transform:translateY(0)}
+.htl-pulse{
+  position:absolute;top:-1.5rem;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;
+  border:1.5px solid rgba(184,137,42,.4);
+  animation:htl-p 2.4s ease-out infinite;opacity:0;
+}
+.htl-n.vis .htl-pulse{opacity:1}
+@keyframes htl-p{0%{transform:translateX(-50%) scale(.4);opacity:.8}100%{transform:translateX(-50%) scale(1.8);opacity:0}}
+.htl-dot{
+  position:absolute;top:-1.25rem;left:50%;transform:translateX(-50%);
+  width:9px;height:9px;border-radius:50%;
+  background:var(--scroll-bg);border:2px solid var(--border2);
+  z-index:3;transition:all .22s;
+}
+.htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;top:-1.35rem}
+.htl-n:hover .htl-dot{border-color:var(--gold)}
+.htl-yr{font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:var(--gold);margin-top:.06rem;}
+.htl-t{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.01em;text-transform:uppercase;}
+.htl-o{font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;color:var(--muted);text-align:center;text-transform:uppercase;}
+
+/* Detail panel styles continued */
+[data-theme="dark"] .exp-detail{background:rgba(0,0,0,.18);}
+.exp-detail::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);border-radius:3px 0 0 3px;}
+.ed-panel{display:none;animation:ed-in .3s ease}
+.ed-panel.on{display:block}
+@keyframes ed-in{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:translateX(0)}}
+.ed-yr{font-family:'Josefin Sans',sans-serif;font-size:9px;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;}
+.ed-title{font-family:'Playfair Display',serif;font-size:21px;font-weight:600;color:var(--ink);line-height:1.15;margin-bottom:2px;}
+.ed-org{font-size:13px;color:var(--ink2);margin-bottom:.7rem;}
+.ed-body{font-size:14px;color:var(--ink2);line-height:1.85;}
+.ed-body a{color:var(--gold);text-decoration:none;}
+.ed-body a:hover{color:var(--green);text-decoration:underline;}
+.ed-tag{display:inline-block;margin:5px 3px 0 0;padding:2px 9px;border-radius:10px;font-size:10px;border:.5px solid var(--border2);color:var(--ink2);font-family:'Josefin Sans',sans-serif;}
+.thesis-link{color:var(--gold);text-decoration:none;border-bottom:1px dotted var(--gold);cursor:pointer;}
+
+/* ── Divider ── */
+.sec-div{border:none;border-top:.5px solid var(--border2);margin:.4rem 0;flex-shrink:0;}
+
+/* ── Timeline wrap ── */
+.tl-label{
+  font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;
+}
+.htl{position:relative;padding-top:.8rem;margin-bottom:.4rem;flex-shrink:0;}
+
+/* Detail panel — raised 20% closer to timeline */
+.exp-detail{
+  border:.5px solid var(--border2);border-radius:6px;
+  padding:.7rem 1.2rem;background:rgba(255,255,255,.35);
+  flex:1;position:relative;overflow:hidden;margin-top:0;
+}
+
+/* ── Awards ── */
+.aw-label{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;flex-shrink:0;}
+.awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;flex-shrink:0;}
+.aw{border:.5px solid var(--border2);border-radius:5px;padding:.7rem .9rem;display:flex;align-items:center;gap:.7rem;transition:all .28s;cursor:default;background:rgba(255,255,255,.3);}
+[data-theme="dark"] .aw{background:rgba(0,0,0,.15);}
+.aw:hover{background:var(--bg2);transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.07)}
+.aw:hover .aw-ring{transform:scale(1.15) rotate(-8deg)}
+.aw:hover .aw-gold{background:var(--gold);color:#fff}
+.aw:hover .aw-bronze{background:#a0522d;color:#fff}
+.aw-ring{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid;flex-shrink:0;transition:all .28s}
+.aw-gold{border-color:var(--gold);color:var(--gold)}
+.aw-bronze{border-color:#a0522d;color:#a0522d}
+.aw-title{font-size:12px;font-weight:600;color:var(--ink);font-family:'Josefin Sans',sans-serif;line-height:1.3;}
+.aw-year{font-size:11px;color:var(--gold);margin-top:3px;font-family:'Josefin Sans',sans-serif;}
+
+/* ══ PANE 2: MAP ══ */
+/* ══ WORLDWIDE MAP — Leaflet ══ */
+.scroll-pane2 .scroll-body{padding:0;overflow:hidden;}
+#leaflet-map{position:absolute;top:44px;bottom:44px;left:0;right:0;width:100%;z-index:1;}
+/* Custom popup */
+.lf-popup .leaflet-popup-content-wrapper{
+  background:rgba(20,16,10,.92);
+  border:1px solid rgba(184,137,42,.55);
+  border-radius:6px;
+  box-shadow:0 6px 24px rgba(0,0,0,.5);
+  color:#f0e8d0;
+  font-family:'Josefin Sans',sans-serif;
+  padding:0;
+}
+.lf-popup .leaflet-popup-content{margin:10px 14px;}
+.lf-popup .leaflet-popup-tip{background:rgba(20,16,10,.92);}
+.lf-popup .leaflet-popup-close-button{color:rgba(184,137,42,.7)!important;font-size:16px!important;}
+.lf-popup .pop-name{font-size:13px;font-weight:700;color:#d4a840;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+.lf-popup .pop-cities{font-size:11px;color:#c0b090;line-height:1.7;}
+/* Animated ping marker */
+@keyframes lf-ping{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.lf-pin-wrap{position:relative;width:14px;height:14px;}
+.lf-pin-dot{position:absolute;inset:3px;border-radius:50%;background:var(--gold,#b8892a);border:2px solid #fff;box-shadow:0 0 8px rgba(184,137,42,.8);}
+.lf-pin-ring{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(184,137,42,.6);animation:lf-ping 1.8s ease-out infinite;}
+.lf-pin-ring2{animation-delay:.9s;}
+.lf-pin-home .lf-pin-dot{background:#e05030;box-shadow:0 0 8px rgba(224,80,48,.8);}
+.lf-pin-home .lf-pin-ring{border-color:rgba(224,80,48,.6);}
+
+/* ══ TRANSITION BUTTON ══ */
+.pane-switch{
+  font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  background:rgba(184,137,42,.12);
+  border:1px solid rgba(184,137,42,.4);
+  color:var(--gold);padding:.35rem 1rem;border-radius:20px;cursor:pointer;
+  transition:all .22s;
+  display:inline-flex;align-items:center;gap:.4rem;
+  flex-shrink:0;align-self:flex-end;margin-bottom:.3rem;
+}
+.pane-switch:hover{background:rgba(184,137,42,.28);border-color:var(--gold);}
+.pane-switch i{font-size:12px;}
+.pane-switch-back{
+  position:absolute;right:1.5rem;bottom:1.5rem;z-index:1000;
+  font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  background:rgba(20,16,10,.82);border:1px solid rgba(184,137,42,.6);
+  color:var(--gold);padding:.45rem 1.1rem;border-radius:20px;cursor:pointer;
+  transition:all .22s;backdrop-filter:blur(8px);
+  display:flex;align-items:center;gap:.4rem;
+}
+.pane-switch-back:hover{background:rgba(184,137,42,.28);border-color:var(--gold);}
+
+/* NGO links */
+.ngo-title-link{
+  font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);display:block;text-decoration:none;
+  margin-bottom:.5rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);
+  transition:color .2s;
+}
+.ngo-title-link:hover{color:var(--gold2);}
+
+/* THESIS MODAL */
+.thesis-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.thesis-overlay.open{display:flex;}
+.thesis-modal{background:#fff;max-width:760px;width:92%;border-radius:10px;overflow:hidden;max-height:88vh;overflow-y:auto;}
+[data-theme="dark"] .thesis-modal{background:#1c1a14;}
+.tm-head{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.6rem;background:#1c1a14;}
+.tm-pub{font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#b8892a}
+.tm-x{background:none;border:1px solid rgba(255,255,255,.2);color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.tm-x:hover{background:rgba(255,255,255,.12)}
+.tm-hero{padding:2.5rem 2.5rem 1.6rem;text-align:center;background:#fdf8ef;border-bottom:1px solid #e8e0d0}
+.tm-cat{font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#b8892a;margin-bottom:.8rem}
+.tm-title{font-family:'Playfair Display',serif;font-size:clamp(20px,2.8vw,31px);font-weight:700;line-height:1.15;color:#1c1a14;margin:0 0 1rem}
+.tm-meta{display:flex;justify-content:center;align-items:center;gap:.5rem;flex-wrap:wrap}
+.tm-meta span{font-family:'Josefin Sans',sans-serif;font-size:11px;color:#6b5e4e}
+.tm-sep{color:#b8892a!important}
+.tm-div{height:1px;background:linear-gradient(to right,transparent,#b8892a,transparent);margin:.5rem 2.2rem}
+.tm-body{display:grid;grid-template-columns:1fr 1fr;padding:1.6rem 2.2rem;background:#fdf8ef;gap:0}
+.tm-col{padding:0 1.2rem}
+.tm-col:first-child{border-right:1px solid #e8e0d0;padding-left:0}
+.tm-col:last-child{padding-right:0}
+.tm-kick{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#b8892a;margin:1.2rem 0 .4rem;font-weight:700}
+.tm-lead{font-size:14px;line-height:1.8;color:#2a2018;font-style:italic;margin-bottom:.8rem}
+.tm-pull{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:#b8892a;border-left:3px solid #b8892a;padding:.5rem 0 .5rem 1rem;margin-top:1rem;line-height:1.5}
+.tm-foot{display:flex;justify-content:space-between;align-items:center;padding:.8rem 2.2rem;background:#1c1a14}
+.tm-fl{font-family:'Josefin Sans',sans-serif;font-size:10px;color:rgba(255,255,255,.38);letter-spacing:.05em}
+@media(max-width:640px){.tm-body{grid-template-columns:1fr}.tm-col:first-child{border-right:none;border-bottom:1px solid #e8e0d0;padding-bottom:1rem}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="logo" href="index.html"><span class="logo-hic">H I C</span><span class="logo-line"></span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-tr="Anasayfa" data-en="Home">Home</a></li>
+    <li><a href="index.html" data-tr="Haberlerim" data-en="News">News</a></li>
+    <li><a href="index.html" data-tr="Perspektif" data-en="Perspective">Perspective</a></li>
+    <li><a href="index.html" data-tr="Vodcast" data-en="Vodcast">Vodcast</a></li>
+    <li><a href="index.html" data-tr="Podcast" data-en="Podcast">Podcast</a></li>
+    <li><a href="about.html" class="on" data-tr="Deneyim" data-en="Experience">Experience</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-dt" id="nav-dt"></div>
+    <button class="theme-toggle" onclick="toggleTheme()"></button>
+    <button class="lang-btn" onclick="toggleLang()">EN</button>
+    <button class="burger" onclick="toggleMob()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob-m" id="mob-m">
+  <a href="index.html">Home</a><a href="about.html">About</a>
+</div>
+
+<!-- ══ STAGE ══ -->
+<div class="stage">
+  <div class="scroll-stage" id="scroll-stage">
+
+    <!-- ══ PANE 1: Experience ══ -->
+    <div class="scroll-pane active" id="pane1">
+      <div class="roller roller-top" id="roller1-top"></div>
+      <div class="scroll-body" id="body1">
+        <div class="parchment-inner">
+
+          <!-- Pillars -->
+          <div class="pillars-row">
+            <div class="pillar"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub">10 yrs · AA</div></div>
+            <div class="pillar"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="Iletisim & Etkinlik" data-en="Communication & Events">Comm. & Events</div><div class="pillar-sub">Targeted media</div></div>
+            <div class="pillar"><i class="ti ti-broadcast pillar-icon"></i><div class="pillar-name" data-tr="Dijital Medya" data-en="Digital Media">Digital Media</div><div class="pillar-sub">Vodcast & Podcast</div></div>
+            <div class="pillar"><i class="ti ti-world pillar-icon"></i><div class="pillar-name" data-tr="Uluslararasi" data-en="International">International</div><div class="pillar-sub">US · ME · EU</div></div>
+            <div class="pillar"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub">Chief of Staff</div></div>
+            <div class="pillar"><i class="ti ti-book pillar-icon"></i><div class="pillar-name" data-tr="Kuran" data-en="Quran">Quran</div><div class="pillar-sub">Hafidh · age 13</div></div>
+            <div class="pillar"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub">Memorised 25000+</div></div>
+          </div>
+
+          <hr class="sec-div">
+
+          <!-- Timeline -->
+          <div class="tl-label">&nbsp;</div>
+          <div class="htl">
+            <div class="htl-base"></div>
+            <div class="htl-fill" id="htl-fill"></div>
+            <div class="htl-nodes">
+              <div class="htl-n" onclick="expSel(6);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2006</div><div class="htl-t">BA</div><div class="htl-o">ULUDAG</div></div>
+              <div class="htl-n" onclick="expSel(5);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2012</div><div class="htl-t">MA</div><div class="htl-o">ISTANBUL</div></div>
+              <div class="htl-n" onclick="expSel(3);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2006</div><div class="htl-t">FOUNDER</div><div class="htl-o">PROJECTS &amp; NGOs</div></div>
+              <div class="htl-n" onclick="expSel(2);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2015</div><div class="htl-t">ADVISOR</div><div class="htl-o">PARLIAMENT</div></div>
+              <div class="htl-n" onclick="expSel(4);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2016</div><div class="htl-t">GEORGETOWN</div><div class="htl-o">DC</div></div>
+              <div class="htl-n sel" onclick="expSel(0);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2016</div><div class="htl-t">JOURNALIST</div><div class="htl-o">AA</div></div>
+              <div class="htl-n" onclick="expSel(1);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2018</div><div class="htl-t">CHIEF of STAFF</div><div class="htl-o">MINISTRY</div></div>
+            </div>
+          </div>
+          <div class="exp-detail">
+            <div class="ed-panel on" id="ed0"><div class="ed-yr">2016 — present · 10 years</div><div class="ed-title" data-tr="Gazeteci" data-en="Journalist">Journalist</div><div class="ed-org">Anadolu Agency</div><div class="ed-body" data-tr="ABD siyaseti, Ortadogu ve insan haklari alanlarinda habercilik." data-en="Reports on US politics, the Middle East and human rights for Anadolu Agency. Architected the AA Podcast concept and led AA Portre from inception to broadcast. Produced internationally resonant content including an exclusive interview with Rachel Corrie's family and award-winning documentaries. Shaped AA's digital media strategy, pioneering podcast and video production. Covered the US Congress and White House during his Washington DC posting.">Reports on US politics, the Middle East and human rights for Anadolu Agency. Architected the <a href="https://www.aa.com.tr/tr/podcast" target="_blank">AA Podcast</a> concept and led <a href="https://www.aa.com.tr/tr/podcast/aa-portre" target="_blank">AA Portre</a> from inception to broadcast. Produced internationally resonant content including an exclusive interview with Rachel Corrie's family and award-winning documentaries.</div><div><span class="ed-tag">AA Podcast</span><span class="ed-tag">US Politics</span><span class="ed-tag">Documentary</span><span class="ed-tag">Anadolu Talks</span></div></div>
+            <div class="ed-panel" id="ed1"><div class="ed-yr">2018 — 2020 · 2 years</div><div class="ed-title" data-tr="Bakan Basdanismani" data-en="Minister's Chief of Staff">Minister's Chief of Staff</div><div class="ed-org" data-tr="Aile ve Sosyal Hizmetler Bakanligi" data-en="Ministry of Family and Social Services">Ministry of Family and Social Services</div><div class="ed-body" data-tr="Bakanlik düzeyinde stratejik iletisim." data-en="Led strategic communications and institutional coordination at ministerial level. Managed media relations, crisis communications and the ministry's public perception. Served as government spokesperson and drove policy communications across multiple platforms.">Led strategic communications and institutional coordination at ministerial level. Managed media relations, crisis communications and the ministry's public perception. Served as government spokesperson and drove policy communications across multiple platforms.</div><div><span class="ed-tag">Strategic Comms</span><span class="ed-tag">Media Relations</span><span class="ed-tag">Policy</span></div></div>
+            <div class="ed-panel" id="ed2"><div class="ed-yr">2015</div><div class="ed-title" data-tr="Parlamento Danismani" data-en="Parliamentary Advisor">Parliamentary Advisor</div><div class="ed-org" data-tr="Turkiye Buyuk Millet Meclisi" data-en="Grand National Assembly of Turkey">Grand National Assembly of Turkey</div><div class="ed-body" data-tr="TBMM'de yasama danismanligi." data-en="Provided advisory support on legislation and communications at the Grand National Assembly. Developed deep expertise in political communications, media strategy and the interface between public policy and press narrative.">Provided advisory support on legislation and communications at the Grand National Assembly. Developed deep expertise in political communications, media strategy and the interface between public policy and press narrative.</div><div><span class="ed-tag">Political Comms</span><span class="ed-tag">Legislation</span></div></div>
+            <div class="ed-panel" id="ed3">
+              <div class="ed-yr">2006 — present</div>
+              <div class="ed-title">NGO Activities</div>
+              <div class="ed-org" style="margin-bottom:1rem;">Civil Society Memberships</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
+                <div>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong>Founder of the</strong> <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:inline;">Sinan &amp; Wren Foundation ↗</a></div>
+                  <div style="font-size:13px;color:var(--ink2);line-height:1.75;">International civil society platform for intercultural dialogue across three continents.</div>
+                  <div style="margin-top:.5rem;"><span class="ed-tag">Founder</span><span class="ed-tag">2013–2016</span></div>
+                </div>
+                <div>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong>Founder of the</strong> <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank" style="display:inline;">International Students Association ↗</a></div>
+                  <div style="font-size:13px;color:var(--ink2);line-height:1.75;">Founded and led at Uludağ University, fostering cross-cultural exchange in Bursa.</div>
+                  <div style="margin-top:.5rem;"><span class="ed-tag">Founder</span><span class="ed-tag">2006–2010</span></div>
+                </div>
+                <div>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong>Board Member of the</strong> <a class="ngo-title-link" href="https://uvdvuslat.com/" target="_blank" style="display:inline;">Uluslararası Vuslat Platformu ↗</a></div>
+                  <div style="font-size:13px;color:var(--ink2);line-height:1.75;">Board Member of a platform for civilisational renewal through knowledge and ethics.</div>
+                  <div style="margin-top:.5rem;"><span class="ed-tag">Board Member</span><span class="ed-tag">2013–pres.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="ed-panel" id="ed4"><div style="display:flex;gap:1.2rem;align-items:flex-start;"><div style="flex:1;"><div class="ed-yr">2016 — 2018</div><div class="ed-title">Georgetown University</div><div class="ed-org">Academic Language &amp; Certificate Programme · Washington DC</div><div class="ed-body" data-tr="Georgetown akademik dil ve sertifika programi." data-en="Completed an academic language education and certificate programme at Georgetown University — one of America's most prestigious institutions in Washington DC. Co-organised the Georgetown Cryptocurrency &amp; Fiqh Symposium with Prof. James J. Angel and Joe Bradford, coordinating symposia, conferences and events with international participants. Active member of Georgetown Muslim Students' Association (2017–2019).">Completed an academic language education and certificate programme at Georgetown University — one of America's most prestigious institutions in Washington DC. Co-organised the Georgetown Cryptocurrency &amp; Fiqh Symposium with Prof. James J. Angel and Joe Bradford, coordinating <strong style="color:var(--ink);">symposia, conferences and international events</strong>. Active member of Georgetown Muslim Students' Association (2017–2019).</div><div style="margin-top:.4rem;"><span class="ed-tag">Georgetown</span><span class="ed-tag">Crypto &amp; Fiqh</span><span class="ed-tag">Organiser</span><span class="ed-tag">Washington DC</span></div></div><div style="flex-shrink:0;width:160px;border-left:.5px solid var(--border2);padding-left:1rem;display:flex;flex-direction:column;justify-content:space-around;">
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;">Languages</div>
+  <div style="display:flex;flex-direction:column;gap:.6rem;">
+    <!-- Turkish 100% -->
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <svg width="36" height="36" viewBox="0 0 36 36" style="flex-shrink:0;transform:rotate(-90deg)">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="var(--border2)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15" fill="none" stroke="#b8892a" stroke-width="3" stroke-dasharray="94.2 94.2" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div><div style="font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Turkish</div><div style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Native · 100%</div></div>
+    </div>
+    <!-- English 85% -->
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <svg width="36" height="36" viewBox="0 0 36 36" style="flex-shrink:0;transform:rotate(-90deg)">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="var(--border2)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15" fill="none" stroke="#b8892a" stroke-width="3" stroke-dasharray="80.1 94.2" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div><div style="font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">English</div><div style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Advanced · 85%</div></div>
+    </div>
+    <!-- Arabic 55% -->
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <svg width="36" height="36" viewBox="0 0 36 36" style="flex-shrink:0;transform:rotate(-90deg)">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="var(--border2)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15" fill="none" stroke="#b8892a" stroke-width="3" stroke-dasharray="51.8 94.2" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div><div style="font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Arabic</div><div style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Intermediate · 55%</div></div>
+    </div>
+  </div>
+</div></div></div>
+            <div class="ed-panel" id="ed5"><div class="ed-yr">2012 — 2015</div><div class="ed-title" data-tr="Yüksek Lisans · Islam Hukuku & Finans" data-en="MA · Islamic Law & Finance">MA · Islamic Law &amp; Finance</div><div class="ed-org" data-tr="Istanbul Üniversitesi" data-en="Istanbul University">Istanbul University</div><div class="ed-body">Thesis: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"An Investigation on the Economical Life of the Holy Prophet"</a> — Specialised at the intersection of Islamic law, jurisprudence and modern finance structures.</div><div><span class="ed-tag">Islamic Finance</span><span class="ed-tag">Fiqh</span><span class="ed-tag">Research</span></div></div>
+            <div class="ed-panel" id="ed6"><div class="ed-yr">2006 — 2010</div><div class="ed-title">BA · Economics</div><div class="ed-org">Uludag University, Bursa</div><div class="ed-body">Thesis: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Economic Analysis of Participation Banks"</a> — Founded and led the International Students Association (2006–2010). This is where his interest in Islamic economics took root, leading to later graduate work in Islamic law and finance.</div><div><span class="ed-tag">Economics</span><span class="ed-tag">Participation Banking</span><span class="ed-tag">Student Leadership</span></div></div>
+          </div>
+
+          <hr class="sec-div">
+
+          <!-- Awards + nav row -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;flex-shrink:0;">
+            <div class="aw-label" data-tr="oduller" data-en="awards" style="margin-bottom:0;">Awards</div>
+            <button class="pane-switch" onclick="goPane(2)"><i class="ti ti-world"></i> Worldwide Experience</button>
+          </div>
+          <div class="awards-grid">
+            <div class="aw"><div class="aw-ring aw-gold"><i class="ti ti-trophy"></i></div><div><div class="aw-title" data-tr="Yilin En Iyi Podcastcisi" data-en="Best Podcaster of the Year">Best Podcaster of the Year</div><div class="aw-year">2023</div></div></div>
+            <div class="aw"><div class="aw-ring aw-gold"><i class="ti ti-video"></i></div><div><div class="aw-title" data-tr="En Iyi Belgesel Haber Odulu" data-en="Best Documentary News Award">Best Documentary News Award</div><div class="aw-year">2024</div></div></div>
+            <div class="aw"><div class="aw-ring aw-bronze"><i class="ti ti-medal"></i></div><div><div class="aw-title" data-tr="Gures Sampiyonluk Madalyasi" data-en="Wrestling Championship Medal">Wrestling Championship Medal</div><div class="aw-year">2003</div></div></div>
+          </div>
+
+        </div><!-- /parchment-inner -->
+      </div><!-- /scroll-body -->
+      <div class="roller roller-bot" id="roller1-bot"></div>
+    </div><!-- /pane1 -->
+
+    <!-- ══ PANE 2: Worldwide Experience — Leaflet Map ══ -->
+    <div class="scroll-pane scroll-pane2" id="pane2" style="display:none;">
+      <div class="roller roller-top" id="roller2-top"></div>
+      <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;padding:0;">
+        <div id="leaflet-map" style="position:absolute;top:44px;bottom:44px;left:0;right:0;"></div>
+        <button class="pane-switch-back" onclick="goPane(1)"><i class="ti ti-arrow-left"></i> Back to Experience</button>
+      </div>
+      <div class="roller roller-bot" id="roller2-bot"></div>
+    </div><!-- /pane2 -->
+
+  </div><!-- /scroll-stage -->
+
+  <!-- Scroll nav -->
+  <div class="scroll-nav">
+    <button class="sn-btn active" id="sn1" onclick="goPane(1)"><div class="sn-dot"></div> Experience</button>
+    <button class="sn-btn" id="sn2" onclick="goPane(2)"><div class="sn-dot"></div> Worldwide <span class="sn-arrow">→</span></button>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div class="footer-left">
+      <a class="f-link" href="index.html"><i class="ti ti-home"></i>hic</a>
+      <span class="f-sep">·</span>
+      <span class="f-link"><i class="ti ti-mail"></i>hc685@georgetown.edu</span>
+      <span class="f-sep">·</span>
+      <span class="f-link"><i class="ti ti-map-pin"></i>Istanbul</span>
+    </div>
+    <div class="footer-center">Pleasant echoes from the verdant and captivating Earth</div>
+    <div class="footer-right" id="ab-clock"></div>
+  </div>
+</div><!-- /stage -->
+
+<!-- THESIS MODAL -->
+<div class="thesis-overlay" id="thesis-overlay" onclick="if(event.target===this)thesisClose()">
+  <div class="thesis-modal">
+    <div class="tm-head"><div class="tm-pub">Academic Record · Istanbul University · 2015</div><button class="tm-x" onclick="thesisClose()">&#10005;</button></div>
+    <div class="tm-hero">
+      <div class="tm-cat">Master's Thesis · Islamic Law &amp; Finance</div>
+      <h1 class="tm-title">An Investigation on the Economical Life<br>of the Holy Prophet</h1>
+      <div class="tm-meta"><span>Halil Ibrahim Ciger</span><span class="tm-sep">·</span><span>Istanbul University</span><span class="tm-sep">·</span><span>2015</span></div>
+    </div>
+    <div class="tm-div"></div>
+    <div class="tm-body">
+      <div class="tm-col">
+        <div class="tm-kick">Preface</div>
+        <p class="tm-lead">This thesis examines the economic dimensions of the Prophet Muhammad's life through a rigorous interdisciplinary lens, drawing on classical Islamic sources and contemporary economic analysis.</p>
+        <p>The study illuminates neglected dimensions of prophetic biography using methodologies from both Islamic jurisprudence and modern economic science, revealing a coherent and principled economic framework.</p>
+        <div class="tm-kick">Chapter I · Pre-Prophetic Period</div>
+        <p>Examines trade practices in 6th-century Arabia, the Prophet's early commercial activities as merchant and trade agent for Khadijah, partnership arrangements (mudaraba), and the ethical principles he established before his prophethood.</p>
+        <div class="tm-kick">Chapter II · The Medina Market</div>
+        <p>Analyses the construction of the first Islamic market in Medina, the prohibition of monopolistic and deceptive practices, introduction of standardised weights and measures, and foundational principles of Islamic economic justice.</p>
+      </div>
+      <div class="tm-col">
+        <div class="tm-kick">Chapter III · Fiscal Policy</div>
+        <p>Covers zakat administration as a redistributive institution, rules governing spoils of war and their equitable distribution, land taxation (kharaj), and the Prophet's sophisticated approach to public finance.</p>
+        <div class="tm-kick">Chapter IV · Legacy &amp; Modern Relevance</div>
+        <p>Discusses the enduring influence of prophetic economic principles on Islamic finance, waqf institutions, profit-sharing structures, and contemporary Muslim-majority economies. Draws a line from 7th-century Medina to modern instruments such as sukuk and participation banking.</p>
+        <div class="tm-kick">Conclusion</div>
+        <p>The Prophet's economic model constitutes a coherent system balancing spiritual imperatives with pragmatic governance — an emphasis on transparency, prohibition of exploitation, and communal solidarity that remains relevant for Islamic economics today.</p>
+        <div class="tm-pull">"A principled economic model rooted in justice, transparency, and communal solidarity."</div>
+      </div>
+    </div>
+    <div class="tm-foot">
+      <div class="tm-fl">Istanbul University · Department of Basic Islamic Sciences</div>
+    </div>
+  </div>
+</div>
+
+<!-- THESIS 2 MODAL: Participation Banks -->
+<div class="thesis-overlay" id="thesis2-overlay" onclick="if(event.target===this)thesis2Close()">
+  <div class="thesis-modal">
+    <div class="tm-head"><div class="tm-pub">Academic Record · Uludag University · 2010</div><button class="tm-x" onclick="thesis2Close()">&#10005;</button></div>
+    <div class="tm-hero">
+      <div class="tm-cat">Bachelor's Thesis · Economics</div>
+      <h1 class="tm-title">Economic Analysis of<br>Participation Banks</h1>
+      <div class="tm-meta"><span>Halil Ibrahim Ciger</span><span class="tm-sep">·</span><span>Uludag University</span><span class="tm-sep">·</span><span>2010</span></div>
+    </div>
+    <div class="tm-div"></div>
+    <div class="tm-body">
+      <div class="tm-col">
+        <div class="tm-kick">Overview</div>
+        <p class="tm-lead">This thesis examines participation banking as an alternative financial model grounded in Islamic economic principles, analysing its structure, operations, and performance within the Turkish banking sector.</p>
+        <p>The study investigates the theoretical foundations of interest-free finance, the distinction between conventional and participation banking, and the practical implementation of profit-and-loss sharing mechanisms in modern banking.</p>
+        <div class="tm-kick">Chapter I · Islamic Finance Principles</div>
+        <p>Covers the Quranic prohibition of riba (interest), the concept of halal earnings, and the foundational principles that distinguish participation banking from conventional finance. Explores mudaraba (profit-sharing) and musharaka (joint venture) as core instruments.</p>
+        <div class="tm-kick">Chapter II · Historical Development</div>
+        <p>Traces the emergence of Islamic banking from the 1960s onward, the establishment of participation banks in Turkey (formerly known as special finance houses), and their legal and regulatory evolution under Turkish banking law.</p>
+        <div class="tm-kick">Chapter III · Structural Analysis</div>
+        <p>Examines fund collection methods (current accounts, participation accounts), fund allocation methods (production support, finance leasing, profit-loss partnership), and how participation banks manage liquidity without interest-based instruments.</p>
+      </div>
+      <div class="tm-col">
+        <div class="tm-kick">Chapter IV · Performance Evaluation</div>
+        <p>Analyses balance sheet structures, profitability ratios, asset quality, and capital adequacy of Turkish participation banks compared to conventional counterparts. Evaluates growth trends, market share, and systemic integration.</p>
+        <div class="tm-kick">Chapter V · Challenges &amp; Opportunities</div>
+        <p>Identifies key challenges including lack of standardisation, limited product diversity, public awareness deficits, and regulatory asymmetry. Highlights growth opportunities in ethical finance, sukuk markets, and international Islamic finance integration.</p>
+        <div class="tm-kick">Conclusion</div>
+        <p>Participation banks represent a viable and principled alternative to conventional finance, offering a model that aligns economic activity with ethical and spiritual values. Their continued growth requires regulatory support, product innovation, and greater public understanding of interest-free finance principles.</p>
+        <div class="tm-pull">"A financial model that aligns economic activity with ethical principles — interest-free, transparent, and community-centred."</div>
+      </div>
+    </div>
+    <div class="tm-foot">
+      <div class="tm-fl">Uludag University · Faculty of Economics · Department of Economics</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── UTILS ── */
+var lang='en';
+function toggleLang(){
+  lang=lang==='en'?'tr':'en';
+  document.querySelectorAll('[data-tr]').forEach(function(el){
+    var v=lang==='en'?el.getAttribute('data-en'):el.getAttribute('data-tr');
+    if(v)el.textContent=v;
+  });
+  document.querySelector('.lang-btn').textContent=lang==='en'?'EN':'TR';
+}
+function toggleTheme(){var t=document.documentElement;t.dataset.theme=t.dataset.theme==='dark'?'light':'dark';}
+function toggleMob(){document.getElementById('mob-m').classList.toggle('open');}
+function thesisOpen(){document.getElementById('thesis-overlay').classList.add('open');}
+function thesisClose(){document.getElementById('thesis-overlay').classList.remove('open');}
+function thesis2Open(){document.getElementById('thesis2-overlay').classList.add('open');}
+function thesis2Close(){document.getElementById('thesis2-overlay').classList.remove('open');}
+
+/* ── CLOCK ── */
+(function tick(){
+  var d=new Date();
+  var el=document.getElementById('ab-clock');
+  if(el)el.textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:'Europe/Istanbul'})+' IST';
+  setTimeout(tick,1000);
+})();
+
+/* ── TIMELINE ── */
+var hnMap=[4,6,3,2,5,1,0];
+var expTimer=null,expCycling=true,expIdx=0;
+function expSel(n){
+  document.querySelectorAll('.htl-n').forEach(function(h,i){h.classList.toggle('sel',hnMap[i]===n);});
+  document.querySelectorAll('.ed-panel').forEach(function(d){d.classList.remove('on');});
+  var ep=document.getElementById('ed'+n);if(ep)ep.classList.add('on');
+}
+function expStop(){expCycling=false;clearTimeout(expTimer);}
+(function(){
+  var nodes=document.querySelectorAll('.htl-n');
+  var fill=document.getElementById('htl-fill');
+  setTimeout(function(){
+    nodes.forEach(function(n,i){
+      setTimeout(function(){n.classList.add('vis');},i*120);
+    });
+    if(fill)setTimeout(function(){fill.style.width='100%';},nodes.length*120+200);
+  },600);
+  function cycle(){
+    if(!expCycling)return;
+    var order=[0,1,2,3,4,5,6];
+    expSel(order[expIdx%order.length]);
+    expIdx++;
+    expTimer=setTimeout(cycle,2800);
+  }
+  setTimeout(cycle,1400);
+})();
+
+/* ── SCROLL / RULO ANIMATION ── */
+var ROLLER_H=36; // px height of each roller when open
+var currentPane=0; // 0 = not opened yet
+var animating=false;
+
+function openScrollAnim(paneEl, topRoller, botRoller, cb){
+  var stageH=document.getElementById('scroll-stage').clientHeight;
+  var half=Math.floor(stageH/2);
+  topRoller.style.height=half+'px';
+  botRoller.style.height=(stageH-half)+'px';
+  paneEl.style.display='flex';
+  paneEl.style.opacity='1';
+  topRoller.offsetHeight;
+  setTimeout(function(){
+    topRoller.style.height=ROLLER_H+'px';
+    botRoller.style.height=ROLLER_H+'px';
+    setTimeout(function(){
+      if(cb)cb();
+      animating=false;
+      // Leaflet needs size invalidation after becoming visible
+      if(window._leafletMap)setTimeout(function(){window._leafletMap.invalidateSize();},50);
+    },1150);
+  },40);
+}
+
+function closeScrollAnim(paneEl, topRoller, botRoller, cb){
+  var stageH=document.getElementById('scroll-stage').clientHeight;
+  var half=Math.floor(stageH/2);
+  topRoller.style.height=half+'px';
+  botRoller.style.height=(stageH-half)+'px';
+  setTimeout(function(){
+    paneEl.style.display='none';
+    if(cb)cb();
+  },1150);
+}
+
+function goPane(n){
+  if(animating||n===currentPane)return;
+  animating=true;
+  // Update nav
+  document.getElementById('sn1').classList.toggle('active',n===1);
+  document.getElementById('sn2').classList.toggle('active',n===2);
+
+  if(currentPane===0){
+    // First open
+    currentPane=n;
+    var p=document.getElementById('pane'+n);
+    var tr=document.getElementById('roller'+n+'-top');
+    var br=document.getElementById('roller'+n+'-bot');
+    p.style.display='flex';
+    openScrollAnim(p,tr,br,null);
+    return;
+  }
+
+  // Switch: close current, open next
+  var fromN=currentPane;
+  currentPane=n;
+  var fromPane=document.getElementById('pane'+fromN);
+  var fromTop=document.getElementById('roller'+fromN+'-top');
+  var fromBot=document.getElementById('roller'+fromN+'-bot');
+  var toPane=document.getElementById('pane'+n);
+  var toTop=document.getElementById('roller'+n+'-top');
+  var toBot=document.getElementById('roller'+n+'-bot');
+
+  closeScrollAnim(fromPane,fromTop,fromBot,function(){
+    openScrollAnim(toPane,toTop,toBot,null);
+  });
+}
+
+// Open: first show pane2 (worldwide rulo effect), then switch to pane1
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    goPane(2);
+    setTimeout(function(){goPane(1);},1600);
+  },200);
+});
+
+/* ── WORLDWIDE MAP — Leaflet ── */
+(function(){
+  var mapEl=document.getElementById('leaflet-map');
+  if(!mapEl)return;
+
+  var VISITED={
+    'Turkey':      {lat:39,   lng:35,   cities:['Istanbul','Bursa','Ankara','Gaziantep'], home:true},
+    'USA':         {lat:39,   lng:-98,  cities:['Washington DC','New York']},
+    'Canada':      {lat:56,   lng:-96,  cities:['Toronto','Ottawa']},
+    'France':      {lat:46.5, lng:2.5,  cities:['Paris','Strasbourg']},
+    'Spain':       {lat:40.4, lng:-3.7, cities:['Madrid','Barcelona']},
+    'Italy':       {lat:42.5, lng:12.5, cities:['Rome','Milan']},
+    'Germany':     {lat:51,   lng:10.5, cities:['Berlin','Munich']},
+    'Netherlands': {lat:52.4, lng:5.3,  cities:['Amsterdam','The Hague']},
+    'Belgium':     {lat:50.5, lng:4.5,  cities:['Brussels']},
+    'Luxembourg':  {lat:49.8, lng:6.1,  cities:['Luxembourg City']},
+    'Switzerland': {lat:46.8, lng:8.2,  cities:['Bern','Zürich']},
+    'Austria':     {lat:47.5, lng:14.5, cities:['Vienna']},
+    'Slovenia':    {lat:46.1, lng:14.8, cities:['Ljubljana']},
+    'Hungary':     {lat:47,   lng:19,   cities:['Budapest']},
+    'Serbia':      {lat:44,   lng:21,   cities:['Belgrade']},
+    'Romania':     {lat:45.9, lng:25,   cities:['Bucharest']},
+    'Bulgaria':    {lat:42.7, lng:25.5, cities:['Sofia']},
+    'Greece':      {lat:39.5, lng:22,   cities:['Athens','Thessaloniki']},
+    'Denmark':     {lat:56,   lng:10,   cities:['Copenhagen']},
+    'Syria':       {lat:34.8, lng:38.8, cities:['Damascus','Aleppo']},
+    'Saudi Arabia':{lat:24,   lng:45,   cities:['Riyadh','Mecca','Medina']},
+  };
+
+  // Map ISO codes to country names for GeoJSON matching
+  var ISO_MAP={
+    'TUR':'Turkey','USA':'USA','CAN':'Canada','FRA':'France',
+    'ESP':'Spain','ITA':'Italy','DEU':'Germany','NLD':'Netherlands',
+    'BEL':'Belgium','LUX':'Luxembourg','CHE':'Switzerland',
+    'AUT':'Austria','SVN':'Slovenia','HUN':'Hungary','SRB':'Serbia',
+    'ROU':'Romania','BGR':'Bulgaria','GRC':'Greece','DNK':'Denmark',
+    'SYR':'Syria','SAU':'Saudi Arabia',
+  };
+
+  var map=L.map('leaflet-map',{
+    center:[25,20],
+    zoom:3,
+    minZoom:2,
+    maxZoom:8,
+    zoomControl:true,
+    attributionControl:false,
+    scrollWheelZoom:true,
+  });
+
+  // Stamen Toner Lite / CartoDB Positron — clean vintage political style
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains:'abcd',
+    maxZoom:19,
+  }).addTo(map);
+
+  // GeoJSON country boundaries from Natural Earth via unpkg
+  var geojsonUrl='https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+
+  var visitedLayers={};
+  var hoveredLayer=null;
+
+  function styleDefault(feature){
+    var name=feature.properties.ADMIN||'';
+    var iso=feature.properties.ISO_A3||'';
+    var country=VISITED[name]||VISITED[ISO_MAP[iso]];
+    if(!country)return{fillOpacity:0,opacity:0,weight:0};
+    return{
+      fillColor: country.home?'rgba(180,80,40,.35)':'rgba(90,140,100,.35)',
+      fillOpacity:0.45,
+      color: country.home?'#c06030':'#4a8a5a',
+      weight:1.5,
+      opacity:0.8,
+    };
+  }
+  function styleHover(layer,country){
+    layer.setStyle({
+      fillColor: country.home?'rgba(220,100,60,.5)':'rgba(90,180,120,.5)',
+      fillOpacity:0.65,
+      color:'#ffffff',
+      weight:2.5,
+      opacity:1,
+    });
+    // White glow via multiple strokes
+    if(layer._path){
+      layer._path.style.filter='drop-shadow(0 0 6px rgba(255,255,255,.8))';
+    }
+  }
+  function styleReset(layer,country){
+    layer.setStyle(styleDefault({properties:{ADMIN:country}}));
+    if(layer._path)layer._path.style.filter='';
+  }
+
+  fetch(geojsonUrl)
+    .then(function(r){return r.json();})
+    .then(function(data){
+      L.geoJSON(data,{
+        style:styleDefault,
+        onEachFeature:function(feature,layer){
+          var name=feature.properties.ADMIN||'';
+          var iso=feature.properties.ISO_A3||'';
+          var country=VISITED[name]||VISITED[ISO_MAP[iso]];
+          if(!country)return;
+          var cname=name||Object.keys(ISO_MAP).find(function(k){return ISO_MAP[k]===name;});
+          visitedLayers[name]=layer;
+          layer.on('mouseover',function(){
+            styleHover(layer,country);
+          });
+          layer.on('mouseout',function(){
+            styleReset(layer,name);
+          });
+          layer.on('click',function(){
+            layer.bindPopup(
+              '<div class="pop-name">'+(name)+'</div>'+
+              '<div class="pop-cities">'+country.cities.join(' · ')+'</div>',
+              {className:'lf-popup',maxWidth:240}
+            ).openPopup();
+          });
+        }
+      }).addTo(map);
+    })
+    .catch(function(e){console.warn('GeoJSON load failed',e);});
+
+  // Animated ping markers
+  function makePinIcon(isHome){
+    return L.divIcon({
+      className:'',
+      html:'<div class="lf-pin-wrap'+(isHome?' lf-pin-home':'')+'">'+
+           '<div class="lf-pin-ring"></div>'+
+           '<div class="lf-pin-ring lf-pin-ring2"></div>'+
+           '<div class="lf-pin-dot"></div>'+
+           '</div>',
+      iconSize:[14,14],
+      iconAnchor:[7,7],
+    });
+  }
+
+  Object.keys(VISITED).forEach(function(name){
+    var c=VISITED[name];
+    var marker=L.marker([c.lat,c.lng],{icon:makePinIcon(c.home)});
+    marker.bindTooltip('<strong>'+name+'</strong><br><span style="font-size:10px;opacity:.8">'+c.cities.join(', ')+'</span>',{
+      direction:'top',offset:[0,-8],
+      className:'lf-country-tooltip',
+    });
+    marker.bindPopup(
+      '<div class="pop-name">'+name+'</div>'+
+      '<div class="pop-cities">'+c.cities.join(' · ')+'</div>',
+      {className:'lf-popup',maxWidth:240}
+    );
+    marker.addTo(map);
+  });
+
+  // Tooltip style
+  var tooltipStyle=document.createElement('style');
+  tooltipStyle.textContent='.lf-country-tooltip{background:rgba(20,16,10,.92)!important;border:1px solid rgba(184,137,42,.5)!important;color:#f0e0b0!important;font-family:"Josefin Sans",sans-serif!important;font-size:11px!important;padding:4px 10px!important;border-radius:5px!important;box-shadow:0 4px 14px rgba(0,0,0,.4)!important;}'+
+    '.lf-country-tooltip::before{display:none!important;}'+
+    '.leaflet-tooltip-top.lf-country-tooltip::before{display:none!important;}';
+  document.head.appendChild(tooltipStyle);
+
+  // Reinitialise map when pane becomes visible
+  window._leafletMap=map;
+})();
+
+/* nav clock */
+(function tick(){
+  var d=new Date();
+  var el=document.getElementById('nav-dt');
+  if(el)el.textContent=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  setTimeout(tick,60000);
+})();
+</script>
+</body>
+</html>
