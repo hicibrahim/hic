@@ -86,8 +86,8 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
   position:relative;
   z-index:2;
 }
-.roller-top{background:linear-gradient(to bottom,#8b6030,#c8a86a,#dfc080,#c8a86a,#8b6030);border-bottom:2px solid #6a4820;}
-.roller-bot{background:linear-gradient(to top,#8b6030,#c8a86a,#dfc080,#c8a86a,#8b6030);border-top:2px solid #6a4820;}
+.roller-top{background:linear-gradient(to bottom,#6a3c10,#a87840,#c89850,#a87840,#6a3c10);border-bottom:2px solid #4a2808;}
+.roller-bot{background:linear-gradient(to bottom,#6a3c10,#a87840,#c89850,#a87840,#6a3c10);border-top:2px solid #4a2808;}
 
 /* The parchment content area */
 .scroll-body{
@@ -136,24 +136,28 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 /* ══ SCROLL NAV — inside roller-bot ══ */
 .scroll-nav{
   height:36px;
-  background:rgba(20,12,4,.55);
+  background:rgba(20,12,4,.45);
   display:flex;
   align-items:center;
   justify-content:center;
   gap:2rem;
   width:100%;
+  position:relative;
+  z-index:10;
 }
 .sn-btn{
   font-family:'Josefin Sans',sans-serif;
   font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--muted);
+  color:rgba(255,235,180,.7);
   background:none;border:none;cursor:pointer;
   display:flex;align-items:center;gap:.5rem;
   padding:.3rem .8rem;border-radius:3px;
   transition:color .2s,background .2s;
+  pointer-events:all;
+  position:relative;z-index:20;
 }
-.sn-btn:hover,.sn-btn.active{color:var(--gold);background:rgba(184,137,42,.08);}
-.sn-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.4;transition:opacity .2s;}
+.sn-btn:hover,.sn-btn.active{color:#f0c060;background:rgba(184,137,42,.2);}
+.sn-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .2s;}
 .sn-btn.active .sn-dot{opacity:1;}
 .sn-arrow{font-size:14px;opacity:.5;transition:opacity .2s;}
 .sn-btn:hover .sn-arrow{opacity:1;}
@@ -287,6 +291,27 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .aw-year{font-size:11px;color:var(--gold);margin-top:3px;font-family:'Josefin Sans',sans-serif;}
 
 /* ══ PANE 2: MAP ══ */
+/* ══ LEAFLET CUSTOM ZOOM ══ */
+.leaflet-control-zoom{border:none!important;box-shadow:0 4px 16px rgba(0,0,0,.35)!important;border-radius:8px!important;overflow:hidden!important;}
+.leaflet-control-zoom a{
+  background:rgba(20,16,10,.85)!important;color:#d4a840!important;
+  border:none!important;border-bottom:.5px solid rgba(184,137,42,.25)!important;
+  font-family:'Josefin Sans',sans-serif!important;font-size:16px!important;font-weight:300!important;
+  width:32px!important;height:32px!important;line-height:32px!important;
+  transition:background .18s,color .18s!important;letter-spacing:0!important;
+}
+.leaflet-control-zoom a:hover{background:rgba(184,137,42,.35)!important;color:#fff!important;}
+.leaflet-control-zoom-out{border-bottom:none!important;}
+
+/* ══ PILLARS HEADER ══ */
+.pillars-header{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:.4rem .9rem;flex-shrink:0;min-width:130px;
+  border-right:.5px solid var(--border2);
+}
+.pillars-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--ink);line-height:1.2;}
+.pillars-subtitle{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);margin-top:3px;font-weight:400;letter-spacing:.04em;}
+
 /* ══ WORLDWIDE MAP — Leaflet ══ */
 #leaflet-map{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
 /* Custom popup */
@@ -408,13 +433,17 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 
           <!-- Pillars -->
           <div class="pillars-row">
-            <div class="pillar"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub">10 yrs · AA</div></div>
-            <div class="pillar"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="Iletisim & Etkinlik" data-en="Communication & Events">Comm. & Events</div><div class="pillar-sub">Targeted media</div></div>
-            <div class="pillar"><i class="ti ti-broadcast pillar-icon"></i><div class="pillar-name" data-tr="Dijital Medya" data-en="Digital Media">Digital Media</div><div class="pillar-sub">Vodcast & Podcast</div></div>
-            <div class="pillar"><i class="ti ti-world pillar-icon"></i><div class="pillar-name" data-tr="Uluslararasi" data-en="International">International</div><div class="pillar-sub">US · ME · EU</div></div>
-            <div class="pillar"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub">Chief of Staff</div></div>
-            <div class="pillar"><i class="ti ti-book pillar-icon"></i><div class="pillar-name" data-tr="Kuran" data-en="Quran">Quran</div><div class="pillar-sub">Hafidh · age 13</div></div>
-            <div class="pillar"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub">Memorised 25000+</div></div>
+            <div class="pillars-header">
+              <div class="pillars-title" data-tr="Yetenekler &amp; Deneyimler" data-en="Talents &amp; Experiences">Talents &amp; Experiences</div>
+              <div class="pillars-subtitle">Halil İbrahim Ciğer</div>
+            </div>
+            <div class="pillar"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub" data-tr="10 yıl · AA" data-en="10 yrs · AA">10 yrs · AA</div></div>
+            <div class="pillar"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="İletişim &amp; Etkinlik" data-en="Communication &amp; Events">Comm. &amp; Events</div><div class="pillar-sub" data-tr="Medya ilişkileri" data-en="Targeted media">Targeted media</div></div>
+            <div class="pillar"><i class="ti ti-broadcast pillar-icon"></i><div class="pillar-name" data-tr="Dijital Medya" data-en="Digital Media">Digital Media</div><div class="pillar-sub">Vodcast &amp; Podcast</div></div>
+            <div class="pillar"><i class="ti ti-world pillar-icon"></i><div class="pillar-name" data-tr="Uluslararası" data-en="International">International</div><div class="pillar-sub">US · ME · EU</div></div>
+            <div class="pillar"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub" data-tr="Bakan Başdanışmanı" data-en="Chief of Staff">Chief of Staff</div></div>
+            <div class="pillar"><i class="ti ti-book pillar-icon"></i><div class="pillar-name" data-tr="Kuran" data-en="Quran">Quran</div><div class="pillar-sub" data-tr="Hafız · 13 yaşında" data-en="Hafidh · age 13">Hafidh · age 13</div></div>
+            <div class="pillar"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub" data-tr="25.000+ ezbер" data-en="Memorised 25000+">Memorised 25000+</div></div>
           </div>
 
           <hr class="sec-div">
@@ -631,6 +660,9 @@ function toggleLang(){
     if(v)el.textContent=v;
   });
   document.querySelector('.lang-btn').textContent=lang==='en'?'EN':'TR';
+  // Update sn-btn labels
+  document.querySelectorAll('#sn1,#sn1b').forEach(function(b){if(b)b.childNodes[1].textContent=' '+(lang==='tr'?'Deneyim':'Experience');});
+  document.querySelectorAll('#sn2,#sn2b').forEach(function(b){if(b){b.childNodes[1].textContent=' '+(lang==='tr'?'Dünya':'Worldwide');}});
 }
 function toggleTheme(){var t=document.documentElement;t.dataset.theme=t.dataset.theme==='dark'?'light':'dark';}
 function toggleMob(){document.getElementById('mob-m').classList.toggle('open');}
@@ -762,27 +794,28 @@ window.addEventListener('load',function(){
   if(!mapEl)return;
 
   var VISITED={
-    'Turkey':      {lat:39,   lng:35,   cities:['Istanbul','Bursa','Ankara','Gaziantep'], home:true},
-    'USA':         {lat:39,   lng:-98,  cities:['Washington DC','New York']},
-    'Canada':      {lat:56,   lng:-96,  cities:['Toronto','Ottawa']},
-    'France':      {lat:46.5, lng:2.5,  cities:['Paris','Strasbourg']},
-    'Spain':       {lat:40.4, lng:-3.7, cities:['Madrid','Barcelona']},
-    'Italy':       {lat:42.5, lng:12.5, cities:['Rome','Milan']},
-    'Germany':     {lat:51,   lng:10.5, cities:['Berlin','Munich']},
-    'Netherlands': {lat:52.4, lng:5.3,  cities:['Amsterdam','The Hague']},
-    'Belgium':     {lat:50.5, lng:4.5,  cities:['Brussels']},
-    'Luxembourg':  {lat:49.8, lng:6.1,  cities:['Luxembourg City']},
-    'Switzerland': {lat:46.8, lng:8.2,  cities:['Bern','Zürich']},
-    'Austria':     {lat:47.5, lng:14.5, cities:['Vienna']},
-    'Slovenia':    {lat:46.1, lng:14.8, cities:['Ljubljana']},
-    'Hungary':     {lat:47,   lng:19,   cities:['Budapest']},
-    'Serbia':      {lat:44,   lng:21,   cities:['Belgrade']},
-    'Romania':     {lat:45.9, lng:25,   cities:['Bucharest']},
-    'Bulgaria':    {lat:42.7, lng:25.5, cities:['Sofia']},
-    'Greece':      {lat:39.5, lng:22,   cities:['Athens','Thessaloniki']},
-    'Denmark':     {lat:56,   lng:10,   cities:['Copenhagen']},
-    'Syria':       {lat:34.8, lng:38.8, cities:['Damascus','Aleppo']},
-    'Saudi Arabia':{lat:24,   lng:45,   cities:['Riyadh','Mecca','Medina']},
+    'Turkey':      {lat:39,   lng:35,   cities:['Istanbul','Bursa','Ankara','Gaziantep'], home:true,  name_en:'Turkey',       name_tr:'Türkiye'},
+    'USA':         {lat:39,   lng:-98,  cities:['Washington DC','New York'],                          name_en:'USA',           name_tr:'ABD'},
+    'Canada':      {lat:56,   lng:-96,  cities:['Toronto','Ottawa'],                                  name_en:'Canada',        name_tr:'Kanada'},
+    'France':      {lat:46.5, lng:2.5,  cities:['Paris','Strasbourg'],                               name_en:'France',        name_tr:'Fransa'},
+    'Spain':       {lat:40.4, lng:-3.7, cities:['Madrid','Barcelona'],                               name_en:'Spain',         name_tr:'İspanya'},
+    'Italy':       {lat:42.5, lng:12.5, cities:['Rome','Milan'],                                     name_en:'Italy',         name_tr:'İtalya'},
+    'Germany':     {lat:51,   lng:10.5, cities:['Berlin','Munich'],                                  name_en:'Germany',       name_tr:'Almanya'},
+    'Netherlands': {lat:52.4, lng:5.3,  cities:['Amsterdam','The Hague'],                            name_en:'Netherlands',   name_tr:'Hollanda'},
+    'Belgium':     {lat:50.5, lng:4.5,  cities:['Brussels'],                                         name_en:'Belgium',       name_tr:'Belçika'},
+    'Luxembourg':  {lat:49.8, lng:6.1,  cities:['Luxembourg City'],                                  name_en:'Luxembourg',    name_tr:'Lüksemburg'},
+    'Switzerland': {lat:46.8, lng:8.2,  cities:['Bern','Zürich'],                                   name_en:'Switzerland',   name_tr:'İsviçre'},
+    'Austria':     {lat:47.5, lng:14.5, cities:['Vienna'],                                           name_en:'Austria',       name_tr:'Avusturya'},
+    'Slovenia':    {lat:46.1, lng:14.8, cities:['Ljubljana'],                                        name_en:'Slovenia',      name_tr:'Slovenya'},
+    'Hungary':     {lat:47,   lng:19,   cities:['Budapest'],                                         name_en:'Hungary',       name_tr:'Macaristan'},
+    'Serbia':      {lat:44,   lng:21,   cities:['Belgrade'],                                         name_en:'Serbia',        name_tr:'Sırbistan'},
+    'Romania':     {lat:45.9, lng:25,   cities:['Bucharest'],                                        name_en:'Romania',       name_tr:'Romanya'},
+    'Bulgaria':    {lat:42.7, lng:25.5, cities:['Sofia'],                                            name_en:'Bulgaria',      name_tr:'Bulgaristan'},
+    'Greece':      {lat:39.5, lng:22,   cities:['Athens','Thessaloniki'],                            name_en:'Greece',        name_tr:'Yunanistan'},
+    'Denmark':     {lat:56,   lng:10,   cities:['Copenhagen'],                                       name_en:'Denmark',       name_tr:'Danimarka'},
+    'Syria':       {lat:34.8, lng:38.8, cities:['Damascus','Aleppo'],                               name_en:'Syria',         name_tr:'Suriye'},
+    'Saudi Arabia':{lat:24,   lng:45,   cities:['Riyadh','Mecca','Medina'],                         name_en:'Saudi Arabia',  name_tr:'Suudi Arabistan'},
+    'TRNC':        {lat:35.25,lng:33.4, cities:['Lefkoşa (Kuzey)','Gazimağusa'],                    name_en:'TRNC',          name_tr:'KKTC', special:true},
   };
 
   // Map ISO codes to country names for GeoJSON matching
@@ -800,10 +833,13 @@ window.addEventListener('load',function(){
     zoom:2,
     minZoom:2,
     maxZoom:8,
-    zoomControl:true,
+    zoomControl:false,
     attributionControl:false,
     scrollWheelZoom:true,
   });
+
+  // Custom zoom control
+  L.control.zoom({position:'bottomright'}).addTo(map);
 
   // Stamen Toner Lite / CartoDB Positron — clean vintage political style
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
@@ -893,15 +929,22 @@ window.addEventListener('load',function(){
     });
   }
 
-  Object.keys(VISITED).forEach(function(name){
-    var c=VISITED[name];
-    var marker=L.marker([c.lat,c.lng],{icon:makePinIcon(c.home)});
-    marker.bindTooltip('<strong>'+name+'</strong><br><span style="font-size:10px;opacity:.8">'+c.cities.join(', ')+'</span>',{
-      direction:'top',offset:[0,-8],
-      className:'lf-country-tooltip',
-    });
+  var currentLang='en';
+  // Sync with page lang
+  if(window.lang)currentLang=window.lang;
+
+  Object.keys(VISITED).forEach(function(key){
+    var c=VISITED[key];
+    var displayName=currentLang==='tr'?(c.name_tr||key):(c.name_en||key);
+
+    var marker=L.marker([c.lat,c.lng],{icon:makePinIcon(c.home||c.special)});
+    marker.bindTooltip(
+      '<strong>'+(currentLang==='tr'?(c.name_tr||key):(c.name_en||key))+'</strong>'+
+      '<br><span style="font-size:10px;opacity:.8">'+c.cities.join(', ')+'</span>',
+      {direction:'top',offset:[0,-8],className:'lf-country-tooltip',permanent:false}
+    );
     marker.bindPopup(
-      '<div class="pop-name">'+name+'</div>'+
+      '<div class="pop-name">'+(currentLang==='tr'?(c.name_tr||key):(c.name_en||key))+'</div>'+
       '<div class="pop-cities">'+c.cities.join(' · ')+'</div>',
       {className:'lf-popup',maxWidth:240}
     );
