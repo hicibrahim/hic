@@ -74,9 +74,9 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
   top:0;bottom:0;left:0;right:0;
   display:flex;
   flex-direction:column;
-  pointer-events:none;
+  pointer-events:all;
 }
-.scroll-pane.active{pointer-events:all;}
+.scroll-pane2 .scroll-body{padding:0;overflow:hidden;}
 
 /* The two rollers (top + bottom) */
 .roller{
@@ -85,7 +85,6 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
   overflow:hidden;
   position:relative;
   z-index:2;
-  transition:height 1.1s cubic-bezier(.4,0,.2,1);
 }
 .roller-top{background:linear-gradient(to bottom,#8b6030,#c8a86a,#dfc080,#c8a86a,#8b6030);border-bottom:2px solid #6a4820;}
 .roller-bot{background:linear-gradient(to top,#8b6030,#c8a86a,#dfc080,#c8a86a,#8b6030);border-top:2px solid #6a4820;}
@@ -134,17 +133,15 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
   );
 }
 
-/* ══ SCROLL NAV — embedded in roller band ══ */
+/* ══ SCROLL NAV — inside roller-bot ══ */
 .scroll-nav{
-  height:44px;
-  background:var(--nav-bg);
-  border-top:.5px solid var(--border2);
+  height:36px;
+  background:rgba(20,12,4,.55);
   display:flex;
   align-items:center;
   justify-content:center;
   gap:2rem;
-  backdrop-filter:blur(12px);
-  flex-shrink:0;
+  width:100%;
 }
 .sn-btn{
   font-family:'Josefin Sans',sans-serif;
@@ -291,7 +288,6 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 
 /* ══ PANE 2: MAP ══ */
 /* ══ WORLDWIDE MAP — Leaflet ══ */
-.scroll-pane2 .scroll-body{padding:0;overflow:hidden;}
 #leaflet-map{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
 /* Custom popup */
 .lf-popup .leaflet-popup-content-wrapper{
@@ -512,7 +508,12 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 
         </div><!-- /parchment-inner -->
       </div><!-- /scroll-body -->
-      <div class="roller roller-bot" id="roller1-bot"></div>
+      <div class="roller roller-bot" id="roller1-bot">
+        <div class="scroll-nav">
+          <button class="sn-btn active" id="sn1" onclick="goPane(1)"><div class="sn-dot"></div> Experience</button>
+          <button class="sn-btn" id="sn2" onclick="goPane(2)"><div class="sn-dot"></div> Worldwide <span class="sn-arrow">→</span></button>
+        </div>
+      </div>
     </div><!-- /pane1 -->
 
     <!-- ══ PANE 2: Worldwide Experience — Leaflet Map ══ -->
@@ -522,14 +523,15 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
         <div id="leaflet-map"></div>
         <button class="pane-switch-back" onclick="goPane(1)"><i class="ti ti-arrow-left"></i> Back to Experience</button>
       </div>
-      <div class="roller roller-bot" id="roller2-bot"></div>
+      <div class="roller roller-bot" id="roller2-bot">
+        <div class="scroll-nav">
+          <button class="sn-btn" id="sn1b" onclick="goPane(1)"><div class="sn-dot"></div> Experience</button>
+          <button class="sn-btn active" id="sn2b" onclick="goPane(2)"><div class="sn-dot"></div> Worldwide <span class="sn-arrow">→</span></button>
+        </div>
+      </div>
     </div><!-- /pane2 -->
 
   </div><!-- /scroll-stage -->
-  <div class="scroll-nav">
-    <button class="sn-btn active" id="sn1" onclick="goPane(1)"><div class="sn-dot"></div> Experience</button>
-    <button class="sn-btn" id="sn2" onclick="goPane(2)"><div class="sn-dot"></div> Worldwide <span class="sn-arrow">→</span></button>
-  </div>
 
   <!-- Footer -->
   <div class="page-footer">
@@ -716,8 +718,13 @@ function closeScrollAnim(paneEl, topRoller, botRoller, cb){
 function goPane(n){
   if(animating||n===currentPane)return;
   animating=true;
-  document.getElementById('sn1').classList.toggle('active',n===1);
-  document.getElementById('sn2').classList.toggle('active',n===2);
+  // Update all nav buttons
+  ['sn1','sn2','sn1b','sn2b'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el)return;
+    var isExp=(id==='sn1'||id==='sn1b');
+    el.classList.toggle('active', n===1?isExp:!isExp);
+  });
 
   if(currentPane===0){
     currentPane=n;
