@@ -37,7 +37,7 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .logo-hic{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold);letter-spacing:.08em}
 .logo-line{width:100%;height:1px;background:var(--gold);opacity:.35}
 .nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink2);text-decoration:none;transition:color .2s}
+.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.06em;color:var(--ink2);text-decoration:none;transition:color .2s;text-transform:none;}
 .nav-links a:hover,.nav-links a.on{color:var(--gold)}
 .nav-right{display:flex;align-items:center;gap:.75rem}
 .nav-dt{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);white-space:nowrap;letter-spacing:.04em}
@@ -208,8 +208,8 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .pillar:hover .pillar-icon{animation:pillar-bounce .35s ease;color:var(--gold2);}
 @keyframes pillar-bounce{0%{transform:translateY(0)}35%{transform:translateY(-5px)}65%{transform:translateY(-2px)}100%{transform:translateY(0)}}
 .pillar-icon{font-size:20px;color:var(--gold);display:block;margin-bottom:.3rem;transition:color .2s}
-.pillar-name{font-family:'Caveat',cursive;font-size:10px;font-weight:600;letter-spacing:.02em;color:var(--ink);line-height:1.3;}
-.pillar-sub{font-family:'Caveat',cursive;font-size:10px;color:var(--muted);margin-top:2px;font-weight:400;}
+.pillar-name{font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--ink);line-height:1.3;}
+.pillar-sub{font-family:'Nunito',sans-serif;font-size:12px;color:var(--muted);margin-top:2px;font-weight:400;}
 
 /* ── Timeline ── */
 .htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--border2);border-radius:1px}
@@ -292,7 +292,7 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 /* ══ PANE 2: MAP ══ */
 /* ══ WORLDWIDE MAP — Leaflet ══ */
 .scroll-pane2 .scroll-body{padding:0;overflow:hidden;}
-#leaflet-map{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+#leaflet-map{position:absolute;top:44px;bottom:44px;left:0;right:0;width:100%;z-index:1;}
 /* Custom popup */
 .lf-popup .leaflet-popup-content-wrapper{
   background:rgba(20,16,10,.92);
@@ -330,10 +330,10 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .pane-switch:hover{background:rgba(184,137,42,.28);border-color:var(--gold);}
 .pane-switch i{font-size:12px;}
 .pane-switch-back{
-  position:absolute;right:1.5rem;bottom:1.5rem;z-index:10;
+  position:absolute;right:1.5rem;bottom:1.5rem;z-index:1000;
   font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  background:rgba(184,137,42,.15);border:1px solid rgba(184,137,42,.5);
-  color:var(--gold);padding:.4rem 1rem;border-radius:20px;cursor:pointer;
+  background:rgba(20,16,10,.82);border:1px solid rgba(184,137,42,.6);
+  color:var(--gold);padding:.45rem 1.1rem;border-radius:20px;cursor:pointer;
   transition:all .22s;backdrop-filter:blur(8px);
   display:flex;align-items:center;gap:.4rem;
 }
@@ -433,15 +433,15 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
               <div class="htl-n" onclick="expSel(5);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2012</div><div class="htl-t">MA</div><div class="htl-o">ISTANBUL</div></div>
               <div class="htl-n" onclick="expSel(3);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2006</div><div class="htl-t">FOUNDER</div><div class="htl-o">PROJECTS &amp; NGOs</div></div>
               <div class="htl-n" onclick="expSel(2);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2015</div><div class="htl-t">ADVISOR</div><div class="htl-o">PARLIAMENT</div></div>
-              <div class="htl-n sel" onclick="expSel(0);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2016</div><div class="htl-t">JOURNALIST</div><div class="htl-o">AA</div></div>
               <div class="htl-n" onclick="expSel(4);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2016</div><div class="htl-t">GEORGETOWN</div><div class="htl-o">DC</div></div>
+              <div class="htl-n sel" onclick="expSel(0);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2016</div><div class="htl-t">JOURNALIST</div><div class="htl-o">AA</div></div>
               <div class="htl-n" onclick="expSel(1);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2018</div><div class="htl-t">CHIEF of STAFF</div><div class="htl-o">MINISTRY</div></div>
             </div>
           </div>
           <div class="exp-detail">
             <div class="ed-panel on" id="ed0"><div class="ed-yr">2016 — present · 10 years</div><div class="ed-title" data-tr="Gazeteci" data-en="Journalist">Journalist</div><div class="ed-org">Anadolu Agency</div><div class="ed-body" data-tr="ABD siyaseti, Ortadogu ve insan haklari alanlarinda habercilik." data-en="Reports on US politics, the Middle East and human rights for Anadolu Agency. Architected the AA Podcast concept and led AA Portre from inception to broadcast. Produced internationally resonant content including an exclusive interview with Rachel Corrie's family and award-winning documentaries. Shaped AA's digital media strategy, pioneering podcast and video production. Covered the US Congress and White House during his Washington DC posting.">Reports on US politics, the Middle East and human rights for Anadolu Agency. Architected the <a href="https://www.aa.com.tr/tr/podcast" target="_blank">AA Podcast</a> concept and led <a href="https://www.aa.com.tr/tr/podcast/aa-portre" target="_blank">AA Portre</a> from inception to broadcast. Produced internationally resonant content including an exclusive interview with Rachel Corrie's family and award-winning documentaries.</div><div><span class="ed-tag">AA Podcast</span><span class="ed-tag">US Politics</span><span class="ed-tag">Documentary</span><span class="ed-tag">Anadolu Talks</span></div></div>
             <div class="ed-panel" id="ed1"><div class="ed-yr">2018 — 2020 · 2 years</div><div class="ed-title" data-tr="Bakan Basdanismani" data-en="Minister's Chief of Staff">Minister's Chief of Staff</div><div class="ed-org" data-tr="Aile ve Sosyal Hizmetler Bakanligi" data-en="Ministry of Family and Social Services">Ministry of Family and Social Services</div><div class="ed-body" data-tr="Bakanlik düzeyinde stratejik iletisim." data-en="Led strategic communications and institutional coordination at ministerial level. Managed media relations, crisis communications and the ministry's public perception. Served as government spokesperson and drove policy communications across multiple platforms.">Led strategic communications and institutional coordination at ministerial level. Managed media relations, crisis communications and the ministry's public perception. Served as government spokesperson and drove policy communications across multiple platforms.</div><div><span class="ed-tag">Strategic Comms</span><span class="ed-tag">Media Relations</span><span class="ed-tag">Policy</span></div></div>
-            <div class="ed-panel" id="ed2"><div class="ed-yr">2015 · 1 year</div><div class="ed-title" data-tr="Parlamento Danismani" data-en="Parliamentary Advisor">Parliamentary Advisor</div><div class="ed-org" data-tr="Turkiye Buyuk Millet Meclisi" data-en="Grand National Assembly of Turkey">Grand National Assembly of Turkey</div><div class="ed-body" data-tr="TBMM'de yasama danismanligi." data-en="Provided advisory support on legislation and communications at the Grand National Assembly. Developed deep expertise in political communications, media strategy and the interface between public policy and press narrative.">Provided advisory support on legislation and communications at the Grand National Assembly. Developed deep expertise in political communications, media strategy and the interface between public policy and press narrative.</div><div><span class="ed-tag">Political Comms</span><span class="ed-tag">Legislation</span></div></div>
+            <div class="ed-panel" id="ed2"><div class="ed-yr">2015</div><div class="ed-title" data-tr="Parlamento Danismani" data-en="Parliamentary Advisor">Parliamentary Advisor</div><div class="ed-org" data-tr="Turkiye Buyuk Millet Meclisi" data-en="Grand National Assembly of Turkey">Grand National Assembly of Turkey</div><div class="ed-body" data-tr="TBMM'de yasama danismanligi." data-en="Provided advisory support on legislation and communications at the Grand National Assembly. Developed deep expertise in political communications, media strategy and the interface between public policy and press narrative.">Provided advisory support on legislation and communications at the Grand National Assembly. Developed deep expertise in political communications, media strategy and the interface between public policy and press narrative.</div><div><span class="ed-tag">Political Comms</span><span class="ed-tag">Legislation</span></div></div>
             <div class="ed-panel" id="ed3">
               <div class="ed-yr">2006 — present</div>
               <div class="ed-title">NGO Activities</div>
@@ -464,7 +464,35 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
                 </div>
               </div>
             </div>
-            <div class="ed-panel" id="ed4"><div style="display:flex;gap:1.2rem;align-items:flex-start;"><div style="flex:1;"><div class="ed-yr">2016 — 2018</div><div class="ed-title">Georgetown University</div><div class="ed-org">Academic Language &amp; Certificate Programme · Washington DC</div><div class="ed-body" data-tr="Georgetown akademik dil ve sertifika programi." data-en="Completed an academic language education and certificate programme at Georgetown University — one of America's most prestigious institutions in Washington DC. Co-organised the Georgetown Cryptocurrency &amp; Fiqh Symposium with Prof. James J. Angel and Joe Bradford, coordinating symposia, conferences and events with international participants. Active member of Georgetown Muslim Students' Association (2017–2019).">Completed an academic language education and certificate programme at Georgetown University — one of America's most prestigious institutions in Washington DC. Co-organised the Georgetown Cryptocurrency &amp; Fiqh Symposium with Prof. James J. Angel and Joe Bradford, coordinating <strong style="color:var(--ink);">symposia, conferences and international events</strong>. Active member of Georgetown Muslim Students' Association (2017–2019).</div><div style="margin-top:.4rem;"><span class="ed-tag">Georgetown</span><span class="ed-tag">Crypto &amp; Fiqh</span><span class="ed-tag">Organiser</span><span class="ed-tag">Washington DC</span></div></div><div style="flex-shrink:0;width:150px;border-left:.5px solid var(--border2);padding-left:1rem;"><div style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;">Languages</div><div style="display:flex;flex-direction:column;gap:.7rem;"><div><div style="display:flex;justify-content:space-between;margin-bottom:.25rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:600;color:var(--ink);">Turkish</span><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Native</span></div><div style="height:3px;background:var(--border2);border-radius:2px;"><div style="height:100%;width:100%;background:var(--gold);border-radius:2px;"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:.25rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:600;color:var(--ink);">English</span><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Advanced</span></div><div style="height:3px;background:var(--border2);border-radius:2px;"><div style="height:100%;width:85%;background:var(--gold);border-radius:2px;"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:.25rem;"><span style="font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:600;color:var(--ink);">Arabic</span><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Intermediate</span></div><div style="height:3px;background:var(--border2);border-radius:2px;"><div style="height:100%;width:55%;background:var(--gold);border-radius:2px;"></div></div></div></div></div></div></div>
+            <div class="ed-panel" id="ed4"><div style="display:flex;gap:1.2rem;align-items:flex-start;"><div style="flex:1;"><div class="ed-yr">2016 — 2018</div><div class="ed-title">Georgetown University</div><div class="ed-org">Academic Language &amp; Certificate Programme · Washington DC</div><div class="ed-body" data-tr="Georgetown akademik dil ve sertifika programi." data-en="Completed an academic language education and certificate programme at Georgetown University — one of America's most prestigious institutions in Washington DC. Co-organised the Georgetown Cryptocurrency &amp; Fiqh Symposium with Prof. James J. Angel and Joe Bradford, coordinating symposia, conferences and events with international participants. Active member of Georgetown Muslim Students' Association (2017–2019).">Completed an academic language education and certificate programme at Georgetown University — one of America's most prestigious institutions in Washington DC. Co-organised the Georgetown Cryptocurrency &amp; Fiqh Symposium with Prof. James J. Angel and Joe Bradford, coordinating <strong style="color:var(--ink);">symposia, conferences and international events</strong>. Active member of Georgetown Muslim Students' Association (2017–2019).</div><div style="margin-top:.4rem;"><span class="ed-tag">Georgetown</span><span class="ed-tag">Crypto &amp; Fiqh</span><span class="ed-tag">Organiser</span><span class="ed-tag">Washington DC</span></div></div><div style="flex-shrink:0;width:160px;border-left:.5px solid var(--border2);padding-left:1rem;display:flex;flex-direction:column;justify-content:space-around;">
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;">Languages</div>
+  <div style="display:flex;flex-direction:column;gap:.6rem;">
+    <!-- Turkish 100% -->
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <svg width="36" height="36" viewBox="0 0 36 36" style="flex-shrink:0;transform:rotate(-90deg)">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="var(--border2)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15" fill="none" stroke="#b8892a" stroke-width="3" stroke-dasharray="94.2 94.2" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div><div style="font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Turkish</div><div style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Native · 100%</div></div>
+    </div>
+    <!-- English 85% -->
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <svg width="36" height="36" viewBox="0 0 36 36" style="flex-shrink:0;transform:rotate(-90deg)">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="var(--border2)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15" fill="none" stroke="#b8892a" stroke-width="3" stroke-dasharray="80.1 94.2" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div><div style="font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">English</div><div style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Advanced · 85%</div></div>
+    </div>
+    <!-- Arabic 55% -->
+    <div style="display:flex;align-items:center;gap:.7rem;">
+      <svg width="36" height="36" viewBox="0 0 36 36" style="flex-shrink:0;transform:rotate(-90deg)">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="var(--border2)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15" fill="none" stroke="#b8892a" stroke-width="3" stroke-dasharray="51.8 94.2" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div><div style="font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);">Arabic</div><div style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);">Intermediate · 55%</div></div>
+    </div>
+  </div>
+</div></div></div>
             <div class="ed-panel" id="ed5"><div class="ed-yr">2012 — 2015</div><div class="ed-title" data-tr="Yüksek Lisans · Islam Hukuku & Finans" data-en="MA · Islamic Law & Finance">MA · Islamic Law &amp; Finance</div><div class="ed-org" data-tr="Istanbul Üniversitesi" data-en="Istanbul University">Istanbul University</div><div class="ed-body">Thesis: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"An Investigation on the Economical Life of the Holy Prophet"</a> — Specialised at the intersection of Islamic law, jurisprudence and modern finance structures.</div><div><span class="ed-tag">Islamic Finance</span><span class="ed-tag">Fiqh</span><span class="ed-tag">Research</span></div></div>
             <div class="ed-panel" id="ed6"><div class="ed-yr">2006 — 2010</div><div class="ed-title">BA · Economics</div><div class="ed-org">Uludag University, Bursa</div><div class="ed-body">Thesis: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Economic Analysis of Participation Banks"</a> — Founded and led the International Students Association (2006–2010). This is where his interest in Islamic economics took root, leading to later graduate work in Islamic law and finance.</div><div><span class="ed-tag">Economics</span><span class="ed-tag">Participation Banking</span><span class="ed-tag">Student Leadership</span></div></div>
           </div>
@@ -491,7 +519,7 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
     <div class="scroll-pane scroll-pane2" id="pane2" style="display:none;">
       <div class="roller roller-top" id="roller2-top"></div>
       <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;padding:0;">
-        <div id="leaflet-map"></div>
+        <div id="leaflet-map" style="position:absolute;top:44px;bottom:44px;left:0;right:0;"></div>
         <button class="pane-switch-back" onclick="goPane(1)"><i class="ti ti-arrow-left"></i> Back to Experience</button>
       </div>
       <div class="roller roller-bot" id="roller2-bot"></div>
@@ -764,12 +792,12 @@ window.addEventListener('load',function(){
   };
 
   var map=L.map('leaflet-map',{
-    center:[30,15],
-    zoom:2,
+    center:[25,20],
+    zoom:3,
     minZoom:2,
-    maxZoom:6,
+    maxZoom:8,
     zoomControl:true,
-    attributionControl:true,
+    attributionControl:false,
     scrollWheelZoom:true,
   });
 
