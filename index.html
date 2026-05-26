@@ -1352,7 +1352,8 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 /* Podcast page cursor */
 #page-podcast{cursor:none;}
 #page-podcast *{cursor:none !important;}
-nav a, nav .logo-hic, nav .logo{cursor:pointer !important;}
+#page-podcast .ep-item,#page-podcast .ep-item *,#page-podcast .ep-play-btn,#page-podcast .ep-play-btn *,#page-podcast .a-bar,#page-podcast .a-close{cursor:default !important;}
+nav a, nav .logo-hic, nav .logo{cursor:none !important;}
 
 /* Vodcast thumbnail %20 bigger */
 #page-vodcast .vid-card .vid-thumb{aspect-ratio:16/9;padding-bottom:0;height:auto;position:relative;overflow:hidden;}
@@ -3141,12 +3142,20 @@ function initPodCursor(){
 }
 function movePodCursor(e){
   if(!podCursorEl||!podCursorEl._active)return;
+  // Hide cursor on episode items and play buttons
+  var el=e.target;
+  var onEp=el.closest('.ep-item')||el.closest('.ep-play-btn')||el.closest('.a-bar')||el.closest('.a-close');
+  if(onEp){
+    podCursorEl.style.display='none';
+    document.body.style.cursor='default';
+    return;
+  }
+  document.body.style.cursor='none';
+  document.documentElement.style.cursor='none';
   podCursorEl.style.left=e.clientX+'px';
   podCursorEl.style.top=e.clientY+'px';
-  if(podCursorEl.style.display==='none'||podCursorEl.style.opacity==='0'){
-    podCursorEl.style.display='block';
-    podCursorEl.style.opacity='1';
-  }
+  podCursorEl.style.display='block';
+  podCursorEl.style.opacity='1';
 }
 function pressPodCursor(){if(podCursorEl&&podCursorEl._active)podCursorEl.style.fontSize='42px';}
 function releasePodCursor(){if(podCursorEl&&podCursorEl._active)podCursorEl.style.fontSize='28px';}

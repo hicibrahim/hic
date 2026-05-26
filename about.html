@@ -34,7 +34,7 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--in
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border2);z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;transition:background .3s}
 .logo{text-decoration:none;display:flex;flex-direction:column;gap:1px}
-.logo-hic{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold);letter-spacing:.08em}
+.logo-hic{font-family:'Playfair Display',serif;font-size:31px;font-weight:600;color:var(--gold);letter-spacing:.08em}
 .logo-line{width:100%;height:1px;background:var(--gold);opacity:.35}
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.06em;color:var(--ink2);text-decoration:none;transition:color .2s;text-transform:none;}
@@ -134,9 +134,8 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
   );
 }
 
-/* ══ SCROLL NAV (bottom bar) ══ */
+/* ══ SCROLL NAV — embedded in roller band ══ */
 .scroll-nav{
-  flex-shrink:0;
   height:44px;
   background:var(--nav-bg);
   border-top:.5px solid var(--border2);
@@ -145,6 +144,7 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
   justify-content:center;
   gap:2rem;
   backdrop-filter:blur(12px);
+  flex-shrink:0;
 }
 .sn-btn{
   font-family:'Josefin Sans',sans-serif;
@@ -238,9 +238,9 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 }
 .htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;top:-1.35rem}
 .htl-n:hover .htl-dot{border-color:var(--gold)}
-.htl-yr{font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:var(--gold);margin-top:.06rem;}
-.htl-t{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.01em;text-transform:uppercase;}
-.htl-o{font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;color:var(--muted);text-align:center;text-transform:uppercase;}
+.htl-yr{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:600;color:var(--gold);margin-top:.06rem;font-style:normal;}
+.htl-t{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:16px;font-weight:600;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.04em;text-transform:uppercase;}
+.htl-o{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:500;color:var(--muted);text-align:center;text-transform:uppercase;}
 
 /* Detail panel styles continued */
 [data-theme="dark"] .exp-detail{background:rgba(0,0,0,.18);}
@@ -292,7 +292,7 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 /* ══ PANE 2: MAP ══ */
 /* ══ WORLDWIDE MAP — Leaflet ══ */
 .scroll-pane2 .scroll-body{padding:0;overflow:hidden;}
-#leaflet-map{position:absolute;top:44px;bottom:44px;left:0;right:0;width:100%;z-index:1;}
+#leaflet-map{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
 /* Custom popup */
 .lf-popup .leaflet-popup-content-wrapper{
   background:rgba(20,16,10,.92);
@@ -519,15 +519,13 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
     <div class="scroll-pane scroll-pane2" id="pane2" style="display:none;">
       <div class="roller roller-top" id="roller2-top"></div>
       <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;padding:0;">
-        <div id="leaflet-map" style="position:absolute;top:44px;bottom:44px;left:0;right:0;"></div>
+        <div id="leaflet-map"></div>
         <button class="pane-switch-back" onclick="goPane(1)"><i class="ti ti-arrow-left"></i> Back to Experience</button>
       </div>
       <div class="roller roller-bot" id="roller2-bot"></div>
     </div><!-- /pane2 -->
 
   </div><!-- /scroll-stage -->
-
-  <!-- Scroll nav -->
   <div class="scroll-nav">
     <button class="sn-btn active" id="sn1" onclick="goPane(1)"><div class="sn-dot"></div> Experience</button>
     <button class="sn-btn" id="sn2" onclick="goPane(2)"><div class="sn-dot"></div> Worldwide <span class="sn-arrow">→</span></button>
@@ -676,50 +674,52 @@ function expStop(){expCycling=false;clearTimeout(expTimer);}
 })();
 
 /* ── SCROLL / RULO ANIMATION ── */
-var ROLLER_H=36; // px height of each roller when open
-var currentPane=0; // 0 = not opened yet
+var ROLLER_H=36;
+var currentPane=0;
 var animating=false;
 
 function openScrollAnim(paneEl, topRoller, botRoller, cb){
   var stageH=document.getElementById('scroll-stage').clientHeight;
   var half=Math.floor(stageH/2);
+  // Start: both rollers meet at center
+  topRoller.style.transition='none';
+  botRoller.style.transition='none';
   topRoller.style.height=half+'px';
   botRoller.style.height=(stageH-half)+'px';
   paneEl.style.display='flex';
-  paneEl.style.opacity='1';
-  topRoller.offsetHeight;
+  topRoller.offsetHeight; // reflow
+  // Animate open simultaneously
+  topRoller.style.transition='height .75s cubic-bezier(.4,0,.2,1)';
+  botRoller.style.transition='height .75s cubic-bezier(.4,0,.2,1)';
+  topRoller.style.height=ROLLER_H+'px';
+  botRoller.style.height=ROLLER_H+'px';
   setTimeout(function(){
-    topRoller.style.height=ROLLER_H+'px';
-    botRoller.style.height=ROLLER_H+'px';
-    setTimeout(function(){
-      if(cb)cb();
-      animating=false;
-      // Leaflet needs size invalidation after becoming visible
-      if(window._leafletMap)setTimeout(function(){window._leafletMap.invalidateSize();},50);
-    },1150);
-  },40);
+    if(cb)cb();
+    animating=false;
+    if(window._leafletMap)setTimeout(function(){window._leafletMap.invalidateSize();},50);
+  },780);
 }
 
 function closeScrollAnim(paneEl, topRoller, botRoller, cb){
   var stageH=document.getElementById('scroll-stage').clientHeight;
   var half=Math.floor(stageH/2);
+  topRoller.style.transition='height .6s cubic-bezier(.4,0,.2,1)';
+  botRoller.style.transition='height .6s cubic-bezier(.4,0,.2,1)';
   topRoller.style.height=half+'px';
   botRoller.style.height=(stageH-half)+'px';
   setTimeout(function(){
     paneEl.style.display='none';
     if(cb)cb();
-  },1150);
+  },620);
 }
 
 function goPane(n){
   if(animating||n===currentPane)return;
   animating=true;
-  // Update nav
   document.getElementById('sn1').classList.toggle('active',n===1);
   document.getElementById('sn2').classList.toggle('active',n===2);
 
   if(currentPane===0){
-    // First open
     currentPane=n;
     var p=document.getElementById('pane'+n);
     var tr=document.getElementById('roller'+n+'-top');
@@ -729,7 +729,6 @@ function goPane(n){
     return;
   }
 
-  // Switch: close current, open next
   var fromN=currentPane;
   currentPane=n;
   var fromPane=document.getElementById('pane'+fromN);
@@ -744,12 +743,10 @@ function goPane(n){
   });
 }
 
-// Open: first show pane2 (worldwide rulo effect), then switch to pane1
+
+// Open pane1 on load with smooth center animation
 window.addEventListener('load',function(){
-  setTimeout(function(){
-    goPane(2);
-    setTimeout(function(){goPane(1);},1600);
-  },200);
+  setTimeout(function(){goPane(1);},150);
 });
 
 /* ── WORLDWIDE MAP — Leaflet ── */
@@ -792,8 +789,8 @@ window.addEventListener('load',function(){
   };
 
   var map=L.map('leaflet-map',{
-    center:[25,20],
-    zoom:3,
+    center:[15,40],
+    zoom:2,
     minZoom:2,
     maxZoom:8,
     zoomControl:true,
