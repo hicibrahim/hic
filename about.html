@@ -6,7 +6,7 @@
 <title>Halil İbrahim Ciğer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Josefin+Sans:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Josefin+Sans:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@300;400;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -206,8 +206,8 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .pillar:hover .pillar-icon{animation:pillar-bounce .35s ease;color:var(--gold2);}
 @keyframes pillar-bounce{0%{transform:translateY(0)}35%{transform:translateY(-5px)}65%{transform:translateY(-2px)}100%{transform:translateY(0)}}
 .pillar-icon{font-size:20px;color:var(--gold);display:block;margin-bottom:.3rem;transition:color .2s}
-.pillar-name{font-family:'Josefin Sans',sans-serif;font-size:7px;font-weight:700;letter-spacing:.08em;color:var(--ink);line-height:1.3;text-transform:uppercase;}
-.pillar-sub{font-family:'Josefin Sans',sans-serif;font-size:7px;color:var(--muted);margin-top:2px;font-weight:300;}
+.pillar-name{font-family:'Caveat',cursive;font-size:10px;font-weight:600;letter-spacing:.02em;color:var(--ink);line-height:1.3;}
+.pillar-sub{font-family:'Caveat',cursive;font-size:10px;color:var(--muted);margin-top:2px;font-weight:400;}
 
 /* ── Timeline ── */
 .htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--border2);border-radius:1px}
@@ -236,9 +236,9 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 }
 .htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;top:-1.35rem}
 .htl-n:hover .htl-dot{border-color:var(--gold)}
-.htl-yr{font-family:'Josefin Sans',sans-serif;font-size:15px;font-weight:700;color:var(--gold);margin-top:.06rem;text-transform:uppercase;}
-.htl-t{font-family:'Josefin Sans',sans-serif;font-size:16px;font-weight:700;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.04em;text-transform:uppercase;}
-.htl-o{font-family:'Josefin Sans',sans-serif;font-size:15px;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;}
+.htl-yr{font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:var(--gold);margin-top:.06rem;}
+.htl-t{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.01em;text-transform:uppercase;}
+.htl-o{font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;color:var(--muted);text-align:center;text-transform:uppercase;}
 
 /* Detail panel styles continued */
 [data-theme="dark"] .exp-detail{background:rgba(0,0,0,.18);}
@@ -288,32 +288,39 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
 .aw-year{font-size:11px;color:var(--gold);margin-top:3px;font-family:'Josefin Sans',sans-serif;}
 
 /* ══ PANE 2: MAP ══ */
-/* ══ 3D MAP ══ */
-.scroll-pane2 .scroll-body{background:#b8d4e8;overflow:hidden;}
-#map3d-wrap{
-  position:absolute;inset:0;
-  perspective:900px;
-  display:flex;align-items:center;justify-content:center;
-}
-#map-canvas{
-  display:block;
-  transform-origin:center center;
-  transform:rotateX(22deg) scale(1.05);
-  box-shadow:0 40px 80px rgba(0,0,0,.45),0 8px 20px rgba(0,0,0,.3);
-  border-radius:4px;
-}
-.map-dot-tip{
-  position:absolute;
-  background:rgba(15,25,45,.92);
-  border:1px solid rgba(255,200,80,.5);
-  color:#f0e8cc;
-  padding:8px 14px;border-radius:5px;
-  font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.07em;
-  pointer-events:none;opacity:0;transition:opacity .18s;z-index:30;
-  white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.4);
-}
-.map-dot-tip .tip-name{font-size:13px;font-weight:600;color:#ffd060;margin-bottom:3px;letter-spacing:.1em;text-transform:uppercase;}
-.map-dot-tip .tip-cities{font-size:11px;color:#c8c090;line-height:1.7;}
+/* ══ WORLDWIDE MAP ══ */
+:root{--wmap-bg:#f0f4f8;}
+[data-theme="dark"]{--wmap-bg:#0e141c;}
+.scroll-pane2 .scroll-body{background:var(--wmap-bg);}
+#wmap-container{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:2rem 1rem 3rem;}
+#wmap-svg{width:100%;height:100%;max-height:calc(100% - 1rem);}
+/* SVG land */
+#wmap-svg .land{fill:#c8d4c0;stroke:#a8b8a0;stroke-width:.4;transition:fill .2s;}
+[data-theme="dark"] #wmap-svg .land{fill:#2a3828;stroke:#3a5035;}
+#wmap-svg .visited{fill:#3a6b4a;cursor:pointer;}
+[data-theme="dark"] #wmap-svg .visited{fill:#4a8a5a;}
+#wmap-svg .visited:hover,.visited.hov{fill:#5aaa70!important;}
+#wmap-svg .home-country{fill:#1a4a6a;}
+[data-theme="dark"] #wmap-svg .home-country{fill:#2a6a9a;}
+/* Ping dot */
+.wmap-ping{position:absolute;pointer-events:none;transform:translate(-50%,-50%);}
+.ping-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:1.5px solid var(--gold);opacity:0;animation:pingA 2s ease-out infinite;}
+.ping-ring2{animation-delay:.7s;}
+.ping-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:var(--gold);border:1.5px solid #fff;box-shadow:0 0 6px rgba(184,137,42,.6);}
+.home-ping .ping-dot{background:#e05030;border-color:#fff;box-shadow:0 0 8px rgba(224,80,48,.7);}
+.home-ping .ping-ring{border-color:#e05030;}
+@keyframes pingA{0%{transform:translate(-50%,-50%) scale(.3);opacity:.9}100%{transform:translate(-50%,-50%) scale(2.2);opacity:0}}
+/* Country label */
+.wmap-label{position:absolute;transform:translate(-50%,-100%);margin-top:-14px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:var(--ink);background:rgba(255,255,255,.88);backdrop-filter:blur(4px);padding:2px 7px;border-radius:10px;border:.5px solid var(--border2);pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .18s;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+[data-theme="dark"] .wmap-label{background:rgba(20,28,20,.9);color:var(--ink);}
+.wmap-label.vis{opacity:1;}
+/* Tooltip */
+#wmap-tooltip{position:absolute;background:rgba(15,25,15,.92);border:1px solid rgba(90,170,112,.5);color:#e8f0e0;padding:8px 14px;border-radius:6px;font-family:'Josefin Sans',sans-serif;font-size:11px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.35);}
+[data-theme="dark"] #wmap-tooltip{background:rgba(5,18,5,.94);}
+#wmap-tip-country{font-size:13px;font-weight:700;color:#7add96;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+#wmap-tip-cities{font-size:11px;color:#a8c8a0;line-height:1.7;}
+/* Title */
+#wmap-title{position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
 
 /* ══ TRANSITION BUTTON ══ */
 .pane-switch{
@@ -446,17 +453,17 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
               <div class="ed-org" style="margin-bottom:1rem;">Civil Society Memberships</div>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
                 <div>
-                  <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank"><strong>Founder of the</strong> Sinan &amp; Wren Foundation ↗</a>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong>Founder of the</strong> <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:inline;">Sinan &amp; Wren Foundation ↗</a></div>
                   <div style="font-size:13px;color:var(--ink2);line-height:1.75;">International civil society platform for intercultural dialogue across three continents.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag">Founder</span><span class="ed-tag">2013–2016</span></div>
                 </div>
                 <div>
-                  <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank"><strong>Founder of the</strong> International Students Association ↗</a>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong>Founder of the</strong> <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank" style="display:inline;">International Students Association ↗</a></div>
                   <div style="font-size:13px;color:var(--ink2);line-height:1.75;">Founded and led at Uludağ University, fostering cross-cultural exchange in Bursa.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag">Founder</span><span class="ed-tag">2006–2010</span></div>
                 </div>
                 <div>
-                  <a class="ngo-title-link" href="https://uvdvuslat.com/" target="_blank"><strong>Board Member of the</strong> Uluslararası Vuslat Platformu ↗</a>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong>Board Member of the</strong> <a class="ngo-title-link" href="https://uvdvuslat.com/" target="_blank" style="display:inline;">Uluslararası Vuslat Platformu ↗</a></div>
                   <div style="font-size:13px;color:var(--ink2);line-height:1.75;">Board Member of a platform for civilisational renewal through knowledge and ethics.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag">Board Member</span><span class="ed-tag">2013–pres.</span></div>
                 </div>
@@ -485,17 +492,18 @@ nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);bac
       <div class="roller roller-bot" id="roller1-bot"></div>
     </div><!-- /pane1 -->
 
-    <!-- ══ PANE 2: World Map 3D ══ -->
+    <!-- ══ PANE 2: Worldwide Experience ══ -->
     <div class="scroll-pane scroll-pane2" id="pane2" style="display:none;">
       <div class="roller roller-top" id="roller2-top"></div>
-      <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;background:#b8d4e8;">
-        <div id="map3d-wrap">
-          <canvas id="map-canvas"></canvas>
+      <div class="scroll-body" id="body2" style="position:relative;overflow:hidden;background:var(--wmap-bg);">
+        <div id="wmap-container">
+          <svg id="wmap-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
+          <div id="wmap-tooltip">
+            <div id="wmap-tip-country"></div>
+            <div id="wmap-tip-cities"></div>
+          </div>
         </div>
-        <div class="map-dot-tip" id="map-tip">
-          <div class="tip-name" id="tip-name"></div>
-          <div class="tip-cities" id="tip-cities"></div>
-        </div>
+        <div id="wmap-title">WORLDWIDE EXPERIENCE</div>
         <button class="pane-switch-back" onclick="goPane(1)"><i class="ti ti-arrow-left"></i> Back to Experience</button>
       </div>
       <div class="roller roller-bot" id="roller2-bot"></div>
@@ -718,290 +726,239 @@ function goPane(n){
   });
 }
 
-// Open pane 1 on load
+// Open: first show pane2 (worldwide rulo effect), then switch to pane1
 window.addEventListener('load',function(){
-  setTimeout(function(){goPane(1);},200);
+  setTimeout(function(){
+    goPane(2);
+    setTimeout(function(){goPane(1);},1600);
+  },200);
 });
 
-/* ── 3D MAP (Pane 2) ── */
+/* ── WORLDWIDE MAP (SVG, minimal) ── */
 (function(){
-  var cv=document.getElementById('map-canvas');
-  if(!cv)return;
-  var ctx=cv.getContext('2d');
-  var tip=document.getElementById('map-tip');
-  var tipName=document.getElementById('tip-name');
-  var tipCities=document.getElementById('tip-cities');
+  var svg=document.getElementById('wmap-svg');
+  if(!svg)return;
+  var tip=document.getElementById('wmap-tooltip');
+  var tipC=document.getElementById('wmap-tip-country');
+  var tipCi=document.getElementById('wmap-tip-cities');
+  var wrap=document.getElementById('wmap-container');
 
-  // Image natural size: 1408 x 768
-  var IMG_W=1408,IMG_H=768;
-
-  // Countries with pixel coords (center of each country on the 1408x768 image)
-  // Derived from map.png visual analysis
-  var COUNTRIES=[
-    {n:'Turkey',     px:980,  py:320, cities:['Istanbul','Bursa','Ankara','Gaziantep'], color:'#e05030', home:true, scale:1.5},
-    {n:'USA',        px:230,  py:290, cities:['Washington DC','New York','Los Angeles'], color:'#2060a0', scale:1.5},
-    {n:'Denmark',    px:657,  py:175, cities:['Copenhagen'],                             color:'#e06820', scale:1.5},
-    {n:'Netherlands',px:626,  py:232, cities:['Amsterdam','The Hague'],                  color:'#20a0a0', scale:1.5},
-    {n:'Belgium',    px:622,  py:258, cities:['Brussels'],                               color:'#a030c0', scale:1.5},
-    {n:'Luxembourg', px:638,  py:264, cities:['Luxembourg City'],                        color:'#c08020', scale:1.5},
-    {n:'Switzerland',px:648,  py:290, cities:['Bern','Zürich'],                          color:'#206080', scale:1.5},
-    {n:'France',     px:612,  py:290, cities:['Paris','Strasbourg'],                     color:'#e0a020', scale:1.5},
-    {n:'Spain',      px:575,  py:318, cities:['Madrid','Barcelona'],                     color:'#c05020', scale:1.5},
-    {n:'Germany',    px:664,  py:258, cities:['Berlin','Munich'],                        color:'#308030', scale:1.5},
-    {n:'Austria',    px:678,  py:278, cities:['Vienna'],                                 color:'#a04040', scale:1.5},
-    {n:'Slovenia',   px:678,  py:290, cities:['Ljubljana'],                              color:'#50a050', scale:1.5},
-    {n:'Italy',      px:685,  py:310, cities:['Rome','Milan'],                           color:'#d04060', scale:1.5},
-    {n:'Hungary',    px:700,  py:278, cities:['Budapest'],                               color:'#6060c0', scale:1.5},
-    {n:'Serbia',     px:708,  py:292, cities:['Belgrade'],                               color:'#c06040', scale:1.5},
-    {n:'Romania',    px:732,  py:278, cities:['Bucharest'],                              color:'#40a080', scale:1.5},
-    {n:'Bulgaria',   px:740,  py:302, cities:['Sofia'],                                  color:'#8050a0', scale:1.5},
-    {n:'Greece',     px:728,  py:322, cities:['Athens','Thessaloniki'],                  color:'#2080c0', scale:1.5},
-    {n:'Syria',      px:990,  py:332, cities:['Damascus','Aleppo'],                      color:'#c08030', scale:1.5},
-    {n:'Saudi Arabia',px:980, py:392, cities:['Riyadh','Mecca','Medina'],               color:'#607030', scale:1.5},
-  ];
-
-  var bgImg=new Image();
-  bgImg.src='map.png';
-
-  var W=IMG_W,H=IMG_H;
-  var hov=null,frame=0,pulse=0;
-
-  // Scale factors: visited countries 1.5x, rest 0.6x visually
-  // We achieve this by drawing the image and then overlaying colored fills
-  // with CSS perspective 3D on the canvas wrapper
-
-  // Bounding boxes (px on 1408x768) for each country fill region
-  // These are approximate rectangles/polygons for the colored overlay
-  var FILLS={
-    'Turkey':    {cx:980, cy:318, rx:75, ry:22},
-    'USA':       {cx:235, cy:285, rx:115,ry:60},
-    'Denmark':   {cx:657, cy:178, rx:18, ry:15},
-    'Netherlands':{cx:620,cy:234, rx:12, ry:10},
-    'Belgium':   {cx:620, cy:256, rx:10, ry:8},
-    'Luxembourg':{cx:636, cy:263, rx:5,  ry:5},
-    'Switzerland':{cx:648,cy:288, rx:12, ry:8},
-    'France':    {cx:606, cy:290, rx:28, ry:25},
-    'Spain':     {cx:574, cy:318, rx:35, ry:22},
-    'Germany':   {cx:665, cy:258, rx:22, ry:22},
-    'Austria':   {cx:678, cy:277, rx:18, ry:8},
-    'Slovenia':  {cx:678, cy:289, rx:7,  ry:5},
-    'Italy':     {cx:688, cy:308, rx:12, ry:22},
-    'Hungary':   {cx:700, cy:276, rx:15, ry:10},
-    'Serbia':    {cx:708, cy:292, rx:10, ry:12},
-    'Romania':   {cx:732, cy:277, rx:20, ry:14},
-    'Bulgaria':  {cx:740, cy:302, rx:18, ry:10},
-    'Greece':    {cx:730, cy:322, rx:14, ry:14},
-    'Syria':     {cx:992, cy:332, rx:20, ry:12},
-    'Saudi Arabia':{cx:978,cy:392, rx:50,ry:35},
+  // Visited countries data
+  var VISITED={
+    'Turkey':    {cities:['Istanbul','Bursa','Ankara','Gaziantep'], home:true},
+    'USA':       {cities:['Washington DC','New York']},
+    'Canada':    {cities:['Toronto','Ottawa']},
+    'France':    {cities:['Paris','Strasbourg']},
+    'Spain':     {cities:['Madrid','Barcelona']},
+    'Italy':     {cities:['Rome','Milan']},
+    'Germany':   {cities:['Berlin','Munich']},
+    'Netherlands':{cities:['Amsterdam','The Hague']},
+    'Belgium':   {cities:['Brussels']},
+    'Luxembourg':{cities:['Luxembourg City']},
+    'Switzerland':{cities:['Bern','Zürich']},
+    'Austria':   {cities:['Vienna']},
+    'Slovenia':  {cities:['Ljubljana']},
+    'Hungary':   {cities:['Budapest']},
+    'Serbia':    {cities:['Belgrade']},
+    'Romania':   {cities:['Bucharest']},
+    'Bulgaria':  {cities:['Sofia']},
+    'Greece':    {cities:['Athens','Thessaloniki']},
+    'Denmark':   {cities:['Copenhagen']},
+    'Syria':     {cities:['Damascus','Aleppo']},
+    'Saudi Arabia':{cities:['Riyadh','Mecca','Medina']},
   };
 
-  function drawEllipseGlow(cx,cy,rx,ry,color,glow,alpha){
-    ctx.save();
-    ctx.globalAlpha=alpha;
-    // Drop shadow for 3D raised effect
-    ctx.shadowColor=color;ctx.shadowBlur=glow;
-    ctx.shadowOffsetY=4;
-    ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
-    ctx.fillStyle=color;ctx.fill();
-    ctx.shadowBlur=0;ctx.shadowOffsetY=0;
-    ctx.restore();
-  }
+  // Country centroids in SVG viewBox 0 0 1000 500 (Mercator-ish)
+  // x = (lon+180)/360 * 1000, y ≈ (90-lat)/180 * 500 (simple equirectangular)
+  function ll(lon,lat){return{x:(lon+180)/360*1000, y:(90-lat)/180*500};}
+  var CENTS={
+    'Turkey':    ll(35,39),
+    'USA':       ll(-100,38),
+    'Canada':    ll(-96,60),
+    'France':    ll(2,46),
+    'Spain':     ll(-3.7,40),
+    'Italy':     ll(12.5,42),
+    'Germany':   ll(10,51),
+    'Netherlands':ll(5.3,52.4),
+    'Belgium':   ll(4.5,50.5),
+    'Luxembourg':ll(6.1,49.8),
+    'Switzerland':ll(8.2,46.8),
+    'Austria':   ll(14.5,47.5),
+    'Slovenia':  ll(14.9,46.1),
+    'Hungary':   ll(19,47),
+    'Serbia':    ll(21,44),
+    'Romania':   ll(25,46),
+    'Bulgaria':  ll(25.5,42.7),
+    'Greece':    ll(22,39.5),
+    'Denmark':   ll(10,56),
+    'Syria':     ll(38,35),
+    'Saudi Arabia':ll(45,24),
+  };
 
-  function drawGlowBorder(cx,cy,rx,ry,color,t){
-    // Orbiting glow — two bright spots travel around ellipse perimeter
-    for(var pass=0;pass<2;pass++){
-      var angle=(t+pass*Math.PI)%(Math.PI*2);
-      var gx=cx+rx*Math.cos(angle)*1.05;
-      var gy=cy+ry*Math.sin(angle)*1.05;
-      var gr=ctx.createRadialGradient(gx,gy,0,gx,gy,20);
-      gr.addColorStop(0,'rgba(255,255,255,.95)');
-      gr.addColorStop(0.3,'rgba(255,255,255,.5)');
-      gr.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.save();ctx.globalAlpha=1;
-      ctx.beginPath();ctx.arc(gx,gy,20,0,Math.PI*2);
-      ctx.fillStyle=gr;ctx.fill();
-      ctx.restore();
+  // Simplified world map paths (Natural Earth simplified) in equirectangular 1000x500
+  // Major country outlines — enough for clear recognition
+  var PATHS=[
+    // North America
+    {id:'Canada',   d:'M120,60 L180,50 L230,45 L260,55 L280,80 L260,95 L240,90 L200,100 L170,95 L140,80 Z'},
+    {id:'USA',      d:'M75,120 L80,115 L120,110 L160,112 L200,115 L240,118 L260,130 L255,155 L230,170 L200,175 L160,170 L130,165 L100,158 L75,148 Z'},
+    {id:'Mexico',   d:'M100,175 L160,172 L200,178 L195,195 L175,205 L150,210 L120,205 L100,195 Z'},
+    // Europe (individual countries rough polygons)
+    {id:'Iceland',  d:'M330,55 L345,50 L355,55 L350,65 L335,68 L328,62 Z'},
+    {id:'UK',       d:'M385,95 L392,88 L398,92 L398,105 L392,110 L386,106 Z'},
+    {id:'Ireland',  d:'M378,97 L384,93 L384,105 L378,107 Z'},
+    {id:'Norway',   d:'M420,55 L440,45 L455,50 L460,65 L450,75 L435,78 L420,72 Z'},
+    {id:'Sweden',   d:'M440,55 L455,50 L460,65 L462,85 L450,90 L440,80 L435,68 Z'},
+    {id:'Finland',  d:'M460,55 L478,48 L488,55 L490,70 L480,80 L462,80 L458,68 Z'},
+    {id:'Denmark',  d:'M430,88 L440,84 L444,88 L440,96 L432,95 Z', visited:true},
+    {id:'Netherlands',d:'M406,100 L415,97 L418,103 L413,108 L406,106 Z', visited:true},
+    {id:'Belgium',  d:'M406,106 L415,103 L417,110 L410,113 L405,110 Z', visited:true},
+    {id:'Luxembourg',d:'M414,108 L419,106 L420,112 L415,113 Z', visited:true},
+    {id:'France',   d:'M390,108 L406,106 L418,108 L420,125 L410,135 L395,132 L384,122 L385,110 Z', visited:true},
+    {id:'Spain',    d:'M360,125 L395,122 L398,142 L385,152 L360,148 L350,138 Z', visited:true},
+    {id:'Portugal', d:'M352,128 L360,125 L360,148 L352,148 Z'},
+    {id:'Germany',  d:'M418,96 L438,94 L442,100 L440,116 L428,120 L418,115 L415,105 Z', visited:true},
+    {id:'Switzerland',d:'M415,118 L428,115 L430,122 L420,126 L414,122 Z', visited:true},
+    {id:'Austria',  d:'M430,114 L448,112 L450,120 L438,124 L428,120 L430,116 Z', visited:true},
+    {id:'Slovenia', d:'M437,120 L444,118 L446,124 L440,126 L437,123 Z', visited:true},
+    {id:'Italy',    d:'M420,125 L432,120 L440,125 L442,140 L438,155 L430,158 L424,148 L420,138 Z', visited:true},
+    {id:'Hungary',  d:'M446,112 L462,112 L464,122 L452,126 L442,122 L444,115 Z', visited:true},
+    {id:'Poland',   d:'M438,92 L462,90 L468,100 L464,110 L446,112 L440,104 Z'},
+    {id:'Czech',    d:'M430,100 L445,98 L448,108 L436,110 L428,106 Z'},
+    {id:'Slovakia', d:'M446,104 L462,102 L464,110 L450,112 L447,107 Z'},
+    {id:'Serbia',   d:'M448,124 L460,122 L462,132 L452,136 L446,132 Z', visited:true},
+    {id:'Romania',  d:'M462,110 L482,110 L486,124 L474,132 L460,130 L460,118 Z', visited:true},
+    {id:'Bulgaria', d:'M460,130 L474,130 L476,140 L462,142 L458,136 Z', visited:true},
+    {id:'Greece',   d:'M448,136 L462,132 L464,148 L456,155 L446,150 L445,140 Z', visited:true},
+    {id:'Croatia',  d:'M436,122 L448,120 L450,128 L440,132 L434,128 Z'},
+    {id:'Bosnia',   d:'M440,128 L450,126 L452,134 L444,138 L438,134 Z'},
+    {id:'Albania',  d:'M446,138 L452,136 L454,145 L448,147 L444,143 Z'},
+    {id:'N.Macedonia',d:'M456,138 L464,136 L465,142 L457,144 Z'},
+    {id:'Ukraine',  d:'M464,98 L500,95 L505,112 L488,120 L466,116 L462,106 Z'},
+    {id:'Moldova',  d:'M484,112 L490,110 L492,118 L486,120 Z'},
+    {id:'Belarus',  d:'M462,82 L488,80 L492,92 L468,95 Z'},
+    {id:'Baltic',   d:'M456,74 L472,70 L475,82 L458,84 Z'},
+    // Russia (simplified)
+    {id:'Russia',   d:'M490,40 L700,30 L720,80 L680,100 L600,110 L520,100 L492,80 Z'},
+    // Middle East
+    {id:'Turkey',   d:'M490,130 L540,128 L548,142 L535,150 L505,152 L490,145 Z', visited:true},
+    {id:'Syria',    d:'M540,140 L560,138 L564,150 L550,155 L538,152 Z', visited:true},
+    {id:'Lebanon',  d:'M539,150 L544,148 L545,155 L539,156 Z'},
+    {id:'Israel',   d:'M533,150 L539,148 L540,158 L534,160 Z'},
+    {id:'Jordan',   d:'M538,152 L550,150 L552,165 L540,168 Z'},
+    {id:'Iraq',     d:'M548,140 L570,138 L574,158 L556,165 L544,160 L542,148 Z'},
+    {id:'Iran',     d:'M570,130 L615,130 L620,155 L600,165 L570,162 L558,148 Z'},
+    {id:'Saudi Arabia',d:'M535,160 L585,160 L592,195 L565,205 L540,200 L525,180 Z', visited:true},
+    {id:'Yemen',    d:'M540,200 L565,200 L568,215 L545,218 Z'},
+    {id:'Oman',     d:'M585,165 L604,168 L608,190 L598,200 L580,195 Z'},
+    {id:'UAE',      d:'M585,175 L598,172 L600,182 L588,184 Z'},
+    {id:'Kuwait',   d:'M568,158 L575,156 L577,163 L568,164 Z'},
+    // Africa
+    {id:'Africa',   d:'M390,155 L450,152 L490,160 L510,200 L505,260 L480,290 L440,300 L400,295 L370,270 L360,230 L365,190 Z'},
+    // South/Central America
+    {id:'SAmerica', d:'M190,220 L240,215 L258,250 L250,310 L225,340 L200,338 L180,310 L175,265 Z'},
+    // Central America / Caribbean rough
+    {id:'CAmerica', d:'M150,205 L190,200 L192,215 L175,220 L150,215 Z'},
+    // Asia
+    {id:'China',    d:'M640,110 L730,100 L748,130 L740,160 L700,165 L650,155 L635,135 Z'},
+    {id:'Mongolia', d:'M640,90 L710,85 L720,102 L648,108 Z'},
+    {id:'India',    d:'M600,165 L650,160 L660,200 L640,225 L615,228 L600,205 Z'},
+    {id:'SE Asia',  d:'M690,165 L740,162 L745,195 L710,200 L690,185 Z'},
+    {id:'Japan',    d:'M760,110 L768,105 L774,112 L770,125 L762,128 L756,118 Z'},
+    {id:'Korea',    d:'M740,115 L750,112 L752,125 L742,127 Z'},
+    // Australia
+    {id:'Australia',d:'M720,280 L790,275 L800,310 L785,340 L745,345 L718,325 L710,300 Z'},
+    // New Zealand
+    {id:'NZ',       d:'M810,330 L818,325 L820,340 L812,345 Z'},
+  ];
+
+  var NS='http://www.w3.org/2000/svg';
+  var hovEl=null,hovKey=null;
+
+  // Build SVG
+  PATHS.forEach(function(p){
+    var el=document.createElementNS(NS,'path');
+    el.setAttribute('d',p.d);
+    var isVisited=p.visited||VISITED[p.id];
+    var isHome=p.id==='Turkey';
+    if(isHome) el.setAttribute('class','land home-country');
+    else if(isVisited) el.setAttribute('class','land visited');
+    else el.setAttribute('class','land');
+    el.setAttribute('data-id',p.id);
+    if(isVisited||isHome){
+      el.addEventListener('mouseenter',function(e){onHover(e,p.id,el);});
+      el.addEventListener('mouseleave',onLeave);
+      el.style.cursor='pointer';
     }
-    // Border stroke
-    ctx.save();
-    ctx.beginPath();ctx.ellipse(cx,cy,rx+3,ry+3,0,0,Math.PI*2);
-    ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=2.5;
-    ctx.shadowColor='#fff';ctx.shadowBlur=10;
-    ctx.stroke();ctx.shadowBlur=0;
-    ctx.restore();
-  }
-
-  function drawPin(px,py,color,isHov,blink){
-    // Location pin shape
-    var r=isHov?9:6;
-    var bounce=isHov?-6*Math.abs(Math.sin(pulse*3)):0;
-    var py2=py+bounce;
-
-    // Pin shadow
-    ctx.save();ctx.globalAlpha=0.3;
-    ctx.beginPath();ctx.ellipse(px,py+r+2,r*0.7,r*0.25,0,0,Math.PI*2);
-    ctx.fillStyle='#000';ctx.fill();ctx.restore();
-
-    // Pin body
-    ctx.save();
-    ctx.shadowColor=color;ctx.shadowBlur=isHov?14:6;
-    ctx.beginPath();
-    ctx.arc(px,py2-r,r,Math.PI*0.15,Math.PI*0.85,true);
-    ctx.lineTo(px,py2+r*0.8);
-    ctx.closePath();
-    ctx.fillStyle=color;ctx.fill();
-    // Inner dot
-    ctx.beginPath();ctx.arc(px,py2-r,r*0.38,0,Math.PI*2);
-    ctx.fillStyle='rgba(255,255,255,.75)';ctx.fill();
-    ctx.shadowBlur=0;ctx.restore();
-
-    // Pulse ring
-    var pR=r+6+blink*8;
-    ctx.beginPath();ctx.arc(px,py2-r,pR,0,Math.PI*2);
-    ctx.strokeStyle=color.replace(')',','+(0.15+blink*0.25)+')').replace('rgb(','rgba(');
-    ctx.lineWidth=1.5;ctx.stroke();
-  }
-
-  function draw(){
-    frame++;pulse+=0.04;
-    ctx.clearRect(0,0,W,H);
-
-    // Draw base map image
-    if(bgImg.complete&&bgImg.naturalWidth){
-      ctx.drawImage(bgImg,0,0,W,H);
-    } else {
-      ctx.fillStyle='#b8d4e8';ctx.fillRect(0,0,W,H);
-    }
-
-    var t=frame*0.04; // glow orbit speed
-
-    // Draw country fills (non-hovered first, then hovered on top)
-    COUNTRIES.forEach(function(c){
-      var f=FILLS[c.n];if(!f)return;
-      var isH=hov&&hov.n===c.n;
-      if(isH)return; // draw hovered last
-      drawEllipseGlow(f.cx,f.cy,f.rx,f.ry,c.color,8,0.55);
-    });
-
-    // Hovered country: brighter + border glow
-    if(hov){
-      var f2=FILLS[hov.n];
-      if(f2){
-        drawEllipseGlow(f2.cx,f2.cy,f2.rx+6,f2.ry+4,hov.color,20,0.85);
-        drawGlowBorder(f2.cx,f2.cy,f2.rx+6,f2.ry+4,hov.color,t);
-      }
-    }
-
-    // Draw pins
-    COUNTRIES.forEach(function(c){
-      var blink=Math.sin(pulse*1.2+c.px*0.05)*0.5+0.5;
-      var isH=hov&&hov.n===c.n;
-      drawPin(c.px,c.py,c.color,isH,blink);
-    });
-
-    // Label for hovered
-    if(hov){
-      var fs=14;
-      ctx.font='700 '+fs+'px "Josefin Sans",system-ui';
-      ctx.textAlign='center';
-      var lx=hov.px,ly=hov.py-18;
-      ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillText(hov.n,lx+1,ly+1);
-      ctx.fillStyle='#fff';ctx.fillText(hov.n,lx,ly);
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  // Resize canvas to fill container, keeping aspect ratio
-  function resize(){
-    var wrap=document.getElementById('map3d-wrap');
-    if(!wrap)return;
-    var pw=wrap.clientWidth,ph=wrap.clientHeight;
-    if(!pw||!ph)return;
-    // Fit image inside container with letterbox
-    var scale=Math.min(pw/IMG_W, ph/IMG_H)*0.9;
-    cv.width=Math.round(IMG_W*scale);
-    cv.height=Math.round(IMG_H*scale);
-    W=cv.width;H=cv.height;
-    // Recompute country positions
-    COUNTRIES.forEach(function(c){c._sx=c.px*scale;c._sy=c.py*scale;});
-    Object.keys(FILLS).forEach(function(k){
-      var f=FILLS[k];
-      f._cx=f.cx*scale;f._cy=f.cy*scale;
-      f._rx=f.rx*scale;f._ry=f.ry*scale;
-    });
-  }
-
-  // Use scaled coords in draw
-  var _drawEllipseGlow=drawEllipseGlow,_drawGlowBorder=drawGlowBorder,_drawPin=drawPin;
-  drawEllipseGlow=function(cx,cy,rx,ry,color,glow,alpha){_drawEllipseGlow(cx,cy,rx,ry,color,glow,alpha);};
-  drawGlowBorder=function(cx,cy,rx,ry,color,t){_drawGlowBorder(cx,cy,rx,ry,color,t);};
-
-  // Override draw to use scaled coords
-  function draw2(){
-    frame++;pulse+=0.04;
-    ctx.clearRect(0,0,W,H);
-    if(bgImg.complete&&bgImg.naturalWidth){ctx.drawImage(bgImg,0,0,W,H);}
-    else{ctx.fillStyle='#b8d4e8';ctx.fillRect(0,0,W,H);}
-    var t=frame*0.04;
-    var scale=W/IMG_W;
-
-    COUNTRIES.forEach(function(c){
-      var f=FILLS[c.n];if(!f)return;
-      var isH=hov&&hov.n===c.n;if(isH)return;
-      _drawEllipseGlow(f.cx*scale,f.cy*scale,f.rx*scale,f.ry*scale,c.color,8*scale,0.55);
-    });
-    if(hov){
-      var f2=FILLS[hov.n];
-      if(f2){
-        var s=scale;
-        _drawEllipseGlow(f2.cx*s,(f2.cy)*s,(f2.rx+6)*s,(f2.ry+4)*s,hov.color,20*s,0.85);
-        _drawGlowBorder(f2.cx*s,f2.cy*s,(f2.rx+6)*s,(f2.ry+4)*s,hov.color,t);
-      }
-    }
-    COUNTRIES.forEach(function(c){
-      var blink=Math.sin(pulse*1.2+c.px*0.05)*0.5+0.5;
-      var isH=hov&&hov.n===c.n;
-      drawPin(c.px*scale,c.py*scale,c.color,isH,blink);
-    });
-    if(hov){
-      var lx=hov.px*scale,ly=hov.py*scale-18*scale;
-      var fs=Math.max(10,14*scale);
-      ctx.font='700 '+fs+'px "Josefin Sans",system-ui';ctx.textAlign='center';
-      ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillText(hov.n,lx+1,ly+1);
-      ctx.fillStyle='#fff';ctx.fillText(hov.n,lx,ly);
-    }
-    requestAnimationFrame(draw2);
-  }
-
-  new ResizeObserver(function(){resize();}).observe(document.getElementById('map3d-wrap'));
-  resize();
-  draw2();
-  bgImg.onload=function(){resize();};
-
-  cv.addEventListener('mousemove',function(e){
-    var r=cv.getBoundingClientRect();
-    var scale=W/IMG_W;
-    var mx=(e.clientX-r.left)*(W/r.width)/scale;
-    var my=(e.clientY-r.top)*(H/r.height)/scale;
-    var best=null,bd=9999;
-    COUNTRIES.forEach(function(c){
-      var d=Math.hypot(mx-c.px,my-c.py);if(d<bd){bd=d;best=c;}
-    });
-    hov=bd<55?best:null;
-    if(hov){
-      tipName.textContent=hov.n;
-      tipCities.textContent=hov.cities.join(' · ');
-      tip.style.left=(e.clientX-cv.getBoundingClientRect().left+14)+'px';
-      tip.style.top=(e.clientY-cv.getBoundingClientRect().top-10)+'px';
-      tip.style.opacity='1';
-    } else {tip.style.opacity='0';}
-    cv.style.cursor=hov?'pointer':'default';
+    svg.appendChild(el);
   });
-  cv.addEventListener('mouseleave',function(){hov=null;tip.style.opacity='0';});
+
+  function onHover(e,key,el){
+    hovKey=key;
+    var info=VISITED[key];
+    if(!info)return;
+    tipC.textContent=key;
+    tipCi.textContent=info.cities.join(' · ');
+    tip.style.opacity='1';
+    moveTip(e);
+    // Highlight label
+    var lbl=document.getElementById('lbl-'+key.replace(/\s/g,'_'));
+    if(lbl)lbl.classList.add('vis');
+  }
+  function onLeave(){
+    hovKey=null;tip.style.opacity='0';
+    document.querySelectorAll('.wmap-label').forEach(function(l){l.classList.remove('vis');});
+  }
+  function moveTip(e){
+    var r=wrap.getBoundingClientRect();
+    var x=e.clientX-r.left+14,y=e.clientY-r.top-10;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  wrap.addEventListener('mousemove',function(e){
+    if(hovKey)moveTip(e);
+  });
+
+  // Build ping dots + labels (positioned via JS after SVG renders)
+  function buildPings(){
+    // Remove old
+    document.querySelectorAll('.wmap-ping,.wmap-label').forEach(function(el){el.remove();});
+    var svgR=svg.getBoundingClientRect();
+    var wrapR=wrap.getBoundingClientRect();
+    var vbW=1000,vbH=500;
+    var scaleX=svgR.width/vbW,scaleY=svgR.height/vbH;
+    var offX=svgR.left-wrapR.left,offY=svgR.top-wrapR.top;
+
+    Object.keys(CENTS).forEach(function(key){
+      var c=CENTS[key];
+      var px=offX+c.x*scaleX,py=offY+c.y*scaleY;
+
+      // Ping
+      var ping=document.createElement('div');
+      ping.className='wmap-ping'+(VISITED[key]&&VISITED[key].home?' home-ping':'');
+      ping.style.left=px+'px';ping.style.top=py+'px';
+      ping.innerHTML='<div class="ping-ring"></div><div class="ping-ring ping-ring2"></div><div class="ping-dot"></div>';
+      ping.addEventListener('mouseenter',function(e){
+        var svgEl=svg.querySelector('[data-id="'+key+'"]');
+        if(svgEl)onHover(e,key,svgEl);
+      });
+      ping.addEventListener('mouseleave',onLeave);
+      wrap.appendChild(ping);
+
+      // Label
+      var lbl=document.createElement('div');
+      lbl.className='wmap-label';
+      lbl.id='lbl-'+key.replace(/\s/g,'_');
+      lbl.textContent=key;
+      lbl.style.left=px+'px';
+      lbl.style.top=(py-4)+'px';
+      wrap.appendChild(lbl);
+    });
+  }
+
+  // Build after layout settles
+  setTimeout(buildPings,400);
+  new ResizeObserver(function(){setTimeout(buildPings,100);}).observe(wrap);
 })();
 
-/* nav clock */
 /* nav clock */
 (function tick(){
   var d=new Date();
