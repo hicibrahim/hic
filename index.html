@@ -1335,25 +1335,39 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 #sec-podcast{padding-bottom:0;}
 
 /* ── Coming Soon split animation ── */
-.coming-soon-wrap{display:flex;gap:16px;justify-content:center;align-items:center;overflow:hidden; margin-top:32px;}
+.coming-soon-wrap{
+  display:flex;gap:20px;justify-content:center;align-items:center;
+  overflow:hidden;margin-top:40px;
+}
 .cs-left{
-  font-family:'EB Garamond',Georgia,serif;font-size:16px;font-weight:300;
-  letter-spacing:0.55em;color:var(--gold);text-transform:lowercase;
-  animation:csSlideLeft 2.4s cubic-bezier(.16,1,.3,1) 2 both;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:38px;font-weight:600;
+  letter-spacing:0.08em;color:var(--gold);
+  font-style:italic;
+  animation:csSlideLeft 1.8s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;
 }
 .cs-right{
-  font-family:'EB Garamond',Georgia,serif;font-size:16px;font-weight:300;
-  letter-spacing:0.55em;color:var(--gold);text-transform:lowercase;
-  animation:csSlideRight 2.4s cubic-bezier(.16,1,.3,1) 2 both;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:38px;font-weight:600;
+  letter-spacing:0.08em;color:var(--ink);
+  animation:csSlideRight 1.8s cubic-bezier(.16,1,.3,1) 0.15s forwards;
+  opacity:0;
 }
-@keyframes csSlideLeft{from{transform:translateX(-160px);opacity:0;}to{transform:translateX(0);opacity:1;}}to{transform:translateX(0);opacity:1;}}
-@keyframes csSlideRight{from{transform:translateX(160px);opacity:0;}to{transform:translateX(0);opacity:1;}}to{transform:translateX(0);opacity:1;}}
+@keyframes csSlideLeft{
+  from{transform:translateX(-80px);opacity:0;}
+  to{transform:translateX(0);opacity:1;}
+}
+@keyframes csSlideRight{
+  from{transform:translateX(80px);opacity:0;}
+  to{transform:translateX(0);opacity:1;}
+}
 
 /* Podcast page cursor */
 #page-podcast{cursor:none;}
 #page-podcast *{cursor:none !important;}
 #page-podcast .ep-item,#page-podcast .ep-item *,#page-podcast .ep-play-btn,#page-podcast .ep-play-btn *,#page-podcast .a-bar,#page-podcast .a-close{cursor:default !important;}
-nav a, nav .logo-hic, nav .logo{cursor:none !important;}
+body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-active nav .logo{cursor:none !important;}
 
 /* Vodcast thumbnail %20 bigger */
 #page-vodcast .vid-card .vid-thumb{aspect-ratio:16/9;padding-bottom:0;height:auto;position:relative;overflow:hidden;}
@@ -1931,6 +1945,7 @@ body.loading #page-home { display:none !important; }
       <span class="cs-left" data-tr="Yakında" data-en="Coming">Coming</span>
       <span class="cs-right" data-tr="..." data-en="Soon">Soon</span>
     </div>
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:18px;text-align:center;" data-tr="Yeni perspektifler yolda" data-en="New perspectives on the way">New perspectives on the way</p>
   </div>
 </div>
 <div id="page-podcast" class="ip">
@@ -1946,7 +1961,7 @@ body.loading #page-home { display:none !important; }
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'birbakista')" title="Bir Bakışta"><img src="bir_bakista.webp" alt="Bir Bakışta" loading="lazy"></div>
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'mahrec')" title="Mahreç Dünya"><img src="mahrec.jpg" alt="Mahreç Dünya" loading="lazy"></div>
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'atalks')" title="Anadolu Talk Zone"><img src="anadolu_talk_zone.webp" alt="Anadolu Talk Zone" loading="lazy"></div>
-      <div class="pod-ni pod-ni-img" onclick="switchPod(this,'seruven')" title="100 Yıllık Serüven"><img src="seruven.png" alt="100 Yıllık Serüven" loading="lazy"></div>
+      <div class="pod-ni pod-ni-img" onclick="switchPod(this,'seruven')" title="100 Yıllık Serüven" style="background:#1a1208;"><img src="seruven.png" alt="100 Yıllık Serüven" loading="lazy" style="object-fit:contain;background:#1a1208;"></div>
     </div>
     <div class="pod-main">
       <div class="pod-sec on" id="ps-portre">
