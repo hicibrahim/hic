@@ -336,9 +336,9 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 /* Animated ping marker */
 @keyframes lf-ping{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.4);opacity:0}}
 .lf-pin-wrap{position:relative;width:14px;height:14px;}
-.lf-pin-lived{width:20px!important;height:20px!important;}
+.lf-pin-lived{width:12px!important;height:12px!important;}
 .lf-pin-dot{position:absolute;inset:3px;border-radius:50%;background:var(--gold,#b8892a);border:2px solid #fff;box-shadow:0 0 8px rgba(184,137,42,.8);}
-.lf-pin-lived .lf-pin-dot{inset:2px;background:#e03020;box-shadow:0 0 12px rgba(220,48,32,.9);}
+.lf-pin-lived .lf-pin-dot{inset:1px;background:#e03020;box-shadow:0 0 7px rgba(220,48,32,.9);}
 .lf-pin-ring{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(184,137,42,.6);animation:lf-ping 1.8s ease-out infinite;}
 .lf-pin-lived .lf-pin-ring{border-color:rgba(220,48,32,.7);}
 .lf-pin-ring2{animation-delay:.9s;}
@@ -437,7 +437,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 
     <!-- ══ PANE 1: Experience ══ -->
     <div class="scroll-pane active" id="pane1">
-      <div class="roller roller-top" id="roller1-top"><div class="roller-label">Experience</div></div>
+      <div class="roller roller-top" id="roller1-top"></div>
       <div class="scroll-body" id="body1">
         <div class="parchment-inner">
 
@@ -448,12 +448,12 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
               <div class="pillars-subtitle">Halil İbrahim Ciğer</div>
             </div>
             <div class="pillar"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub" data-tr="10 yıl · AA" data-en="10 yrs · AA">10 yrs · AA</div></div>
-            <div class="pillar"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="İletişim &amp; Etkinlik" data-en="Communication &amp; Events">Comm. &amp; Events</div><div class="pillar-sub" data-tr="Medya ilişkileri" data-en="Targeted media">Targeted media</div></div>
+            <div class="pillar"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="İletişim &amp; Etkinlik" data-en="Communication &amp; Events">Comm. &amp; Events</div><div class="pillar-sub" data-tr="Medya İlişkileri" data-en="Targeted media">Targeted media</div></div>
             <div class="pillar"><i class="ti ti-broadcast pillar-icon"></i><div class="pillar-name" data-tr="Dijital Medya" data-en="Digital Media">Digital Media</div><div class="pillar-sub">Vodcast &amp; Podcast</div></div>
             <div class="pillar"><i class="ti ti-world pillar-icon"></i><div class="pillar-name" data-tr="Uluslararası" data-en="International">International</div><div class="pillar-sub">US · ME · EU</div></div>
-            <div class="pillar"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub" data-tr="Bakan Başdanışmanı" data-en="Chief of Staff">Chief of Staff</div></div>
+            <div class="pillar"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub" data-tr="Bakan Mobil ÖKM" data-en="Chief of Staff">Chief of Staff</div></div>
             <div class="pillar"><i class="ti ti-book pillar-icon"></i><div class="pillar-name" data-tr="Kuran" data-en="Quran">Quran</div><div class="pillar-sub" data-tr="Hafız · 13 yaşında" data-en="Hafidh · age 13">Hafidh · age 13</div></div>
-            <div class="pillar"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub" data-tr="25.000+ ezbер" data-en="Memorised 25000+">Memorised 25000+</div></div>
+            <div class="pillar"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub" data-tr="+25000 hıfz" data-en="Memorised +25000">Memorised +25000</div></div>
           </div>
 
           <hr class="sec-div">
@@ -537,7 +537,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
           <!-- Awards + nav row -->
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;flex-shrink:0;">
             <div class="aw-label" data-tr="oduller" data-en="awards" style="margin-bottom:0;">Awards</div>
-            <button class="pane-switch" onclick="goPane(2)"><i class="ti ti-world"></i> Worldwide Experience</button>
+            <button class="pane-switch" onclick="goPane(2)"><i class="ti ti-world"></i> Global Footprint</button>
           </div>
           <div class="awards-grid">
             <div class="aw"><div class="aw-ring aw-gold"><i class="ti ti-trophy"></i></div><div><div class="aw-title" data-tr="Yilin En Iyi Podcastcisi" data-en="Best Podcaster of the Year">Best Podcaster of the Year</div><div class="aw-year">2023</div></div></div>
@@ -935,25 +935,23 @@ window.addEventListener('load',function(){
            '<div class="lf-pin-ring lf-pin-ring2"></div>' +
            '<div class="lf-pin-dot"></div>' +
            '</div>',
-      iconSize: isHome||isLived?[20,20]:[14,14],
-      iconAnchor: isHome||isLived?[10,10]:[7,7],
+      iconSize: isHome||isLived?[12,12]:[14,14],
+      iconAnchor: isHome||isLived?[6,6]:[7,7],
     });
   }
 
-  // Add map title overlay
+  // Add map title overlay (no subtitle)
   var titleDiv=document.createElement('div');
   titleDiv.id='map-title-overlay';
-  titleDiv.innerHTML='<div style="font-family:\'Josefin Sans\',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:4px;">Halil İbrahim Ciğer</div>' +
-    '<div style="font-family:\'Playfair Display\',serif;font-size:16px;font-weight:600;color:#fff;letter-spacing:.04em;">Countries Visited &amp; Lived In</div>';
-  titleDiv.style.cssText='position:absolute;top:12px;left:12px;z-index:500;background:rgba(15,20,12,.72);padding:8px 14px;border-radius:5px;border:1px solid rgba(90,180,100,.3);backdrop-filter:blur(6px);pointer-events:none;';
+  titleDiv.innerHTML='<div style="font-family:\'Playfair Display\',serif;font-size:15px;font-weight:600;color:#fff;letter-spacing:.03em;">Countries Visited &amp; Lived In</div>';
+  titleDiv.style.cssText='position:absolute;top:12px;left:12px;z-index:500;background:rgba(15,20,12,.72);padding:7px 13px;border-radius:5px;border:1px solid rgba(90,180,100,.3);backdrop-filter:blur(6px);pointer-events:none;';
   document.getElementById('body2').appendChild(titleDiv);
 
-  // Add legend
+  // Add legend (next to zoom buttons, bottom-left + offset)
   var legendDiv=document.createElement('div');
   legendDiv.id='map-legend';
   legendDiv.innerHTML=
-    '<div style="font-family:\'Josefin Sans\',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px;">Legend</div>'+
-    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">'+
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">'+
       '<span class="legend-ping legend-ping-lived"></span>'+
       '<span style="font-family:\'Josefin Sans\',sans-serif;font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.04em;">Countries Lived In</span>'+
     '</div>'+
@@ -961,7 +959,7 @@ window.addEventListener('load',function(){
       '<span class="legend-ping legend-ping-visited"></span>'+
       '<span style="font-family:\'Josefin Sans\',sans-serif;font-size:10px;color:rgba(255,255,255,.85);letter-spacing:.04em;">Countries Visited</span>'+
     '</div>';
-  legendDiv.style.cssText='position:absolute;bottom:52px;left:12px;z-index:500;background:rgba(15,20,12,.72);padding:10px 14px;border-radius:5px;border:1px solid rgba(90,180,100,.3);backdrop-filter:blur(6px);pointer-events:none;';
+  legendDiv.style.cssText='position:absolute;bottom:10px;left:52px;z-index:500;background:rgba(15,20,12,.72);padding:9px 13px;border-radius:5px;border:1px solid rgba(90,180,100,.3);backdrop-filter:blur(6px);pointer-events:none;';
   document.getElementById('body2').appendChild(legendDiv);
 
   var currentLang='en';
