@@ -2339,7 +2339,7 @@ const PLAYLISTS = [
 ];
 
 /* ══ STATE ══ */
-let lang='en', plIdx=0, plLoaded={}, vidOff=0, pvTimers={};
+let lang=(localStorage.getItem('hic_lang')||'tr'), plIdx=0, plLoaded={}, vidOff=0, pvTimers={};
 let podInited=false;
 let currentAudio=null; // the ep row currently playing
 let isPlaying=false;
@@ -2363,14 +2363,21 @@ function toggleTheme(){
 /* ══ LANG ══ */
 function toggleLang(){
   lang=lang==='tr'?'en':'tr';
+  localStorage.setItem('hic_lang',lang);
   document.querySelector('.lang-btn').textContent=lang==='en'?'TR':'EN';
   document.querySelectorAll('[data-tr]').forEach(el=>el.textContent=el.getAttribute('data-'+lang));
-  // Update tooltips
   document.querySelectorAll('[data-tip-tr]').forEach(el=>{
     const tip=el.querySelector('.p-tip');
     if(tip)tip.textContent=el.getAttribute('data-tip-'+lang);
   });
 }
+// Apply saved language on load
+(function(){
+  if(lang==='tr'){
+    document.querySelector('.lang-btn').textContent='EN';
+    document.querySelectorAll('[data-tr]').forEach(el=>el.textContent=el.getAttribute('data-tr'));
+  }
+})();
 
 /* ══ ROUTING ══ */
 function showHome(){
