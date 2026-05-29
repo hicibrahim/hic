@@ -295,6 +295,28 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .aw-year{font-size:11px;color:var(--gold);margin-top:3px;font-family:'Josefin Sans',sans-serif;}
 
 /* ══ PANE 2: MAP ══ */
+/* ══ PILLAR NOTE POPUP ══ */
+.pillar-note{
+  position:fixed;z-index:400;
+  background:var(--bg);
+  border:.5px solid var(--border2);
+  border-left:3px solid var(--gold);
+  border-radius:6px;
+  padding:.8rem 1rem;
+  max-width:280px;min-width:200px;
+  box-shadow:0 8px 28px rgba(0,0,0,.18);
+  font-family:'EB Garamond',serif;
+  font-size:14px;line-height:1.65;
+  color:var(--ink2);
+  pointer-events:none;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .2s,transform .2s;
+}
+.pillar-note.vis{opacity:1;transform:translateY(0);}
+.pillar[data-pillar]{cursor:pointer;}
+.pillar[data-pillar]:hover .pillar-name{color:var(--gold);}
+
 /* ══ LEAFLET CUSTOM ZOOM ══ */
 .leaflet-control-zoom{border:none!important;box-shadow:0 4px 16px rgba(0,0,0,.35)!important;border-radius:8px!important;overflow:hidden!important;}
 .leaflet-control-zoom a{
@@ -431,6 +453,9 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   <a href="index.html">Home</a><a href="about.html">About</a>
 </div>
 
+<!-- Pillar note popup -->
+<div class="pillar-note" id="pillar-note"></div>
+
 <!-- ══ STAGE ══ -->
 <div class="stage">
   <div class="scroll-stage" id="scroll-stage">
@@ -447,13 +472,13 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
               <div class="pillars-title" data-tr="Yetenekler &amp; Deneyimler" data-en="Talents &amp; Experiences">Talents &amp; Experiences</div>
               <div class="pillars-subtitle">Halil İbrahim Ciğer</div>
             </div>
-            <div class="pillar"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub" data-tr="10 yıl · AA" data-en="10 yrs · AA">10 yrs · AA</div></div>
-            <div class="pillar"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="İletişim &amp; Etkinlik" data-en="Communication &amp; Events">Comm. &amp; Events</div><div class="pillar-sub" data-tr="Medya İlişkileri" data-en="Targeted media">Targeted media</div></div>
-            <div class="pillar"><i class="ti ti-broadcast pillar-icon"></i><div class="pillar-name" data-tr="Dijital Medya" data-en="Digital Media">Digital Media</div><div class="pillar-sub">Vodcast &amp; Podcast</div></div>
-            <div class="pillar"><i class="ti ti-world pillar-icon"></i><div class="pillar-name" data-tr="Uluslararası" data-en="International">International</div><div class="pillar-sub">US · ME · EU</div></div>
-            <div class="pillar"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub" data-tr="Bakan Mobil ÖKM" data-en="Chief of Staff">Chief of Staff</div></div>
-            <div class="pillar"><i class="ti ti-book pillar-icon"></i><div class="pillar-name" data-tr="Kuran" data-en="Quran">Quran</div><div class="pillar-sub" data-tr="Hafız · 13 yaşında" data-en="Hafidh · age 13">Hafidh · age 13</div></div>
-            <div class="pillar"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub" data-tr="+25000 hıfz" data-en="Memorised +25000">Memorised +25000</div></div>
+            <div class="pillar" data-pillar="journalism"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub" data-tr="10 yıl · AA" data-en="10 yrs · AA">10 yrs · AA</div></div>
+            <div class="pillar" data-pillar="comms"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="İletişim &amp; Etkinlik" data-en="Communication &amp; Events">Comm. &amp; Events</div><div class="pillar-sub" data-tr="Medya İlişkileri" data-en="Targeted Media">Targeted Media</div></div>
+            <div class="pillar" data-pillar="digital"><i class="ti ti-broadcast pillar-icon"></i><div class="pillar-name" data-tr="Dijital Medya" data-en="Digital Media">Digital Media</div><div class="pillar-sub">Vodcast &amp; Podcast</div></div>
+            <div class="pillar" data-pillar="international"><i class="ti ti-world pillar-icon"></i><div class="pillar-name" data-tr="Uluslararası" data-en="International">International</div><div class="pillar-sub">US · ME · EU</div></div>
+            <div class="pillar" data-pillar="leadership"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub" data-tr="Bakan Mobil ÖKM" data-en="Chief of Staff">Chief of Staff</div></div>
+            <div class="pillar" data-pillar="quran"><i class="ti ti-book pillar-icon"></i><div class="pillar-name" data-tr="Kuran" data-en="Quran">Quran</div><div class="pillar-sub" data-tr="Hafız · 13 yaşında" data-en="Hafidh - By age 13">Hafidh - By age 13</div></div>
+            <div class="pillar" data-pillar="hadith"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub" data-tr="+25000 hıfz" data-en="Over 25000 Memorized">Over 25000 Memorized</div></div>
           </div>
 
           <hr class="sec-div">
@@ -528,8 +553,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
     </div>
   </div>
 </div></div></div>
-            <div class="ed-panel" id="ed5"><div class="ed-yr">2012 — 2015</div><div class="ed-title" data-tr="Yüksek Lisans · Islam Hukuku & Finans" data-en="MA · Islamic Law & Finance">MA · Islamic Law &amp; Finance</div><div class="ed-org" data-tr="Istanbul Üniversitesi" data-en="Istanbul University">Istanbul University</div><div class="ed-body">Thesis: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"An Investigation on the Economical Life of the Holy Prophet"</a> — Specialised at the intersection of Islamic law, jurisprudence and modern finance structures.</div><div><span class="ed-tag">Islamic Finance</span><span class="ed-tag">Fiqh</span><span class="ed-tag">Research</span></div></div>
-            <div class="ed-panel" id="ed6"><div class="ed-yr">2006 — 2010</div><div class="ed-title">BA · Economics</div><div class="ed-org">Uludag University, Bursa</div><div class="ed-body">Thesis: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Economic Analysis of Participation Banks"</a> — Founded and led the International Students Association (2006–2010). This is where his interest in Islamic economics took root, leading to later graduate work in Islamic law and finance.</div><div><span class="ed-tag">Economics</span><span class="ed-tag">Participation Banking</span><span class="ed-tag">Student Leadership</span></div></div>
+            <div class="ed-panel" id="ed5"><div class="ed-yr">2012 — 2015</div><div class="ed-title" data-tr="Yüksek Lisans · İslam Hukuku &amp; Finans" data-en="MA · Islamic Law &amp; Finance">MA · Islamic Law &amp; Finance</div><div class="ed-org" data-tr="İstanbul Üniversitesi" data-en="Istanbul University">Istanbul University</div><div class="ed-body" data-tr="Yüksek Lisans Tezi: &lt;a href='#' onclick='thesisOpen();return false;' class='thesis-link'&gt;\"An Investigation on the Economical Life of the Holy Prophet\"&lt;/a&gt; — Ülkenin en saygın hocalarının rehberliğinde İslam hukuku ve finansı konusunda kapsamlı bir temel; Hz. Peygamber'in ekonomik hayatı ve nebevi birikim üzerine uzmanlaşarak araştırmalar yürütüldü." data-en="Thesis: &lt;a href='#' onclick='thesisOpen();return false;' class='thesis-link'&gt;\"An Investigation on the Economical Life of the Holy Prophet\"&lt;/a&gt; — Acquired a comprehensive foundation in Islamic law and finance under the guidance of the nation's most esteemed scholars, conducting specialized research on the economic life of Prophet Muhammad and prophetic traditions.">Thesis: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"An Investigation on the Economical Life of the Holy Prophet"</a> — Acquired a comprehensive foundation in Islamic law and finance under the guidance of the nation's most esteemed scholars, conducting specialized research on the economic life of Prophet Muhammad and prophetic traditions.</div><div><span class="ed-tag">Islamic Finance</span><span class="ed-tag">Fiqh</span><span class="ed-tag">Research</span></div></div>
+            <div class="ed-panel" id="ed6"><div class="ed-yr">2006 — 2010</div><div class="ed-title" data-tr="Lisans · İktisat" data-en="BA · Economics">BA · Economics</div><div class="ed-org" data-tr="Uludağ Üniversitesi, Bursa" data-en="Uludag University, Bursa">Uludag University, Bursa</div><div class="ed-body" data-tr="Lisans tezi: &lt;a href='#' onclick='thesis2Open();return false;' class='thesis-link'&gt;\"Economic Analysis of Participation Banks\"&lt;/a&gt; — Mikro/makro iktisat, betimsel/çıkarımsal istatistik ve veri analizi alanlarında sıkı bir temel kazanmanın yanı sıra uluslararası ilişkiler ve AB ilişkileri eğitimi almış; sosyal ve gençlik girişimlerine liderlik ederken katılım bankacılığının iktisadi analizi üzerine bir tez yürüterek mezuniyet." data-en="Thesis: &lt;a href='#' onclick='thesis2Open();return false;' class='thesis-link'&gt;\"Economic Analysis of Participation Banks\"&lt;/a&gt; — Founded and led the International Students Association (2006–2010). Acquired a rigorous foundation in micro/macroeconomics, descriptive/inferential statistics, and data analysis, alongside international relations and EU affairs; graduated after conducting a thesis on the economic analysis of participation banking while leading social and youth initiatives.">Thesis: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Economic Analysis of Participation Banks"</a> — Founded and led the International Students Association (2006–2010). Acquired a rigorous foundation in micro/macroeconomics, descriptive/inferential statistics, and data analysis, alongside international relations and EU affairs; graduated after conducting a thesis on the economic analysis of participation banking while leading social and youth initiatives.</div><div><span class="ed-tag">Economics</span><span class="ed-tag">Participation Banking</span><span class="ed-tag">Student Leadership</span></div></div>
           </div>
 
           <hr class="sec-div">
@@ -667,10 +692,15 @@ function toggleLang(){
   lang=lang==='en'?'tr':'en';
   document.querySelectorAll('[data-tr]').forEach(function(el){
     var v=lang==='en'?el.getAttribute('data-en'):el.getAttribute('data-tr');
-    if(v)el.textContent=v;
+    if(!v)return;
+    // If value contains HTML tags, use innerHTML
+    if(v.indexOf('<')!==-1||v.indexOf('&lt;')!==-1){
+      el.innerHTML=v.replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+    } else {
+      el.textContent=v;
+    }
   });
   document.querySelector('.lang-btn').textContent=lang==='en'?'EN':'TR';
-  // Update sn-btn labels
   document.querySelectorAll('#sn1,#sn1b').forEach(function(b){if(b)b.childNodes[1].textContent=' '+(lang==='tr'?'Deneyim':'Experience');});
   document.querySelectorAll('#sn2,#sn2b').forEach(function(b){if(b){b.childNodes[1].textContent=' '+(lang==='tr'?'Dünya':'Worldwide');}});
 }
@@ -993,6 +1023,76 @@ window.addEventListener('load',function(){
 
   // Reinitialise map when pane becomes visible
   window._leafletMap=map;
+})();
+
+/* ── PILLAR NOTES ── */
+(function(){
+  var NOTES={
+    journalism:{
+      en:'A decade of global news agency experience driving content excellence and cutting-edge digital media strategies',
+      tr:'İçerik mükemmelliğine ve en ileri dijital medya stratejilerine yön veren, on yıllık bir uluslararası ajans deneyimi.'
+    },
+    digital:{
+      en:"Spearheaded the production and strategic growth of flagship digital audio and video formats, including 'AA Podcast' and 'AA Portre'",
+      tr:"'AA Podcast' ve 'AA Portre' dahil olmak üzere amiral gemisi niteliğindeki dijital sesli ve görüntülü formatların yapımcılığına ve stratejik büyümesinde öncülük"
+    },
+    comms:{
+      en:'Directing high-stakes ministerial protocol operations and overseeing event agencies to organize top-tier programs attended by the President, high-profile dignitaries, and senior state bureaucracy',
+      tr:'Cumhurbaşkanı, yüksek profilli devlet erkanı ve üst düzey devlet bürokrasisinin katıldığı birinci sınıf etkinliklerin organizasyonuna liderlik etmek ve bakanlığın yüksek riskli/kritik protokol operasyonları ile organizasyon ajanslarıyla koordineli event\'leri yönetmek'
+    },
+    leadership:{
+      en:'Managing the ministry\'s administrative, protocol, and secretariat systems, while auditing the implementation of ministerial directives across 19 directorates-general and ensuring participation in weekly cabinet meetings',
+      tr:'Bakanlığın idari, protokol ve sekreterya sistemlerini yönetmek; bununla birlikte 19 genel müdürlükteki bakanlık emirlerinin uygulamalarını denetlemek ve haftalık bakanlar kuruluna katılım'
+    },
+    quran:{
+      en:'Achieved complete memorization of the Quran at age 13 within a remarkable span of 3 months and 10 days, while deeply engaging with its translation, exegesis, and holistic conceptual meaning',
+      tr:'13 yaşında, 3 ay 10 gün gibi dikkat çekici bir süre zarfında Kur\'an\'ın tamamını hıfzetmek; bununla birlikte onun tercüme, tefsir ve bütünsel kavramsal anlam dünyasıyla derinden bağ kurmak.'
+    },
+    hadith:{
+      en:'Following the Quran memorization, conducted years of extensive research in the field of Hadith, developing a profound mastery over thousands of texts, engaging with hundreds of thousands of narrations, and completing comprehensive readings of primary source collections',
+      tr:'Kur\'an hıfzının ardından, Hadis alanında yıllarca kapsamlı araştırmalar yapılarak binlerce metin üzerinde derin bir hakimiyet, yüz binlerce hadisle muhataplık ve temel kaynak külliyatlarının kapsamlı okumaları.'
+    },
+    international:{
+      en:'Traveled to over 25 countries for both professional and leisure purposes, enriching a broad intellectual perspective while participating in United Nations forums and organizing strategic state visits, including ministerial and ambassadorial summits',
+      tr:'Geniş bir entelektüel perspektifi zenginleştirilirken; Birleşmiş Milletler forumlarına katılım, bakanlık ve büyükelçilik zirvelerini içeren stratejik devlet ziyaretlerini organize dahil hem mesleki hem de gezi amacıyla 25\'ten fazla ülkeye seyahat ve uluslararası birikim'
+    }
+  };
+
+  var noteEl=document.getElementById('pillar-note');
+  var activeP=null,hideTimer=null;
+
+  function showNote(pillar,rect){
+    if(!noteEl||!NOTES[pillar])return;
+    clearTimeout(hideTimer);
+    var txt=NOTES[pillar][lang]||NOTES[pillar].en;
+    noteEl.textContent=txt;
+    noteEl.style.top=(rect.top+window.scrollY)+'px';
+    noteEl.style.left=Math.max(8,rect.left-290)+'px';
+    // If no room on left, show right
+    if(rect.left<300){
+      noteEl.style.left=(rect.right+10)+'px';
+    }
+    noteEl.classList.add('vis');
+    activeP=pillar;
+  }
+  function hideNote(){
+    hideTimer=setTimeout(function(){
+      if(noteEl)noteEl.classList.remove('vis');
+      activeP=null;
+    },120);
+  }
+
+  document.querySelectorAll('.pillar[data-pillar]').forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.getAttribute('data-pillar');
+      if(activeP===key){hideNote();return;}
+      showNote(key,p.getBoundingClientRect());
+    });
+    p.addEventListener('mouseleave',hideNote);
+  });
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.pillar[data-pillar]'))hideNote();
+  });
 })();
 
 /* nav clock */
