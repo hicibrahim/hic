@@ -2370,6 +2370,9 @@ function toggleLang(){
     const tip=el.querySelector('.p-tip');
     if(tip)tip.textContent=el.getAttribute('data-tip-'+lang);
   });
+  // Rebuild news grid with correct language
+  buildHomeNews();
+  buildInnerNews();
 }
 // Apply saved language on load
 (function(){
@@ -2471,12 +2474,12 @@ function newsHTML(n, feat, fullrow){
   var img = n.i
     ? '<div class="nb-img"><img src="' + n.i + '" alt="" loading="lazy"></div>'
     : '<div class="nb-noimg"><span class="nb-noimg-lbl">' + n.s + '</span></div>';
-  var u2 = (n.u||'').replace(/'/g,'%27');
-  var t2 = (n.t||'').replace(/'/g,'&#39;');
-  var s2 = (n.s||'').replace(/'/g,'&#39;');
-  var i2 = (n.i||'').replace(/'/g,'%27');
-  var onclick = "npOpen('" + u2 + "','" + t2 + "','" + s2 + "','" + i2 + "');return false;";
-  return '<a class="' + cls + '" href="#" onclick="npOpen(\'' + u2 + '\',\'' + t2 + '\',\'' + s2 + '\',\'' + i2 + '\');return false;">' +
+  // Safely encode for data attributes
+  var safeU = (n.u||'').replace(/"/g,'&quot;');
+  var safeT = (n.t||'').replace(/"/g,'&quot;');
+  var safeS = (n.s||'').replace(/"/g,'&quot;');
+  var safeI = (n.i||'').replace(/"/g,'&quot;');
+  return '<a class="' + cls + '" href="#" data-nu="' + safeU + '" data-nt="' + safeT + '" data-ns="' + safeS + '" data-ni="' + safeI + '" onclick="return nbClick(event,this)">' +
     img +
     '<div class="nb-body">' +
       '<div class="nb-lang">' + lbl + '</div>' +
@@ -2495,7 +2498,7 @@ function getDefaultNewsLang(){return lang==='en'?'en':'tr';}
 function buildInnerNews(){
   const g=document.getElementById('nwall');
   if(!g)return;
-  g.innerHTML=ND.map(function(n){return newsHTML(n,!!n.feat,!!n.fullrow);}).join('');
+  g.innerHTML=ND.map(function(n,i){return newsHTML(n,!!n.feat,i===0||!!n.fullrow);}).join('');
 }
 function filterInner(btn,f){document.querySelectorAll('.lf-tab').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');buildInnerNews();}
 
@@ -2999,6 +3002,15 @@ document.addEventListener('DOMContentLoaded',()=>initDragScroll('vid-track'));
 
 
 /* ── Newspaper modal JS ── */
+function nbClick(e,el){
+  e.preventDefault();
+  var url=el.getAttribute('data-nu');
+  var title=el.getAttribute('data-nt');
+  var src=el.getAttribute('data-ns');
+  var img=el.getAttribute('data-ni');
+  npOpen(url,title,src,img);
+  return false;
+}
 function npOpen(url,title,src,img){
   const ov=document.getElementById('np-overlay');if(!ov)return;
   document.getElementById('np-title').textContent=title||'';
