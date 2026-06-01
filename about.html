@@ -84,8 +84,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   position:relative;
   z-index:2;
 }
-.roller-top{background:linear-gradient(to bottom,#6a3c10,#a87840,#c89850,#a87840,#6a3c10);border-bottom:2px solid #4a2808;}
-.roller-bot{background:linear-gradient(to bottom,#6a3c10,#a87840,#c89850,#a87840,#6a3c10);border-top:2px solid #4a2808;}
+.roller-top{background:linear-gradient(to bottom,#6a3c10,#a87840,#c89850,#a87840,#6a3c10);border-bottom:3px solid #4a2808;}
+.roller-bot{background:linear-gradient(to bottom,#6a3c10,#a87840,#c89850,#a87840,#6a3c10);border-top:3px solid #4a2808;}
 .roller-label{
   font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.28em;text-transform:uppercase;
   color:rgba(255,235,170,.85);text-align:center;
@@ -139,7 +139,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 
 /* ══ SCROLL NAV — inside roller-bot ══ */
 .scroll-nav{
-  height:36px;
+  height:45px;
   background:rgba(20,12,4,.45);
   display:flex;
   align-items:center;
@@ -787,7 +787,7 @@ function expStop(){expCycling=false;clearTimeout(expTimer);}
 })();
 
 /* ── SCROLL / RULO ANIMATION ── */
-var ROLLER_H=36;
+var ROLLER_H=45;
 var currentPane=0;
 var animating=false;
 

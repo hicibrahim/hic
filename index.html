@@ -2487,27 +2487,49 @@ function newsHTML(n, feat, fullrow){
       '<div class="nb-src">' + n.s + '<span class="nb-arr">&#8599;</span></div>' +
     '</div></a>';
 }
+/* Fill news grid gaps — no empty cells in 3-col grid */
+function fillGridGaps(items){
+  // Calculate effective column spans
+  // feat=2 cols, fullrow=3 cols, normal=1 col
+  // We walk items and track position in row (0-2)
+  var html='';
+  var col=0; // current column cursor in 3-col grid
+  for(var i=0;i<items.length;i++){
+    var n=items[i];
+    var isFeat=!!n.feat;
+    var isFull=!!n.fullrow;
+    var span=isFull?3:isFeat?2:1;
+    // If item doesn't fit remaining cols in current row, expand to fill row
+    var remaining=3-col;
+    if(span>remaining){
+      // Force fullrow so it wraps cleanly
+      isFull=true;span=3;col=0;
+    }
+    // If this is the last item and it would leave gaps, expand it
+    if(i===items.length-1){
+      var rem2=3-col;
+      if(rem2>1&&span===1){span=rem2;if(rem2===3)isFull=true;else isFeat=(rem2===2);}
+    }
+    // Advance col
+    col=(col+span)%3;
+    html+=newsHTML(n,isFeat,isFull);
+  }
+  return html;
+}
+
 function buildHomeNews(f){
   var g=document.getElementById('home-news-grid');
   if(!g)return;
   var filter=f||(lang==='en'?'en':'tr');
   var items=ND.filter(function(n){return n.l===filter;});
-  // Make first item fullrow to fill any gap; also last if count is odd
-  g.innerHTML=items.map(function(n,i){
-    var fr=!!n.fullrow||(i===0);
-    return newsHTML(n,!!n.feat,fr);
-  }).join('');
+  g.innerHTML=fillGridGaps(items);
 }
 function filterHomeNews(btn,f){document.querySelectorAll('.ntab').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');buildHomeNews(f);}
 function getDefaultNewsLang(){return lang==='en'?'en':'tr';}
 function buildInnerNews(){
   const g=document.getElementById('nwall');
   if(!g)return;
-  var items=ND;
-  g.innerHTML=items.map(function(n,i){
-    var fr=!!n.fullrow||(i===0)||(i===items.length-1&&items.length%2===0&&!n.feat);
-    return newsHTML(n,!!n.feat,fr);
-  }).join('');
+  g.innerHTML=fillGridGaps(ND);
 }
 function filterInner(btn,f){document.querySelectorAll('.lf-tab').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');buildInnerNews();}
 
