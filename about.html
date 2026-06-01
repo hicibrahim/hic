@@ -33,8 +33,8 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--in
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:.5px solid var(--border2);z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;transition:background .3s}
-.logo{text-decoration:none;display:flex;flex-direction:column;gap:1px}
-.logo-hic{font-family:'Playfair Display',serif;font-size:31px;font-weight:600;color:var(--gold);letter-spacing:.08em;cursor:pointer;}
+.logo{text-decoration:none;display:flex;flex-direction:column;gap:6px;padding-bottom:2px;cursor:pointer!important;}
+.logo-hic{font-family:'Playfair Display',serif;font-size:31px;font-weight:600;color:var(--gold);letter-spacing:.08em;cursor:pointer!important;}
 .logo-hic:hover{color:var(--gold2);}
 .logo-line{height:1px;background:linear-gradient(to right,var(--gold),transparent);width:100%;}
 .nav-links{display:flex;gap:0;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
@@ -504,8 +504,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
             <div class="ed-panel" id="ed2"><div class="ed-yr">2015</div><div class="ed-title" data-tr="Parlamento Danışmanı" data-en="Parliamentary Advisor">Parliamentary Advisor</div><div class="ed-org" data-tr="Turkiye Buyuk Millet Meclisi" data-en="Grand National Assembly of Turkey">Grand National Assembly of Turkey</div><div class="ed-body" data-tr="Milletvekili adına stratejik yasama danışmanlığı sunmak, kanunların çıkarılması ve takibi süreçlerini yürütmek; halktan gelen talepleri etkili bir şekilde çözüme kavuşturmak amacıyla kurumlar arası koordinasyonu sağlama görevleri yerine getirilirken aynı zamanda Türkiye Büyük Millet Meclisi'nin iç dinamiklerine dair işleyişi kavramak; yasama süreçlerine tam anlamıyla vakıf olarak parlamenter çalışma prensipleri ve siyasi stratejiler konusunda ilk elden deneyim edinilmiştir." data-en="Providing strategic legislative counsel, tracking and facilitating the enactment of laws, and orchestrating cross-agency coordination to effectively address citizen demands on behalf of the Member of Parliament. Gained insights into the internal dynamics of the Grand National Assembly of Türkiye, mastering legislative processes and acquiring first-hand experience in parliamentary workflows and political strategies.">Providing strategic legislative counsel, tracking and facilitating the enactment of laws, and orchestrating cross-agency coordination to effectively address citizen demands on behalf of the Member of Parliament. Gained insights into the internal dynamics of the Grand National Assembly of Türkiye, mastering legislative processes and acquiring first-hand experience in parliamentary workflows and political strategies.</div><div><span class="ed-tag">Political Comms</span><span class="ed-tag">Legislation</span></div></div>
             <div class="ed-panel" id="ed3">
               <div class="ed-yr">2006 — present</div>
-              <div class="ed-title">NGO Activities</div>
-              <div class="ed-org" style="margin-bottom:1rem;">Civil Society Memberships</div>
+              <div class="ed-title" data-tr="STK Faaliyetleri" data-en="NGO Activities">NGO Activities</div>
+              <div class="ed-org" style="margin-bottom:1rem;" data-tr="Sivil Toplum Kuruluşları Kurucu ve Üyelikler" data-en="Civil Society Memberships">Civil Society Memberships</div>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
                 <div>
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong data-tr="Kurucu:" data-en="Founder of the">Founder of the</strong> <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:inline;">Sinan &amp; Wren Foundation ↗</a></div>
@@ -514,7 +514,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                 </div>
                 <div>
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong data-tr="Kurucu:" data-en="Founder of the">Founder of the</strong> <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank" style="display:inline;">International Students Association ↗</a></div>
-                  <div style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Uludağ Üniversitesi'nde kurulan ve Bursa'da kültürlerarası etkileşimi destekleyen öğrenci derneği." data-en="Founded and led at Uludağ University, fostering cross-cultural exchange in Bursa.">Founded and led at Uludağ University, fostering cross-cultural exchange in Bursa.</div>
+                  <div style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Bursa'da kurulan ve Bursa'da uluslararası öğrenciler arasında kültürlerarası etkileşimi destekleyen öğrenci derneği." data-en="Founded in Bursa to foster cross-cultural exchange among international students in Bursa.">Founded in Bursa to foster cross-cultural exchange among international students in Bursa.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag" data-tr="Kurucu" data-en="Founder">Founder</span><span class="ed-tag">2006–2010</span></div>
                 </div>
                 <div>
@@ -1083,8 +1083,9 @@ window.addEventListener('load',function(){
       tr:"'AA Podcast' ve 'AA Portr\u00e9' dahil olmak \u00fczere yenilik\u00e7i projeler niteli\u011findeki dijital sesli ve g\u00f6r\u00fcnt\u00fcl\u00fc formatlar\u0131n yap\u0131mc\u0131l\u0131\u011f\u0131na ve stratejik b\u00fcy\u00fcmesinde \u00f6nc\u00fcl\u00fck"
     },
     comms:{
-      en:'Directing high-stakes ministerial protocol operations and overseeing event agencies to organize top-tier programs. Examples of officially organized events: · G20 Women Empowerment Ministerial Conference (Italy) · Commemorative ceremony for Dr. Sadık Ahmet in Gümülcine (Greece) · International Day for the Elimination of Violence Against Women Programme with Presidential Participation (Ankara) · Darülaceze Social Services City Opening Ceremony with Presidential Participation (Istanbul)',
-      tr:'Bakanlığın yüksek riskli kritik protokol operasyonları ile organizasyon ajanslarıyla koordineli etkinlikleri yönetmek. Resmi olarak organizesi yürütülen etkinlik örnekleri: · G20 Kadınların Güçlendirilmesi Bakanlar Konferansı (İtalya) · Gümülcine\'de Dr. Sadık Ahmet\'i anma töreni (Yunanistan) · CB Katılımı ile Kadına Yönelik Şiddete Karşı Uluslararası Mücadele Günü Programı (Ankara) · CB katılımı ile Darülaceze Sosyal Hizmet Şehri Açılış Programı (İstanbul)'
+      en:'Directing high-stakes ministerial protocol operations. Examples of officially organized events:<br><br><b>◆</b> G20 Women Empowerment Ministerial Conference (Italy)<br><b>◆</b> Commemorative ceremony for Dr. Sadık Ahmet in Gümülcine (Greece)<br><b>◆</b> International Day for the Elimination of Violence Against Women Programme with Presidential Participation (Ankara)<br><b>◆</b> Darülaceze Social Services City Opening Ceremony with Presidential Participation (Istanbul)',
+      tr:'Bakanlığın yüksek riskli kritik protokol operasyonları ile organizasyon ajanslarıyla koordineli etkinlikleri yönetmek. Resmi olarak organizesi yürütülen etkinlik örnekleri:<br><br><b>◆</b> G20 Kadınların Güçlendirilmesi Bakanlar Konferansı (İtalya)<br><b>◆</b> Gümülcine\'de Dr. Sadık Ahmet\'i anma töreni (Yunanistan)<br><b>◆</b> CB Katılımı ile Kadına Yönelik Şiddete Karşı Uluslararası Mücadele Günü Programı (Ankara)<br><b>◆</b> CB katılımı ile Darülaceze Sosyal Hizmet Şehri Açılış Programı (İstanbul)',
+      html:true
     },
     leadership:{
       en:"Administration of the ministerial office's administrative unit, protocol unit, and secretariat unit was ensured, alongside oversight of ministerial directives' implementation by general directorates. Participation as an observer in weekly Cabinet meetings was also maintained.",
@@ -1110,8 +1111,9 @@ window.addEventListener('load',function(){
   function showNote(pillar,rect){
     if(!noteEl||!NOTES[pillar])return;
     clearTimeout(hideTimer);
-    var txt=NOTES[pillar][lang]||NOTES[pillar].en;
-    noteEl.textContent=txt;
+    var note=NOTES[pillar];
+    var txt=note[lang]||note.en;
+    if(note.html){noteEl.innerHTML=txt;}else{noteEl.textContent=txt;}
     noteEl.style.display='block';
     // Force reflow to get width
     var nw=noteEl.offsetWidth||260;

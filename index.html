@@ -2374,7 +2374,7 @@ function toggleLang(){
   buildHomeNews();
   buildInnerNews();
 }
-// Apply saved language on load
+// Apply saved language on load — runs immediately before DOM ready
 (function(){
   if(lang==='tr'){
     document.querySelector('.lang-btn').textContent='EN';
@@ -2466,8 +2466,8 @@ function buildTicker(){
 
 /* ══ NEWS ══ */
 function newsHTML(n, feat, fullrow){
-  var lbl = n.l==='tr' ? (lang==='en'?'turkish':'türkçe') :
-            n.l==='en' ? (lang==='en'?'english':'en') :
+  var lbl = n.l==='tr' ? (lang==='en'?'Turkish':'Türkçe') :
+            n.l==='en' ? (lang==='en'?'English':'EN') :
             ((n.ll||'other').toLowerCase());
   var isOther=(n.l==='other');
   var cls=(n.fullrow||fullrow)?'nbrick fullrow':isOther?'nbrick fullrow':(feat?'nbrick feat':'nbrick');
@@ -2491,14 +2491,23 @@ function buildHomeNews(f){
   var g=document.getElementById('home-news-grid');
   if(!g)return;
   var filter=f||(lang==='en'?'en':'tr');
-  g.innerHTML=ND.filter(function(n){return n.l===filter;}).map(function(n,i){return newsHTML(n,!!n.feat,!!n.fullrow);}).join('');
+  var items=ND.filter(function(n){return n.l===filter;});
+  // Make first item fullrow to fill any gap; also last if count is odd
+  g.innerHTML=items.map(function(n,i){
+    var fr=!!n.fullrow||(i===0);
+    return newsHTML(n,!!n.feat,fr);
+  }).join('');
 }
 function filterHomeNews(btn,f){document.querySelectorAll('.ntab').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');buildHomeNews(f);}
 function getDefaultNewsLang(){return lang==='en'?'en':'tr';}
 function buildInnerNews(){
   const g=document.getElementById('nwall');
   if(!g)return;
-  g.innerHTML=ND.map(function(n,i){return newsHTML(n,!!n.feat,i===0||!!n.fullrow);}).join('');
+  var items=ND;
+  g.innerHTML=items.map(function(n,i){
+    var fr=!!n.fullrow||(i===0)||(i===items.length-1&&items.length%2===0&&!n.feat);
+    return newsHTML(n,!!n.feat,fr);
+  }).join('');
 }
 function filterInner(btn,f){document.querySelectorAll('.lf-tab').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');buildInnerNews();}
 
