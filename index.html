@@ -2489,32 +2489,42 @@ function newsHTML(n, feat, fullrow){
 }
 /* Fill news grid gaps — no empty cells in 3-col grid */
 function fillGridGaps(items){
-  // Calculate effective column spans
-  // feat=2 cols, fullrow=3 cols, normal=1 col
-  // We walk items and track position in row (0-2)
-  var html='';
-  var col=0; // current column cursor in 3-col grid
+  var results=[];
+  var col=0;
   for(var i=0;i<items.length;i++){
     var n=items[i];
     var isFeat=!!n.feat;
     var isFull=!!n.fullrow;
+    if(i===0)isFull=true; // first item always fullrow
     var span=isFull?3:isFeat?2:1;
-    // If item doesn't fit remaining cols in current row, expand to fill row
     var remaining=3-col;
-    if(span>remaining){
-      // Force fullrow so it wraps cleanly
-      isFull=true;span=3;col=0;
+    // If item doesn't fit: fill the gap by expanding the item to use remaining+span or go fullrow
+    if(span>remaining&&remaining>0){
+      // Option: expand previous item retroactively won't work in HTML
+      // Instead, make THIS item fullrow (fills from next row)
+      // and ADD a spacer to fill remaining in this row
+      // Simplest: if remaining==1 and span==2, just make span==1 (normal card for this row)
+      //           OR if feat, add a wrapper that spans remaining in current row
+      // Best approach: make current item start fresh (fullrow=3) so it occupies full next row
+      // but first fill current row's gap by expanding the last placed item
+      // We can't change rendered HTML, so instead: place item as-is with remaining span
+      if(remaining===1){
+        // Shrink feat to normal for this slot, start fresh next row for next feat
+        span=1;isFeat=false;isFull=false;
+        // Push remaining items to check if next feat can be full
+      } else {
+        isFull=true;span=3;col=0;
+      }
     }
-    // If this is the last item and it would leave gaps, expand it
+    // Last item: fill any remaining cols
     if(i===items.length-1){
       var rem2=3-col;
-      if(rem2>1&&span===1){span=rem2;if(rem2===3)isFull=true;else isFeat=(rem2===2);}
+      if(span<rem2){span=rem2;if(rem2===3){isFull=true;isFeat=false;}else if(rem2===2){isFeat=true;isFull=false;}}
     }
-    // Advance col
     col=(col+span)%3;
-    html+=newsHTML(n,isFeat,isFull);
+    results.push(newsHTML(n,isFeat,isFull));
   }
-  return html;
+  return results.join('');
 }
 
 function buildHomeNews(f){
