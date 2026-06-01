@@ -753,99 +753,48 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 
 /* ════ MOBILE-ONLY OVERRIDES (≤768px) ════ */
 @media(max-width:768px){
-  /* 1. Hide muck section (News+Featured News header + ticker row) on home */
+  /* 1. Hide muck section (ticker + Featured News header) on home */
   #sec-haberler .muck-section{display:none!important;}
 
-  /* 2. nb-lang capitalisation */
-  .nb-lang{text-transform:capitalize!important;}
-
-  /* 3. Transistor embeds 50% smaller */
-  .pod-ep-card iframe[src*="transistor"]{
-    transform:scale(0.5);
-    transform-origin:top left;
-    width:200%!important;
-    height:90px!important;
-    margin-bottom:-45px;
+  /* 2. p-tip: show BELOW the word on touch (inline, not fixed) */
+  .p-tip{
+    position:static!important;display:none;
+    margin-top:5px;width:100%;max-width:none;
+    white-space:normal;font-size:11px;
+    background:var(--bg2);border:.5px solid var(--border2);
+    border-radius:4px;padding:6px 10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+    pointer-events:none;z-index:auto;
   }
-  .pod-ep-card{min-height:auto;}
+  .p-w.tip-open .p-tip{display:block!important;}
+  .p-w:hover .p-tip{display:none;}
+  .p-w{display:inline-flex;flex-direction:column;cursor:pointer;}
 
-  /* 4. Vodcast title font -40% */
+  /* 3. Vodcast title font -40% */
   .vid-title,.vod-grid .vid-title{font-size:8px!important;}
 
-  /* 5. Podcast swipe between channels */
-  .pod-layout{touch-action:pan-y;}
+  /* 4. Home podcast section: full-width swipeable single episode */
+  #sec-podcast .pl-body{margin:0!important;display:block!important;}
+  #sec-podcast .pl-left{display:none!important;}
+  #sec-podcast .pl-eps{
+    display:flex!important;
+    flex-direction:row;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:0;padding:0;width:100%;
+  }
+  #sec-podcast .pl-eps::-webkit-scrollbar{display:none;}
+  #sec-podcast .pl-eps>*{
+    flex-shrink:0;width:100vw;
+    scroll-snap-align:start;
+  }
+  #sec-podcast .pl-eps iframe{
+    width:100%!important;height:200px!important;display:block;
+  }
 }
 
-/* ════ ABOUT.HTML MOBILE (Professional Profile) ════ */
-@media(max-width:768px){
-  /* Stage fills screen properly */
-  .stage{top:54px;}
-
-  /* Parchment inner scrollable */
-  .scroll-body{overflow-y:auto!important;-webkit-overflow-scrolling:touch;}
-  .parchment-inner{height:auto!important;padding:.6rem .8rem .8rem;}
-
-  /* Pillars: header on top, pillars scroll horizontally */
-  .pillars-row{flex-direction:column;border:none;}
-  .pillars-header{border-right:none;border-bottom:.5px solid var(--border2);padding:.4rem .6rem;min-width:unset;width:100%;}
-  .pillars-title{font-size:11px;}
-  .pillars-subtitle{font-size:9px;}
-  /* Pillar items: horizontal scroll row */
-  .pillars-row>.pillar{display:inline-flex;flex-direction:column;align-items:center;min-width:72px;border-right:.5px solid var(--border2);border-bottom:none;padding:.4rem .3rem;}
-  /* Wrap pillars in scrollable container */
-  .pillars-row{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex-direction:row;}
-  .pillars-row::-webkit-scrollbar{display:none;}
-  .pillar-icon{font-size:16px;}
-  .pillar-name{font-size:7px;}
-  .pillar-sub{font-size:7px;}
-
-  /* Timeline: horizontal swipe */
-  .htl-nodes{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex-wrap:nowrap;padding-bottom:4px;}
-  .htl-nodes::-webkit-scrollbar{display:none;}
-  .htl-n{min-width:70px;flex-shrink:0;}
-  .htl-yr{font-size:10px;}
-  .htl-t{font-size:10px;}
-  .htl-o{font-size:9px;}
-
-  /* Detail panel scrollable */
-  .exp-detail{overflow-y:auto!important;-webkit-overflow-scrolling:touch;flex:none;max-height:200px;}
-  .ed-title{font-size:16px;}
-  .ed-body{font-size:13px;}
-
-  /* Awards: fit 3 in a row */
-  .awards-grid{grid-template-columns:repeat(3,1fr);gap:.4rem;}
-  .aw{padding:.5rem .4rem;gap:.4rem;}
-  .aw-ring{width:32px;height:32px;font-size:14px;}
-  .aw-title{font-size:9px;}
-  .aw-year{font-size:9px;}
-
-  /* Footer single line */
-  .page-footer{flex-wrap:nowrap;padding:.4rem .8rem;gap:.3rem;justify-content:center;}
-  .footer-center{display:none;}
-  .f-link{font-size:8px!important;letter-spacing:.04em;}
-  .f-sep{font-size:9px;}
-
-  /* Scroll nav inside roller */
-  .scroll-nav{height:36px;}
-  .sn-btn{font-size:9px;padding:.2rem .5rem;}
-
-  /* Global Footprint map full screen */
-  #leaflet-map{position:absolute;inset:0;top:0;bottom:0;}
-
-  /* Back to profile button smaller */
-  .pane-switch-back{font-size:9px;padding:.3rem .8rem;right:.8rem;bottom:.8rem;}
-  .pane-switch{font-size:9px;padding:.3rem .8rem;}
-
-  /* About mobile menu full links */
-  .mob-m{top:54px;gap:1rem;padding:1.5rem;}
-  .mob-m a{font-size:22px;}
-}
-@media(max-width:480px){
-  .awards-grid{grid-template-columns:1fr;}
-  .aw{padding:.6rem .8rem;}
-  .aw-ring{width:36px;height:36px;}
-  .aw-title{font-size:10px;}
-}
 
 .p-tip {
   display:none; position:fixed;
@@ -3396,6 +3345,17 @@ function hidePodCursor(){
 
 /* ── Mobile podcast swipe for channel switching ── */
 (function(){
+  // Touch toggle for principle tooltips on mobile
+  document.querySelectorAll('.p-w').forEach(function(el){
+    el.addEventListener('touchstart',function(e){
+      e.preventDefault();
+      var wasOpen=el.classList.contains('tip-open');
+      document.querySelectorAll('.p-w').forEach(function(x){x.classList.remove('tip-open');});
+      if(!wasOpen)el.classList.add('tip-open');
+    },{passive:false});
+  });
+
+  // Podcast channel swipe
   var podSec=document.getElementById('sec-podcast');
   if(!podSec)return;
   var sx=0,sy=0;
@@ -3409,6 +3369,7 @@ function hidePodCursor(){
     if(next!==cur)tabs[next].click();
   },{passive:true});
 })();
+
 
 </script>
 
