@@ -295,7 +295,64 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .aw-year{font-size:11px;color:var(--gold);margin-top:3px;font-family:'Josefin Sans',sans-serif;}
 
 /* ══ PANE 2: MAP ══ */
-/* ══ PILLAR NOTE POPUP ══ */
+/* ════ ABOUT — MOBILE ════ */
+@media(max-width:768px){
+  nav{height:54px;}
+  .stage{top:54px;}
+  .scroll-body{overflow-y:auto!important;-webkit-overflow-scrolling:touch;}
+  .parchment-inner{height:auto!important;padding:.5rem .8rem;}
+
+  /* Pillars: header on top, items scroll horizontally */
+  .pillars-row{flex-direction:row;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border:none;}
+  .pillars-row::-webkit-scrollbar{display:none;}
+  .pillars-header{min-width:120px;flex-shrink:0;border-right:.5px solid var(--border2);border-bottom:none;padding:.4rem .6rem;}
+  .pillars-title{font-size:11px;}
+  .pillars-subtitle{font-size:9px;}
+  .pillar{min-width:72px;flex-shrink:0;padding:.35rem .25rem;border-right:.5px solid var(--border2);}
+  .pillar-icon{font-size:16px;}
+  .pillar-name{font-size:7px;}
+  .pillar-sub{font-size:7px;}
+
+  /* Timeline horizontal swipe */
+  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .htl-nodes{flex-wrap:nowrap;overflow-x:visible;}
+  .htl-n{min-width:68px;flex-shrink:0;}
+  .htl-yr{font-size:10px;}
+  .htl-t{font-size:10px;}
+  .htl-o{font-size:9px;}
+
+  /* Detail panel scrollable */
+  .exp-detail{overflow-y:auto!important;-webkit-overflow-scrolling:touch;max-height:220px;flex:none;}
+  .ed-title{font-size:15px;}
+  .ed-body{font-size:12px;line-height:1.6;}
+
+  /* Awards: 1 column on very small, 3 otherwise */
+  .awards-grid{grid-template-columns:repeat(3,1fr);gap:.35rem;}
+  .aw{padding:.45rem .35rem;gap:.35rem;flex-direction:column;align-items:center;text-align:center;}
+  .aw-ring{width:30px;height:30px;font-size:13px;}
+  .aw-title{font-size:8px;line-height:1.2;}
+  .aw-year{font-size:8px;}
+
+  /* Footer single compact line */
+  .page-footer{flex-wrap:nowrap;padding:.4rem .6rem;gap:.4rem;justify-content:center;}
+  .footer-center,.footer-right{display:none;}
+  .f-link{font-size:9px!important;gap:.25rem;}
+  .f-link i{font-size:10px;}
+  .f-sep{font-size:9px;}
+
+  /* Scroll nav */
+  .scroll-nav{height:36px;}
+
+  /* Mobile menu */
+  .mob-m{top:54px;padding:1.5rem;gap:.8rem;}
+  .mob-m a{font-size:20px;letter-spacing:.06em;}
+}
+@media(max-width:480px){
+  .awards-grid{grid-template-columns:1fr;}
+  .aw{flex-direction:row;text-align:left;}
+  .aw-ring{width:36px;height:36px;font-size:15px;flex-shrink:0;}
+}
+
 .pillar-note{
   position:fixed;z-index:400;
   background:var(--bg);
@@ -450,7 +507,12 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   </div>
 </nav>
 <div class="mob-m" id="mob-m">
-  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="index.html" data-tr="Anasayfa" data-en="Home">Home</a>
+  <a href="index.html" data-tr="Haberlerim" data-en="News">News</a>
+  <a href="index.html" data-tr="Perspektif" data-en="Perspective">Perspective</a>
+  <a href="index.html" data-tr="Vodcast" data-en="Vodcast">Vodcast</a>
+  <a href="index.html" data-tr="Podcast" data-en="Podcast">Podcast</a>
+  <a href="about.html" data-tr="Profesyonel Profil" data-en="Professional Profile">Professional Profile</a>
 </div>
 
 <!-- Pillar note popup -->

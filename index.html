@@ -751,8 +751,102 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   .vod-grid{grid-template-columns:1fr 1fr;}
 }
 
-/* ── Principle tooltips ── */
-.p-w { position:relative; cursor:default; }
+/* ════ MOBILE-ONLY OVERRIDES (≤768px) ════ */
+@media(max-width:768px){
+  /* 1. Hide muck section (News+Featured News header + ticker row) on home */
+  #sec-haberler .muck-section{display:none!important;}
+
+  /* 2. nb-lang capitalisation */
+  .nb-lang{text-transform:capitalize!important;}
+
+  /* 3. Transistor embeds 50% smaller */
+  .pod-ep-card iframe[src*="transistor"]{
+    transform:scale(0.5);
+    transform-origin:top left;
+    width:200%!important;
+    height:90px!important;
+    margin-bottom:-45px;
+  }
+  .pod-ep-card{min-height:auto;}
+
+  /* 4. Vodcast title font -40% */
+  .vid-title,.vod-grid .vid-title{font-size:8px!important;}
+
+  /* 5. Podcast swipe between channels */
+  .pod-layout{touch-action:pan-y;}
+}
+
+/* ════ ABOUT.HTML MOBILE (Professional Profile) ════ */
+@media(max-width:768px){
+  /* Stage fills screen properly */
+  .stage{top:54px;}
+
+  /* Parchment inner scrollable */
+  .scroll-body{overflow-y:auto!important;-webkit-overflow-scrolling:touch;}
+  .parchment-inner{height:auto!important;padding:.6rem .8rem .8rem;}
+
+  /* Pillars: header on top, pillars scroll horizontally */
+  .pillars-row{flex-direction:column;border:none;}
+  .pillars-header{border-right:none;border-bottom:.5px solid var(--border2);padding:.4rem .6rem;min-width:unset;width:100%;}
+  .pillars-title{font-size:11px;}
+  .pillars-subtitle{font-size:9px;}
+  /* Pillar items: horizontal scroll row */
+  .pillars-row>.pillar{display:inline-flex;flex-direction:column;align-items:center;min-width:72px;border-right:.5px solid var(--border2);border-bottom:none;padding:.4rem .3rem;}
+  /* Wrap pillars in scrollable container */
+  .pillars-row{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex-direction:row;}
+  .pillars-row::-webkit-scrollbar{display:none;}
+  .pillar-icon{font-size:16px;}
+  .pillar-name{font-size:7px;}
+  .pillar-sub{font-size:7px;}
+
+  /* Timeline: horizontal swipe */
+  .htl-nodes{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex-wrap:nowrap;padding-bottom:4px;}
+  .htl-nodes::-webkit-scrollbar{display:none;}
+  .htl-n{min-width:70px;flex-shrink:0;}
+  .htl-yr{font-size:10px;}
+  .htl-t{font-size:10px;}
+  .htl-o{font-size:9px;}
+
+  /* Detail panel scrollable */
+  .exp-detail{overflow-y:auto!important;-webkit-overflow-scrolling:touch;flex:none;max-height:200px;}
+  .ed-title{font-size:16px;}
+  .ed-body{font-size:13px;}
+
+  /* Awards: fit 3 in a row */
+  .awards-grid{grid-template-columns:repeat(3,1fr);gap:.4rem;}
+  .aw{padding:.5rem .4rem;gap:.4rem;}
+  .aw-ring{width:32px;height:32px;font-size:14px;}
+  .aw-title{font-size:9px;}
+  .aw-year{font-size:9px;}
+
+  /* Footer single line */
+  .page-footer{flex-wrap:nowrap;padding:.4rem .8rem;gap:.3rem;justify-content:center;}
+  .footer-center{display:none;}
+  .f-link{font-size:8px!important;letter-spacing:.04em;}
+  .f-sep{font-size:9px;}
+
+  /* Scroll nav inside roller */
+  .scroll-nav{height:36px;}
+  .sn-btn{font-size:9px;padding:.2rem .5rem;}
+
+  /* Global Footprint map full screen */
+  #leaflet-map{position:absolute;inset:0;top:0;bottom:0;}
+
+  /* Back to profile button smaller */
+  .pane-switch-back{font-size:9px;padding:.3rem .8rem;right:.8rem;bottom:.8rem;}
+  .pane-switch{font-size:9px;padding:.3rem .8rem;}
+
+  /* About mobile menu full links */
+  .mob-m{top:54px;gap:1rem;padding:1.5rem;}
+  .mob-m a{font-size:22px;}
+}
+@media(max-width:480px){
+  .awards-grid{grid-template-columns:1fr;}
+  .aw{padding:.6rem .8rem;}
+  .aw-ring{width:36px;height:36px;}
+  .aw-title{font-size:10px;}
+}
+
 .p-tip {
   display:none; position:fixed;
   background:var(--bg); border:.5px solid var(--border);
@@ -2468,7 +2562,7 @@ function buildTicker(){
 function newsHTML(n, feat, fullrow){
   var lbl = n.l==='tr' ? (lang==='en'?'Turkish':'Türkçe') :
             n.l==='en' ? (lang==='en'?'English':'EN') :
-            ((n.ll||'other').toLowerCase());
+            ((n.ll||'Other'));
   var isOther=(n.l==='other');
   var cls=(n.fullrow||fullrow)?'nbrick fullrow':isOther?'nbrick fullrow':(feat?'nbrick feat':'nbrick');
   var img = n.i
@@ -3299,6 +3393,22 @@ function hidePodCursor(){
   document.documentElement.style.cursor='';
   document.body.classList.remove('pod-cursor-active');
 }
+
+/* ── Mobile podcast swipe for channel switching ── */
+(function(){
+  var podSec=document.getElementById('sec-podcast');
+  if(!podSec)return;
+  var sx=0,sy=0;
+  podSec.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  podSec.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<50||Math.abs(dx)<Math.abs(dy))return;
+    var tabs=Array.from(document.querySelectorAll('.pod-ni'));
+    var cur=tabs.findIndex(function(t){return t.classList.contains('on');});
+    var next=dx<0?Math.min(cur+1,tabs.length-1):Math.max(cur-1,0);
+    if(next!==cur)tabs[next].click();
+  },{passive:true});
+})();
 
 </script>
 
