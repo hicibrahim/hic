@@ -1959,7 +1959,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'birbakista')" title="Bir Bakışta"><img src="bir_bakista.webp" alt="Bir Bakışta" loading="lazy"></div>
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'mahrec')" title="Mahreç Dünya"><img src="mahrec.jpg" alt="Mahreç Dünya" loading="lazy"></div>
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'atalks')" title="Anadolu Talk Zone"><img src="anadolu_talk_zone.webp" alt="Anadolu Talk Zone" loading="lazy"></div>
-      <div class="pod-ni pod-ni-img" onclick="switchPod(this,'seruven')" title="100 Yıllık Serüven" style="background:#1a1208;"><img src="seruven.png" alt="100 Yıllık Serüven" loading="lazy" style="object-fit:contain;background:#1a1208;"></div>
+      <div class="pod-ni pod-ni-img" onclick="switchPod(this,'seruven')" title="100 Yıllık Serüven"><img src="seruven.png" alt="100 Yıllık Serüven" loading="lazy"></div>
     </div>
     <div class="pod-main">
       <div class="pod-sec on" id="ps-portre">
@@ -2631,6 +2631,9 @@ function switchPl(idx){
   ['pl-link','pl-name-link'].forEach(id=>{const el=document.getElementById(id);if(el)el.href=lnk;});
   const nameEl=document.getElementById('pl-name');
   if(nameEl)nameEl.textContent=pl.label;
+  // Set cover image
+  const imgEl=document.getElementById('pl-img');
+  if(imgEl&&pl.cover){imgEl.src=pl.cover;imgEl.style.opacity='1';}
   const eps=document.getElementById('pl-eps');
   if(!eps)return;
   // Cache: already loaded, no flicker
@@ -2924,7 +2927,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   // Tüm ip sayfalarını başlangıçta gizle
   buildTicker();
-  buildHomeNews('en');
+  buildHomeNews();
   buildPlaylists();
   // Hash'e göre doğru sayfayı yükle
   (function(){
