@@ -97,18 +97,16 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 /* The parchment content area */
 .scroll-body{
   flex:1;
-  overflow-y:auto;
-  overflow-x:hidden;
+  overflow:hidden;
   position:relative;
-  display:block;
+  display:flex;
+  flex-direction:column;
   background-image:
     radial-gradient(ellipse at 20% 20%,rgba(200,168,106,.18) 0%,transparent 60%),
     radial-gradient(ellipse at 80% 80%,rgba(160,120,60,.14) 0%,transparent 50%),
     radial-gradient(ellipse at 60% 40%,rgba(220,195,140,.10) 0%,transparent 40%);
   background-color:var(--scroll-bg);
 }
-.scroll-body::-webkit-scrollbar{width:3px;}
-.scroll-body::-webkit-scrollbar-thumb{background:rgba(184,137,42,.3);border-radius:2px;}
 [data-theme="dark"] .scroll-body{
   background-color:#221e14;
   background-image:
@@ -188,32 +186,51 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 /* ══ PARCHMENT CONTENT ══ */
 .parchment-inner{
   width:100%;
-  padding:.8rem 1.2rem 1.5rem;
-  display:block;
+  padding:.5rem 1.2rem .5rem;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  height:100%;
   box-sizing:border-box;
+  overflow:hidden;
 }
 
 /* ── Pillars ── */
 .pillars-row{
   display:flex;
-  gap:0;
+  flex-direction:row;
+  align-items:stretch;
   border:.5px solid var(--border2);
+  border-radius:5px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.pillars-header{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:.4rem .9rem;flex-shrink:0;min-width:130px;
+  border-right:.5px solid var(--border2);
+}
+.pillars-title{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.2;}
+.pillars-subtitle{font-family:'Josefin Sans',sans-serif;font-size:9px;color:var(--muted);margin-top:3px;font-weight:400;letter-spacing:.04em;}
+.pillar{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:.35rem .5rem;cursor:pointer;
+  flex:1;min-width:60px;
+  border-right:.5px solid var(--border2);
+  transition:background .2s;
+}
+.pillar:last-child{border-right:none;}
+.pillar:hover{background:rgba(184,137,42,.06);}
+.pillar[data-pillar]{cursor:pointer;}
+.pillar[data-pillar]:hover .pillar-name{color:var(--gold);}
+.pillar-icon{font-size:17px;color:var(--gold);display:block;margin-bottom:.2rem;transition:color .2s}
+.pillar-name{font-family:'Nunito',sans-serif;font-size:10px;font-weight:600;letter-spacing:.01em;color:var(--ink);line-height:1.2;text-align:center;}
+.pillar-sub{font-family:'Nunito',sans-serif;font-size:9px;color:var(--muted);margin-top:1px;font-weight:400;text-align:center;}
   border-radius:4px;
   overflow:hidden;
   flex-shrink:0;
 }
-.pillar{
-  flex:1;padding:.45rem .4rem;text-align:center;
-  border-right:.5px solid var(--border2);
-  cursor:default;transition:background .2s;position:relative;
-}
-.pillar:last-child{border-right:none}
-.pillar:hover{background:rgba(184,137,42,.07)}
-.pillar:hover .pillar-icon{animation:pillar-bounce .35s ease;color:var(--gold2);}
-@keyframes pillar-bounce{0%{transform:translateY(0)}35%{transform:translateY(-5px)}65%{transform:translateY(-2px)}100%{transform:translateY(0)}}
-.pillar-icon{font-size:20px;color:var(--gold);display:block;margin-bottom:.3rem;transition:color .2s}
-.pillar-name{font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--ink);line-height:1.3;}
-.pillar-sub{font-family:'Nunito',sans-serif;font-size:12px;color:var(--muted);margin-top:2px;font-weight:400;}
+
 
 /* ── Timeline ── */
 .htl-base{display:none;}/* replaced by htl-nodes::before */
@@ -289,9 +306,11 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .exp-detail{
   border:.5px solid var(--border2);border-radius:6px;
   padding:.7rem 1.2rem;background:rgba(255,255,255,.35);
-  position:relative;overflow:visible;margin-top:0;
-  min-height:100px;
+  flex:1;position:relative;overflow-y:auto;overflow-x:hidden;
+  margin-top:0;min-height:0;
 }
+.exp-detail::-webkit-scrollbar{width:3px;}
+.exp-detail::-webkit-scrollbar-thumb{background:rgba(184,137,42,.25);border-radius:2px;}
 
 /* ── Awards ── */
 .aw-label{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;flex-shrink:0;}
@@ -445,13 +464,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .leaflet-control-zoom-out{border-bottom:none!important;}
 
 /* ══ PILLARS HEADER ══ */
-.pillars-header{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:.4rem .9rem;flex-shrink:0;min-width:130px;
-  border-right:.5px solid var(--border2);
-}
-.pillars-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--ink);line-height:1.2;}
-.pillars-subtitle{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);margin-top:3px;font-weight:400;letter-spacing:.04em;}
+
 
 /* ══ WORLDWIDE MAP — Leaflet ══ */
 #leaflet-map{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
