@@ -316,8 +316,19 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .pillar-name{font-size:7px;}
   .pillar-sub{font-size:6px;}
 
-  /* Pillar note: BELOW the pillar row on mobile */
-  .pillar-note{position:static!important;left:auto!important;top:auto!important;transform:none!important;display:none;width:calc(100% - 1.4rem);max-width:none;margin:.5rem .7rem;font-size:12px;opacity:1!important;}
+  /* 6. Pillar note: immediately below pillar icons row, above detail panels */
+  .pillar-note{
+    position:static!important;left:auto!important;top:auto!important;
+    transform:none!important;display:none;
+    width:100%;max-width:100%;
+    margin:.3rem 0 0;font-size:12px;
+    opacity:1!important;border-radius:4px;
+    border-left:3px solid var(--gold);
+    padding:.55rem .8rem;
+    background:var(--bg);
+    box-shadow:0 3px 10px rgba(0,0,0,.12);
+    pointer-events:none;
+  }
   .pillar-note.vis{display:block!important;}
 
   /* Roller 60% thinner */
@@ -325,13 +336,16 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .sn-btn{font-size:7px;padding:.1rem .35rem;letter-spacing:.1em;}
   .sn-dot{width:4px;height:4px;}
 
-  /* Timeline horizontal swipe */
-  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  .htl-nodes{flex-wrap:nowrap;overflow-x:visible;}
-  .htl-n{min-width:68px;flex-shrink:0;}
+  /* 4+5. Timeline: horizontal swipe, dots+line visible, even spacing */
+  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:1.8rem;}
+  .htl-base,.htl-fill{top:0!important;display:block!important;height:1.5px;}
+  .htl-dot{top:-1.25rem!important;display:block!important;z-index:3;}
+  .htl-pulse{top:-1.55rem!important;display:block!important;}
+  .htl-nodes{flex-wrap:nowrap;overflow-x:visible;padding-top:.1rem;}
+  .htl-n{min-width:72px;flex-shrink:0;flex:none;}
   .htl-yr{font-size:10px;}
-  .htl-t{font-size:10px;}
-  .htl-o{font-size:9px;}
+  .htl-t{font-size:10px;letter-spacing:.02em;}
+  .htl-o{font-size:8px;}
 
   /* Detail panel: scrollable */
   .exp-detail{overflow-y:auto!important;-webkit-overflow-scrolling:touch;max-height:240px;flex:none;}
