@@ -218,9 +218,23 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .pillar-sub{font-family:'Nunito',sans-serif;font-size:12px;color:var(--muted);margin-top:2px;font-weight:400;}
 
 /* ── Timeline ── */
-.htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--border2);border-radius:1px;}
-.htl-fill{position:absolute;top:0;left:0;height:1.5px;background:var(--gold);width:0;border-radius:1px;transition:width .5s;}
-.htl-nodes{display:flex;}
+.htl-base{display:none;}/* replaced by htl-nodes::before */
+.htl-fill{display:none;}/* replaced by htl-nodes::after */
+.htl-nodes{display:flex;position:relative;}
+/* Line runs through nodes via pseudo-elements */
+.htl-nodes::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1.5px;
+  background:var(--border2);border-radius:1px;
+  z-index:1;
+}
+.htl-nodes::after{
+  content:'';position:absolute;
+  top:0;left:0;height:1.5px;
+  background:var(--gold);border-radius:1px;
+  width:var(--htl-fill,0%);transition:width .5s;
+  z-index:2;
+}
 .htl-n{
   flex:1;display:flex;flex-direction:column;align-items:center;
   cursor:pointer;padding:.12rem .05rem;
@@ -229,20 +243,20 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 }
 .htl-n.vis{opacity:1;transform:translateY(0);}
 .htl-pulse{
-  position:absolute;top:-1.5rem;left:50%;transform:translateX(-50%);
+  position:absolute;top:-.75px;left:50%;transform:translate(-50%,-50%);
   width:14px;height:14px;border-radius:50%;
   border:1.5px solid rgba(184,137,42,.4);
-  animation:htl-p 2.4s ease-out infinite;opacity:0;
+  animation:htl-p 2.4s ease-out infinite;opacity:0;z-index:3;
 }
 .htl-n.vis .htl-pulse{opacity:1;}
-@keyframes htl-p{0%{transform:translateX(-50%) scale(.4);opacity:.8}100%{transform:translateX(-50%) scale(1.8);opacity:0}}
+@keyframes htl-p{0%{transform:translate(-50%,-50%) scale(.4);opacity:.8}100%{transform:translate(-50%,-50%) scale(1.8);opacity:0}}
 .htl-dot{
-  position:absolute;top:-1.25rem;left:50%;transform:translateX(-50%);
+  position:absolute;top:-.75px;left:50%;transform:translate(-50%,-50%);
   width:9px;height:9px;border-radius:50%;
   background:var(--scroll-bg);border:2px solid var(--border2);
-  z-index:3;transition:all .22s;
+  z-index:4;transition:all .22s;
 }
-.htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;top:-1.35rem;}
+.htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;}
 .htl-n:hover .htl-dot{border-color:var(--gold);}
 .htl-yr{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:600;color:var(--gold);margin-top:.06rem;font-style:normal;}
 .htl-t{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:16px;font-weight:600;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.04em;text-transform:uppercase;}
@@ -339,24 +353,9 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .sn-btn{font-size:7px;padding:.1rem .35rem;letter-spacing:.1em;}
   .sn-dot{width:4px;height:4px;}
 
-  /* Timeline mobile: scroll container, dots ON the line, reduce top gap 70% */
-  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:2rem;position:relative;margin-top:-.5rem!important;}
-  /* Line must extend full width of nodes (not just viewport) */
-  .htl-base,.htl-fill{min-width:100%;width:max-content;}
-  .htl-nodes{min-width:max-content;}
-  .htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;z-index:1;}
-  .htl-fill{position:absolute;top:0;left:0;height:1.5px;z-index:2;}
-  /* Dots exactly on the line */
-  .htl-dot{
-    top:calc(-1.5px - 4.5px)!important;  /* line top - half dot height */
-    display:block!important;z-index:4;
-  }
-  .htl-pulse{
-    top:calc(-1.5px - 7px)!important;  /* centered on line */
-    display:block!important;z-index:3;
-  }
-  .htl-n.sel .htl-dot{top:calc(-1.5px - 5.5px)!important;}
-  .htl-nodes{flex-wrap:nowrap;overflow-x:visible;position:relative;}
+  /* Timeline mobile: scrollable, dots on line via pseudo-elements */
+  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:.4rem;position:relative;}
+  .htl-nodes{flex-wrap:nowrap;min-width:max-content;}
   .htl-n{min-width:72px;flex-shrink:0;flex:none;}
   .htl-yr{font-size:10px;}
   .htl-t{font-size:10px;letter-spacing:.02em;}
@@ -629,7 +628,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
                       <span data-tr="KURUCU S&amp;W" data-en="FOUNDER S&amp;W">Founder of the SINAN &amp; WREN</span>
-                      <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
+                      <span style="font-size:10px;color:rgba(140,100,40,.55);margin-left:5px;font-weight:300;">↗</span>
                     </a>
                   </div>
                   <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Üç kıtada kültürlerarası diyalog ve iş birliği için kurulan uluslararası sivil toplum platformu." data-en="International civil society platform for intercultural dialogue across three continents.">International civil society platform for intercultural dialogue across three continents.</div>
@@ -639,7 +638,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
                       <span data-tr="KURUCU UDEF" data-en="FOUNDER UDEF">Founder of the UDEF</span>
-                      <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
+                      <span style="font-size:10px;color:rgba(140,100,40,.55);margin-left:5px;font-weight:300;">↗</span>
                     </a>
                   </div>
                   <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Bursa'da kurulan ve Bursa'da uluslararası öğrenciler arasında kültürlerarası etkileşimi destekleyen öğrenci derneği." data-en="Founded in Bursa to foster cross-cultural exchange among international students in Bursa.">Founded in Bursa to foster cross-cultural exchange among international students in Bursa.</div>
@@ -649,7 +648,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://uvdvuslat.com/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
                       <span data-tr="YK ÜYESİ UVP" data-en="BOARD MEMBER UVP">Board Member of the UVP</span>
-                      <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
+                      <span style="font-size:10px;color:rgba(140,100,40,.55);margin-left:5px;font-weight:300;">↗</span>
                     </a>
                   </div>
                   <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Bilgi ve ahlak ekseninde medeniyetin yeniden inşasını hedefleyen platformun yönetim kurulu üyesi." data-en="Board Member of a platform for civilisational renewal through knowledge and ethics.">Board Member of a platform for civilisational renewal through knowledge and ethics.</div>
@@ -907,11 +906,8 @@ function expStop(){expCycling=false;clearTimeout(expTimer);}
     nodes.forEach(function(n,i){
       setTimeout(function(){n.classList.add('vis');},i*120);
     });
-    if(fill){
-      var nodesEl=document.querySelector('.htl-nodes');
-      var totalW=nodesEl?nodesEl.scrollWidth+'px':'100%';
-      setTimeout(function(){fill.style.width=totalW;},nodes.length*120+200);
-    }
+    var nodesEl=document.querySelector('.htl-nodes');
+    if(nodesEl)setTimeout(function(){nodesEl.style.setProperty('--htl-fill','100%');},nodes.length*120+200);
   },600);
   function cycle(){
     if(!expCycling)return;

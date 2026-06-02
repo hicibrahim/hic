@@ -756,24 +756,24 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   /* 1. Hide muck section (ticker + Featured News header) on home */
   #sec-haberler .muck-section{display:none!important;}
 
-  /* 2. p-tip: show directly below word without moving word position */
-  .hero-principles{flex-wrap:wrap;row-gap:0;}
-  .p-w{display:inline-block;position:relative;cursor:pointer;-webkit-user-select:none;user-select:none;}
-  .p-tip{
-    display:none;
-    position:fixed;
-    margin-top:4px;
-    width:180px;max-width:85vw;
-    white-space:normal;font-size:12px;
-    background:var(--bg);border:1px solid var(--gold);
-    border-radius:6px;padding:7px 11px;
-    box-shadow:0 4px 16px rgba(0,0,0,.22);
-    pointer-events:none;z-index:9999;
-    color:var(--ink);font-family:'Josefin Sans',sans-serif;
-    letter-spacing:.04em;line-height:1.5;
+  /* 2. p-tip mobile: single shared tooltip, aligned to first word's bottom */
+  .hero-principles{position:relative;flex-wrap:wrap;}
+  .p-w{display:inline-block;position:static;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  /* Hide ALL inline p-tips on mobile */
+  .p-tip{display:none!important;}
+  /* Use a shared fixed overlay tooltip instead */
+  #mob-tooltip{
+    display:none;position:fixed;
+    background:var(--bg);border:1px solid rgba(184,137,42,.6);
+    border-radius:6px;padding:7px 12px;
+    font-family:'Josefin Sans',sans-serif;font-size:12px;
+    color:var(--ink);letter-spacing:.04em;line-height:1.5;
+    box-shadow:0 4px 16px rgba(0,0,0,.2);
+    z-index:9999;pointer-events:none;
+    max-width:200px;white-space:normal;
+    top:auto;left:50%;transform:translateX(-50%);
   }
-  .p-w.tip-open .p-tip{display:block!important;}
-  .p-w:hover .p-tip{display:none;}
+  #mob-tooltip.show{display:block;}
 
   /* Vodcast: 2-col grid, no overflow */
   .vod-grid{grid-template-columns:1fr 1fr!important;gap:1px!important;padding:0 8px!important;}
@@ -788,9 +788,9 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   #sec-podcast .pl-tabs{padding:0!important;margin:0!important;width:100%;overflow-x:auto;scrollbar-width:none;}
   #sec-podcast .pl-tabs::-webkit-scrollbar{display:none;}
   /* Podcast channel title: no gap from thumbnail */
-  .pod-sh{padding:0 16px 10px!important;margin-top:0!important;}
-  .pod-sec{padding-top:0!important;margin-top:0!important;}
-  .pod-emb{padding-top:0!important;}
+  .pod-sh{padding:0 16px 8px!important;margin:0!important;position:static!important;}
+  .pod-sec{padding:0!important;margin:0!important;}
+  .pod-emb{padding:0 16px 12px!important;background:transparent!important;border-bottom:none!important;}
 
   #sec-podcast .pl-body{margin:0!important;display:block!important;padding:0!important;}
   #sec-podcast .pl-left{display:none!important;}
@@ -1495,6 +1495,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
         <span class="p-sep"></span>
         <span class="p-w" data-tip-tr="Sakince kavrama" data-tip-en="Level-headedness">Teenni<span class="p-tip" id="tip-teenni">Sakince kavrama</span></span>
       </div>
+      <div id="mob-tooltip"></div>
       <a class="hero-scroll" href="#sec-haberler">
         <span class="hero-scroll-bar"></span>
         <span data-tr="Keşfet" data-en="Explore">Explore</span>
@@ -3374,44 +3375,49 @@ function hidePodCursor(){
 
 /* ── Mobile podcast swipe for channel switching ── */
 (function(){
-  // Tooltip for principle words — mobile + desktop
-  document.querySelectorAll('.p-w').forEach(function(el){
-    function showTip(x, y){
-      var tip=el.querySelector('.p-tip');
-      if(!tip)return;
-      var wasOpen=el.classList.contains('tip-open');
-      document.querySelectorAll('.p-w').forEach(function(w){
-        w.classList.remove('tip-open');
-        var t=w.querySelector('.p-tip');
-        if(t)t.style.cssText='';
-      });
-      if(!wasOpen){
-        el.classList.add('tip-open');
-        // Position tip below the word using fixed coords
-        if(x!==undefined&&y!==undefined){
-          tip.style.left=Math.max(8,x-90)+'px';
-          tip.style.top=(y+20)+'px';
-        }
+  // Principle word tooltips — shared overlay on mobile, inline on desktop
+  var mobTip=document.getElementById('mob-tooltip');
+  var activePw=null;
+
+  function openTip(el, text){
+    if(window.innerWidth>768){
+      // Desktop: use inline p-tip
+      document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
+      el.classList.add('tip-open');
+    } else {
+      // Mobile: use shared fixed tooltip
+      document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
+      if(!mobTip)return;
+      if(activePw===el){mobTip.classList.remove('show');activePw=null;return;}
+      activePw=el;
+      mobTip.textContent=text;
+      // Position below the hero-principles row, centered
+      var prins=document.querySelector('.hero-principles');
+      if(prins){
+        var r=prins.getBoundingClientRect();
+        mobTip.style.top=(r.bottom+8)+'px';
+        mobTip.style.left='50%';
+        mobTip.style.transform='translateX(-50%)';
       }
+      mobTip.classList.add('show');
     }
+  }
+
+  document.querySelectorAll('.p-w').forEach(function(el){
+    var getText=function(){return lang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');};
     el.addEventListener('click',function(e){
       e.stopPropagation();
-      var r=el.getBoundingClientRect();
-      showTip(r.left+r.width/2, r.bottom);
+      openTip(el, getText());
     });
     el.addEventListener('touchend',function(e){
       e.preventDefault();e.stopPropagation();
-      var t=e.changedTouches[0];
-      showTip(t.clientX, t.clientY);
+      openTip(el, getText());
     },{passive:false});
   });
   document.addEventListener('click',function(e){
     if(!e.target.closest('.p-w')){
-      document.querySelectorAll('.p-w').forEach(function(w){
-        w.classList.remove('tip-open');
-        var t=w.querySelector('.p-tip');
-        if(t)t.style.cssText='';
-      });
+      document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
+      if(mobTip){mobTip.classList.remove('show');activePw=null;}
     }
   });
 
