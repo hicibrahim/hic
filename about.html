@@ -316,6 +316,10 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .pillar-name{font-size:7px;}
   .pillar-sub{font-size:6px;}
 
+  /* 1. Comm note: smaller bullets on mobile */
+  .pillar-note b{font-size:85%;}
+  .pillar-note br+b{font-size:80%;}
+
   /* 6. Pillar note: immediately below pillar icons row, above detail panels */
   .pillar-note{
     position:static!important;left:auto!important;top:auto!important;
@@ -336,12 +340,20 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .sn-btn{font-size:7px;padding:.1rem .35rem;letter-spacing:.1em;}
   .sn-dot{width:4px;height:4px;}
 
-  /* 4+5. Timeline: horizontal swipe, dots+line visible, even spacing */
+  /* Timeline mobile: scroll container, dots ON the line */
   .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:2rem;position:relative;}
-  .htl-base{display:block!important;top:0!important;left:0!important;right:0!important;}
-  .htl-fill{display:block!important;top:0!important;}
-  .htl-dot{top:-1.3rem!important;display:block!important;z-index:3;}
-  .htl-pulse{top:-1.6rem!important;display:block!important;}
+  .htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;z-index:1;}
+  .htl-fill{position:absolute;top:0;left:0;height:1.5px;z-index:2;}
+  /* Dots exactly on the line */
+  .htl-dot{
+    top:calc(-1.5px - 4.5px)!important;  /* line top - half dot height */
+    display:block!important;z-index:4;
+  }
+  .htl-pulse{
+    top:calc(-1.5px - 7px)!important;  /* centered on line */
+    display:block!important;z-index:3;
+  }
+  .htl-n.sel .htl-dot{top:calc(-1.5px - 5.5px)!important;}
   .htl-nodes{flex-wrap:nowrap;overflow-x:visible;position:relative;}
   .htl-n{min-width:72px;flex-shrink:0;flex:none;}
   .htl-yr{font-size:10px;}
@@ -362,8 +374,11 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .aw-title{font-family:'Josefin Sans',sans-serif;font-size:6.5px;letter-spacing:.02em;line-height:1.15;font-weight:400;}
   .aw-year{font-size:6.5px;}
 
-  /* NGO grid mobile */
-  .ngo-grid{grid-template-columns:1fr!important;gap:.6rem!important;}
+  /* Georgetown layout mobile */
+  #ed4 .ed-tag{display:inline-block!important;margin:2px 2px 0 0;}
+  #ed4>div{flex-direction:column!important;}
+  #ed4>div>div:last-child{width:100%!important;border-left:none!important;border-top:.5px solid var(--border2)!important;padding-left:0!important;padding-top:.6rem!important;margin-top:.6rem!important;flex-direction:row!important;flex-wrap:wrap!important;gap:.5rem!important;}
+
   .ngo-desc-text{font-family:'EB Garamond',Georgia,serif!important;font-size:13px!important;}
 
   /* NGO abbreviations */
@@ -568,7 +583,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
           <div class="pillars-row">
             <div class="pillars-header">
               <div class="pillars-title" data-tr="Yetenekler &amp; Deneyimler" data-en="Talents &amp; Experiences">Talents &amp; Experiences</div>
-              <div class="pillars-subtitle">Halil İbrahim Ciğer</div>
+              <div class="pillars-subtitle">HIC</div>
             </div>
             <div class="pillars-scroll-wrap">
             <div class="pillar" data-pillar="journalism"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub" data-tr="10 yıl · AA" data-en="10 yrs · AA">10 yrs · AA</div></div>
@@ -610,7 +625,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                 <div>
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
-                      <span data-tr="KURUCU S&amp;W" data-en="FOUNDER S&amp;W">FOUNDER S&amp;W</span>
+                      <span data-tr="KURUCU S&amp;W" data-en="FOUNDER S&amp;W">FOUNDER — SINAN &amp; WREN</span>
                       <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
                     </a>
                   </div>
