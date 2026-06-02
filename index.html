@@ -795,7 +795,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
     border-bottom:none!important;
     background:transparent!important;
   }
-  .pod-sec,.pod-sec.on{padding:0!important;margin:0!important;gap:0!important;}
+  .pod-sec,.pod-sec.on{padding:0!important;margin:0!important;gap:0!important;overflow:visible!important;}
   .pod-emb{
     padding:0 16px 12px!important;
     background:transparent!important;
@@ -1079,9 +1079,11 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   #ep-birbakista .pod-ep-playlist,
   #ep-mahrec .pod-ep-playlist{display:none !important;}
   
-  /* Keep Analiz playlist, 1-col grid */
+  /* Keep Analiz playlist + all episodes visible */
   #ps-analiz .pod-ep-playlist,
   #ep-analiz .pod-ep-playlist{display:block !important;}
+  #ep-analiz{overflow:visible!important;max-height:none!important;flex:none!important;}
+  #ps-analiz{overflow:visible!important;}
   
   /* switchPl embed mode: hide playlist for BBK/Mahrec */
   .pl-eps .pod-ep-playlist{display:none !important;}
