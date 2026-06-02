@@ -218,23 +218,23 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .pillar-sub{font-family:'Nunito',sans-serif;font-size:12px;color:var(--muted);margin-top:2px;font-weight:400;}
 
 /* ── Timeline ── */
-.htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--border2);border-radius:1px}
-.htl-fill{position:absolute;top:0;left:0;height:1.5px;background:var(--gold);width:0;border-radius:1px;transition:width .5s}
-.htl-nodes{display:flex}
+.htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--border2);border-radius:1px;}
+.htl-fill{position:absolute;top:0;left:0;height:1.5px;background:var(--gold);width:0;border-radius:1px;transition:width .5s;}
+.htl-nodes{display:flex;}
 .htl-n{
   flex:1;display:flex;flex-direction:column;align-items:center;
   cursor:pointer;padding:.12rem .05rem;
   opacity:0;transform:translateY(8px);
   transition:opacity .35s,transform .35s;position:relative;user-select:none;
 }
-.htl-n.vis{opacity:1;transform:translateY(0)}
+.htl-n.vis{opacity:1;transform:translateY(0);}
 .htl-pulse{
   position:absolute;top:-1.5rem;left:50%;transform:translateX(-50%);
   width:14px;height:14px;border-radius:50%;
   border:1.5px solid rgba(184,137,42,.4);
   animation:htl-p 2.4s ease-out infinite;opacity:0;
 }
-.htl-n.vis .htl-pulse{opacity:1}
+.htl-n.vis .htl-pulse{opacity:1;}
 @keyframes htl-p{0%{transform:translateX(-50%) scale(.4);opacity:.8}100%{transform:translateX(-50%) scale(1.8);opacity:0}}
 .htl-dot{
   position:absolute;top:-1.25rem;left:50%;transform:translateX(-50%);
@@ -242,8 +242,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   background:var(--scroll-bg);border:2px solid var(--border2);
   z-index:3;transition:all .22s;
 }
-.htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;top:-1.35rem}
-.htl-n:hover .htl-dot{border-color:var(--gold)}
+.htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;top:-1.35rem;}
+.htl-n:hover .htl-dot{border-color:var(--gold);}
 .htl-yr{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:600;color:var(--gold);margin-top:.06rem;font-style:normal;}
 .htl-t{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:16px;font-weight:600;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.04em;text-transform:uppercase;}
 .htl-o{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:500;color:var(--muted);text-align:center;text-transform:uppercase;}
@@ -337,11 +337,12 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .sn-dot{width:4px;height:4px;}
 
   /* 4+5. Timeline: horizontal swipe, dots+line visible, even spacing */
-  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:1.8rem;}
-  .htl-base,.htl-fill{top:0!important;display:block!important;height:1.5px;}
-  .htl-dot{top:-1.25rem!important;display:block!important;z-index:3;}
-  .htl-pulse{top:-1.55rem!important;display:block!important;}
-  .htl-nodes{flex-wrap:nowrap;overflow-x:visible;padding-top:.1rem;}
+  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:2rem;position:relative;}
+  .htl-base{display:block!important;top:0!important;left:0!important;right:0!important;}
+  .htl-fill{display:block!important;top:0!important;}
+  .htl-dot{top:-1.3rem!important;display:block!important;z-index:3;}
+  .htl-pulse{top:-1.6rem!important;display:block!important;}
+  .htl-nodes{flex-wrap:nowrap;overflow-x:visible;position:relative;}
   .htl-n{min-width:72px;flex-shrink:0;flex:none;}
   .htl-yr{font-size:10px;}
   .htl-t{font-size:10px;letter-spacing:.02em;}
@@ -360,6 +361,10 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .aw-ring{width:22px;height:22px;font-size:10px;flex-shrink:0;}
   .aw-title{font-family:'Josefin Sans',sans-serif;font-size:6.5px;letter-spacing:.02em;line-height:1.15;font-weight:400;}
   .aw-year{font-size:6.5px;}
+
+  /* NGO grid mobile */
+  .ngo-grid{grid-template-columns:1fr!important;gap:.6rem!important;}
+  .ngo-desc-text{font-family:'EB Garamond',Georgia,serif!important;font-size:13px!important;}
 
   /* NGO abbreviations */
   .ngo-mob-full{display:none;}
@@ -601,19 +606,34 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
               <div class="ed-yr">2006 — present</div>
               <div class="ed-title" data-tr="STK Faaliyetleri" data-en="NGO Activities">NGO Activities</div>
               <div class="ed-org" style="margin-bottom:1rem;" data-tr="Sivil Toplum Kuruluşları Kurucu ve Üyelikler" data-en="Civil Society Memberships">Civil Society Memberships</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;" class="ngo-grid">
                 <div>
-                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong data-tr="Kurucu:" data-en="Founder of the">Founder of the</strong> <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:inline;"><span class="ngo-mob-full">Sinan &amp; Wren Foundation</span><span class="ngo-mob-abbr" style="display:none;">S&amp;W</span> ↗</a></div>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
+                    <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
+                      <span data-tr="KURUCU S&amp;W" data-en="FOUNDER S&amp;W">FOUNDER S&amp;W</span>
+                      <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
+                    </a>
+                  </div>
                   <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Üç kıtada kültürlerarası diyalog ve iş birliği için kurulan uluslararası sivil toplum platformu." data-en="International civil society platform for intercultural dialogue across three continents.">International civil society platform for intercultural dialogue across three continents.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag" data-tr="Kurucu" data-en="Founder">Founder</span><span class="ed-tag">2013–2016</span></div>
                 </div>
                 <div>
-                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong data-tr="Kurucu:" data-en="Founder of the">Founder of the</strong> <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank" style="display:inline;"><span class="ngo-mob-full">International Students Association</span><span class="ngo-mob-abbr" style="display:none;">ISA</span> ↗</a></div>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
+                    <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
+                      <span data-tr="KURUCU UDEF" data-en="FOUNDER UDEF">FOUNDER UDEF</span>
+                      <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
+                    </a>
+                  </div>
                   <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Bursa'da kurulan ve Bursa'da uluslararası öğrenciler arasında kültürlerarası etkileşimi destekleyen öğrenci derneği." data-en="Founded in Bursa to foster cross-cultural exchange among international students in Bursa.">Founded in Bursa to foster cross-cultural exchange among international students in Bursa.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag" data-tr="Kurucu" data-en="Founder">Founder</span><span class="ed-tag">2006–2010</span></div>
                 </div>
                 <div>
-                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);"><strong data-tr="Yönetim Kurulu Üyesi:" data-en="Board Member of the">Board Member of the</strong> <a class="ngo-title-link" href="https://uvdvuslat.com/" target="_blank" style="display:inline;"><span class="ngo-mob-full">Uluslararası Vuslat Platformu</span><span class="ngo-mob-abbr" style="display:none;">UVP</span> ↗</a></div>
+                  <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
+                    <a class="ngo-title-link" href="https://uvdvuslat.com/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
+                      <span data-tr="YK ÜYESİ UVP" data-en="BOARD MEMBER UVP">BOARD MEMBER UVP</span>
+                      <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
+                    </a>
+                  </div>
                   <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Bilgi ve ahlak ekseninde medeniyetin yeniden inşasını hedefleyen platformun yönetim kurulu üyesi." data-en="Board Member of a platform for civilisational renewal through knowledge and ethics.">Board Member of a platform for civilisational renewal through knowledge and ethics.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag" data-tr="Yön. Kur. Üyesi" data-en="Board Member">Board Member</span><span class="ed-tag">2013–pres.</span></div>
                 </div>
@@ -1213,9 +1233,11 @@ window.addEventListener('load',function(){
 
     var isMobile=window.innerWidth<=768;
     if(isMobile){
-      // On mobile: place note below the pillars-scroll-wrap
-      var wrap=document.querySelector('.parchment-inner');
-      if(wrap&&noteEl.parentNode!==wrap){wrap.appendChild(noteEl);}
+      // Insert note right after the pillars-row (not at end of parchment)
+      var pillarsRow=document.querySelector('.pillars-row');
+      if(pillarsRow&&pillarsRow.parentNode){
+        pillarsRow.parentNode.insertBefore(noteEl,pillarsRow.nextSibling);
+      }
       noteEl.classList.add('vis');
     } else {
       // Desktop: fixed position to left of pillar
