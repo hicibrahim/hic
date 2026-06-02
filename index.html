@@ -900,7 +900,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 /* ── Swipe/drag cursor ── */
 .vid-track { cursor:grab; user-select:none; }
 .vid-track.dragging { cursor:grabbing; }
-.ticker-track { pointer-events:none; }
+.ticker-track { pointer-events:auto; }
 
 /* ── MuckRack news ticker ── */
 .muck-section { background:var(--bg2); border-top:1px solid var(--border2); padding:0; transition:background .3s; }
@@ -1517,7 +1517,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       </a>
     </div>
     <div class="hero-ticker-wrap">
-      <div class="ticker-label" data-tr="Son Haberler" data-en="Latest News">Latest News</div>
+      <div class="ticker-label" data-tr="Son Haberler" data-en="Latest News" style="font-family:'Josefin Sans',sans-serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,232,214,.5);font-weight:100;display:flex;align-items:center;gap:14px;padding:0 40px 16px;"><span style="display:block;width:40px;height:1px;background:var(--gold);opacity:.6;animation:barPulse 2.2s ease infinite;"></span>Latest News</div>
       <div class="ticker-outer"><div class="ticker-track" id="hticker"></div></div>
     </div>
   </section>
@@ -2532,7 +2532,9 @@ function buildTicker(){
   [0,1,2].forEach(()=>carItems.forEach(item=>{
     const lbl=item.l==='other'?(item.ll||''):lm[item.l]||item.l;
     const card=document.createElement('a');
-    card.className='t-card';card.href=item.u;card.target='_blank';card.rel='noopener';
+    card.className='t-card';card.href='#';
+    card.setAttribute('data-nu',item.u||'');card.setAttribute('data-nt',item.t||'');card.setAttribute('data-ns',item.s||'');card.setAttribute('data-ni',item.i||'');
+    card.onclick=function(e){e.preventDefault();npOpen(this.getAttribute('data-nu'),this.getAttribute('data-nt'),this.getAttribute('data-ns'),this.getAttribute('data-ni'));return false;};
     card.innerHTML=`<div class="t-lang">${lbl}</div><div class="t-title">${item.t}</div><div class="t-src">${item.s}</div>`;
     t.appendChild(card);
   }));
