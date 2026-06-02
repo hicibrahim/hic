@@ -97,17 +97,18 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 /* The parchment content area */
 .scroll-body{
   flex:1;
-  overflow:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
   position:relative;
-  clip-path:inset(0);
-  display:flex;
-  flex-direction:column;
+  display:block;
   background-image:
     radial-gradient(ellipse at 20% 20%,rgba(200,168,106,.18) 0%,transparent 60%),
     radial-gradient(ellipse at 80% 80%,rgba(160,120,60,.14) 0%,transparent 50%),
     radial-gradient(ellipse at 60% 40%,rgba(220,195,140,.10) 0%,transparent 40%);
   background-color:var(--scroll-bg);
 }
+.scroll-body::-webkit-scrollbar{width:3px;}
+.scroll-body::-webkit-scrollbar-thumb{background:rgba(184,137,42,.3);border-radius:2px;}
 [data-theme="dark"] .scroll-body{
   background-color:#221e14;
   background-image:
@@ -187,11 +188,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 /* ══ PARCHMENT CONTENT ══ */
 .parchment-inner{
   width:100%;
-  padding:.8rem 1.2rem .8rem;
-  display:flex;
-  flex-direction:column;
-  gap:0;
-  height:100%;
+  padding:.8rem 1.2rem 1.5rem;
+  display:block;
   box-sizing:border-box;
 }
 
@@ -291,7 +289,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .exp-detail{
   border:.5px solid var(--border2);border-radius:6px;
   padding:.7rem 1.2rem;background:rgba(255,255,255,.35);
-  flex:1;position:relative;overflow:hidden;margin-top:0;
+  position:relative;overflow:visible;margin-top:0;
+  min-height:100px;
 }
 
 /* ── Awards ── */
