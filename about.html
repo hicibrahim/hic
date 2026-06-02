@@ -301,7 +301,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   nav{height:54px;}
   .stage{top:54px;}
   .scroll-body{overflow-y:auto!important;-webkit-overflow-scrolling:touch;}
-  .parchment-inner{height:auto!important;padding:.5rem .7rem;overflow-x:hidden;}
+  .parchment-inner{height:auto!important;padding:.5rem .7rem .3rem;overflow-x:hidden;}
 
   /* Pillars: header ABOVE (column), pillars BELOW (horizontal scroll row) */
   .pillars-row{flex-direction:column!important;border:none;overflow:visible;}
@@ -316,9 +316,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .pillar-name{font-size:7px;}
   .pillar-sub{font-size:6px;}
 
-  /* 1. Comm note: smaller bullets on mobile */
-  .pillar-note b{font-size:85%;}
-  .pillar-note br+b{font-size:80%;}
+  /* 1. Comm note: smaller bullets on mobile (30% smaller than current) */
+  .pillar-note b{font-size:60%;vertical-align:middle;}
 
   /* 6. Pillar note: immediately below pillar icons row, above detail panels */
   .pillar-note{
@@ -340,8 +339,11 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .sn-btn{font-size:7px;padding:.1rem .35rem;letter-spacing:.1em;}
   .sn-dot{width:4px;height:4px;}
 
-  /* Timeline mobile: scroll container, dots ON the line */
-  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:2rem;position:relative;}
+  /* Timeline mobile: scroll container, dots ON the line, reduce top gap 70% */
+  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:2rem;position:relative;margin-top:-.5rem!important;}
+  /* Line must extend full width of nodes (not just viewport) */
+  .htl-base,.htl-fill{min-width:100%;width:max-content;}
+  .htl-nodes{min-width:max-content;}
   .htl-base{position:absolute;top:0;left:0;right:0;height:1.5px;z-index:1;}
   .htl-fill{position:absolute;top:0;left:0;height:1.5px;z-index:2;}
   /* Dots exactly on the line */
@@ -379,12 +381,13 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   #ed4>div{flex-direction:column!important;}
   #ed4>div>div:last-child{width:100%!important;border-left:none!important;border-top:.5px solid var(--border2)!important;padding-left:0!important;padding-top:.6rem!important;margin-top:.6rem!important;flex-direction:row!important;flex-wrap:wrap!important;gap:.5rem!important;}
 
-  .ngo-desc-text{font-family:'EB Garamond',Georgia,serif!important;font-size:13px!important;}
+  .ngo-grid{grid-template-columns:1fr!important;gap:.4rem!important;}
+  .ngo-title-link{font-size:9px!important;letter-spacing:.05em!important;}
+  .ngo-desc-text{font-family:'Josefin Sans',sans-serif!important;font-size:10px!important;letter-spacing:.03em;line-height:1.4!important;}
 
   /* NGO abbreviations */
   .ngo-mob-full{display:none;}
   .ngo-mob-abbr{display:inline;}
-  .ngo-desc-text{font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.03em;line-height:1.45;}
 
   /* Footer compact */
   .page-footer{flex-wrap:nowrap;padding:.35rem .5rem;gap:.3rem;justify-content:center;}
@@ -625,7 +628,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                 <div>
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
-                      <span data-tr="KURUCU S&amp;W" data-en="FOUNDER S&amp;W">FOUNDER — SINAN &amp; WREN</span>
+                      <span data-tr="KURUCU S&amp;W" data-en="FOUNDER S&amp;W">Founder of the SINAN &amp; WREN</span>
                       <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
                     </a>
                   </div>
@@ -635,7 +638,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                 <div>
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://udef.org.tr/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
-                      <span data-tr="KURUCU UDEF" data-en="FOUNDER UDEF">FOUNDER UDEF</span>
+                      <span data-tr="KURUCU UDEF" data-en="FOUNDER UDEF">Founder of the UDEF</span>
                       <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
                     </a>
                   </div>
@@ -645,7 +648,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                 <div>
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://uvdvuslat.com/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
-                      <span data-tr="YK ÜYESİ UVP" data-en="BOARD MEMBER UVP">BOARD MEMBER UVP</span>
+                      <span data-tr="YK ÜYESİ UVP" data-en="BOARD MEMBER UVP">Board Member of the UVP</span>
                       <span style="font-size:9px;opacity:.6;margin-left:4px;">⤴</span>
                     </a>
                   </div>
@@ -904,7 +907,11 @@ function expStop(){expCycling=false;clearTimeout(expTimer);}
     nodes.forEach(function(n,i){
       setTimeout(function(){n.classList.add('vis');},i*120);
     });
-    if(fill)setTimeout(function(){fill.style.width='100%';},nodes.length*120+200);
+    if(fill){
+      var nodesEl=document.querySelector('.htl-nodes');
+      var totalW=nodesEl?nodesEl.scrollWidth+'px':'100%';
+      setTimeout(function(){fill.style.width=totalW;},nodes.length*120+200);
+    }
   },600);
   function cycle(){
     if(!expCycling)return;

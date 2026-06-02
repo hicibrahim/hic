@@ -757,18 +757,20 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   #sec-haberler .muck-section{display:none!important;}
 
   /* 2. p-tip: show directly below word without moving word position */
-  .hero-principles{flex-wrap:wrap;row-gap:0;position:relative;}
-  .p-w{display:inline-block;position:relative;cursor:pointer;}
+  .hero-principles{flex-wrap:wrap;row-gap:0;}
+  .p-w{display:inline-block;position:relative;cursor:pointer;-webkit-user-select:none;user-select:none;}
   .p-tip{
     display:none;
-    position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    position:fixed;
     margin-top:4px;
-    width:max-content;max-width:200px;
-    white-space:normal;font-size:11px;
-    background:var(--bg);border:.5px solid var(--border2);
-    border-radius:4px;padding:5px 9px;
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
-    pointer-events:none;z-index:200;
+    width:180px;max-width:85vw;
+    white-space:normal;font-size:12px;
+    background:var(--bg);border:1px solid var(--gold);
+    border-radius:6px;padding:7px 11px;
+    box-shadow:0 4px 16px rgba(0,0,0,.22);
+    pointer-events:none;z-index:9999;
+    color:var(--ink);font-family:'Josefin Sans',sans-serif;
+    letter-spacing:.04em;line-height:1.5;
   }
   .p-w.tip-open .p-tip{display:block!important;}
   .p-w:hover .p-tip{display:none;}
@@ -786,11 +788,9 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   #sec-podcast .pl-tabs{padding:0!important;margin:0!important;width:100%;overflow-x:auto;scrollbar-width:none;}
   #sec-podcast .pl-tabs::-webkit-scrollbar{display:none;}
   /* Podcast channel title: no gap from thumbnail */
-  .pod-sh{padding:8px 16px 10px!important;}
-  .pod-sec{padding-top:0!important;}
-  /* Remove gap between cover and title in left panel */
-  .pl-left>a{margin-bottom:0!important;line-height:1!important;}
-  .pl-left{gap:2px!important;}
+  .pod-sh{padding:0 16px 10px!important;margin-top:0!important;}
+  .pod-sec{padding-top:0!important;margin-top:0!important;}
+  .pod-emb{padding-top:0!important;}
 
   #sec-podcast .pl-body{margin:0!important;display:block!important;padding:0!important;}
   #sec-podcast .pl-left{display:none!important;}
@@ -2055,11 +2055,11 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       </div>
       <div class="pod-sec" id="ps-atalks">
         <div class="pod-sh"><span class="pod-st">Anadolu Talk Zone</span></div>
-        <div class="pod-emb"><iframe width="100%" height="180" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/3dc9b12d" loading="lazy"></iframe></div>
+        <div class="pod-emb" style="padding-top:0;"><iframe width="100%" height="180" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/3dc9b12d" loading="lazy"></iframe></div>
       </div>
       <div class="pod-sec" id="ps-seruven">
         <div class="pod-sh"><span class="pod-st">100 Yıllık Serüven</span><span class="pod-ct">2 bölüm</span></div>
-        <div class="pod-emb" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 0;">
+        <div class="pod-emb" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 0 16px;">
           <iframe width="100%" height="180" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/a59302ce" loading="lazy" style="border-radius:6px;display:block;"></iframe>
           <iframe width="100%" height="180" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/f8560090" loading="lazy" style="border-radius:6px;display:block;"></iframe>
         </div>
@@ -3374,19 +3374,45 @@ function hidePodCursor(){
 
 /* ── Mobile podcast swipe for channel switching ── */
 (function(){
-  // Touch toggle for principle tooltips — works on mobile and desktop
+  // Tooltip for principle words — mobile + desktop
   document.querySelectorAll('.p-w').forEach(function(el){
-    function toggle(e){
-      e.stopPropagation();
+    function showTip(x, y){
+      var tip=el.querySelector('.p-tip');
+      if(!tip)return;
       var wasOpen=el.classList.contains('tip-open');
-      document.querySelectorAll('.p-w').forEach(function(x){x.classList.remove('tip-open');});
-      if(!wasOpen)el.classList.add('tip-open');
+      document.querySelectorAll('.p-w').forEach(function(w){
+        w.classList.remove('tip-open');
+        var t=w.querySelector('.p-tip');
+        if(t)t.style.cssText='';
+      });
+      if(!wasOpen){
+        el.classList.add('tip-open');
+        // Position tip below the word using fixed coords
+        if(x!==undefined&&y!==undefined){
+          tip.style.left=Math.max(8,x-90)+'px';
+          tip.style.top=(y+20)+'px';
+        }
+      }
     }
-    el.addEventListener('click', toggle);
-    el.addEventListener('touchend', function(e){e.preventDefault();toggle(e);}, {passive:false});
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      var r=el.getBoundingClientRect();
+      showTip(r.left+r.width/2, r.bottom);
+    });
+    el.addEventListener('touchend',function(e){
+      e.preventDefault();e.stopPropagation();
+      var t=e.changedTouches[0];
+      showTip(t.clientX, t.clientY);
+    },{passive:false});
   });
   document.addEventListener('click',function(e){
-    if(!e.target.closest('.p-w'))document.querySelectorAll('.p-w').forEach(function(x){x.classList.remove('tip-open');});
+    if(!e.target.closest('.p-w')){
+      document.querySelectorAll('.p-w').forEach(function(w){
+        w.classList.remove('tip-open');
+        var t=w.querySelector('.p-tip');
+        if(t)t.style.cssText='';
+      });
+    }
   });
 
   // Podcast channel swipe
