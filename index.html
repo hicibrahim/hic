@@ -756,22 +756,22 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   /* 1. Hide muck section (ticker + Featured News header) on home */
   #sec-haberler .muck-section{display:none!important;}
 
-  /* 2. p-tip mobile: show directly below each word */
+  /* 2. p-tip mobile: fixed position below each word, not clipped by hero overflow */
   .hero-principles{flex-wrap:wrap;}
   .p-w{display:inline-block;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;}
   .p-tip{
-    display:none;
-    position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
-    background:var(--bg);border:1px solid rgba(184,137,42,.55);
-    border-radius:6px;padding:6px 11px;
-    font-family:'Josefin Sans',sans-serif;font-size:11px;
-    color:var(--ink);letter-spacing:.03em;line-height:1.5;
-    box-shadow:0 4px 14px rgba(0,0,0,.18);
+    display:none!important;
+    position:fixed!important;
+    background:var(--bg);border:1px solid rgba(184,137,42,.6);
+    border-radius:6px;padding:7px 12px;
+    font-family:'Josefin Sans',sans-serif;font-size:12px;
+    color:var(--ink);letter-spacing:.04em;line-height:1.5;
+    box-shadow:0 4px 16px rgba(0,0,0,.25);
     z-index:9999;pointer-events:none;
-    width:180px;max-width:85vw;white-space:normal;
+    width:200px;max-width:80vw;white-space:normal;
   }
+  .p-w:hover .p-tip{display:none!important;}
   .p-w.tip-open .p-tip{display:block!important;}
-  .p-w:hover .p-tip{display:none;}
   #mob-tooltip{display:none;}
 
   /* Vodcast: 2-col grid, no overflow */
@@ -786,10 +786,24 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   #sec-podcast .sec-head{flex-direction:column!important;align-items:flex-start!important;gap:.6rem;padding:40px 16px 0!important;}
   #sec-podcast .pl-tabs{padding:0!important;margin:0!important;width:100%;overflow-x:auto;scrollbar-width:none;}
   #sec-podcast .pl-tabs::-webkit-scrollbar{display:none;}
-  /* Podcast channel title: no gap from thumbnail */
-  .pod-sh{padding:0 16px 8px!important;margin:0!important;position:static!important;}
-  .pod-sec{padding:0!important;margin:0!important;}
-  .pod-emb{padding:0 16px 12px!important;background:transparent!important;border-bottom:none!important;}
+  /* Podcast channel title: ZERO gap from thumbnail — kill all spacing */
+  .pod-sh{
+    padding:0 16px 6px!important;
+    margin:0!important;
+    position:static!important;
+    top:auto!important;
+    border-bottom:none!important;
+    background:transparent!important;
+  }
+  .pod-sec,.pod-sec.on{padding:0!important;margin:0!important;gap:0!important;}
+  .pod-emb{
+    padding:0 16px 12px!important;
+    background:transparent!important;
+    border-bottom:none!important;
+    margin:0!important;
+  }
+  /* Analiz: keep small spacing so playlist doesn't touch cover */
+  #ps-analiz .pod-emb{padding-top:10px!important;}
 
   #sec-podcast .pl-body{margin:0!important;display:block!important;padding:0!important;}
   #sec-podcast .pl-left{display:none!important;}
@@ -3374,16 +3388,33 @@ function hidePodCursor(){
 
 /* ── Mobile podcast swipe for channel switching ── */
 (function(){
-  // Principle word tooltips — below each word, close on scroll or outside tap
+  // Principle word tooltips — fixed position below each word on mobile
   function closeAllTips(){
-    document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
+    document.querySelectorAll('.p-w').forEach(function(w){
+      w.classList.remove('tip-open');
+      var t=w.querySelector('.p-tip');
+      if(t){t.style.left='';t.style.top='';}
+    });
   }
   document.querySelectorAll('.p-w').forEach(function(el){
     function toggle(e){
       e.stopPropagation();
       var wasOpen=el.classList.contains('tip-open');
       closeAllTips();
-      if(!wasOpen)el.classList.add('tip-open');
+      if(!wasOpen){
+        // Update tip text for current language
+        var tip=el.querySelector('.p-tip');
+        if(tip){
+          var txt=lang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');
+          if(txt)tip.textContent=txt;
+          // Set fixed coordinates below the word
+          var r=el.getBoundingClientRect();
+          tip.style.top=(r.bottom+8)+'px';
+          var l=r.left+r.width/2-100;
+          tip.style.left=Math.max(8,Math.min(window.innerWidth-208,l))+'px';
+        }
+        el.classList.add('tip-open');
+      }
     }
     el.addEventListener('click',toggle);
     el.addEventListener('touchend',function(e){e.preventDefault();toggle(e);},{passive:false});

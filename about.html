@@ -353,13 +353,19 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .sn-btn{font-size:7px;padding:.1rem .35rem;letter-spacing:.1em;}
   .sn-dot{width:4px;height:4px;}
 
-  /* Timeline mobile: scrollable, dots on line via pseudo-elements */
-  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:.4rem;position:relative;}
-  .htl-nodes{flex-wrap:nowrap;min-width:max-content;padding-top:.4rem;}
-  .htl-n{min-width:72px;flex-shrink:0;flex:none;}
-  .htl-yr{font-size:10px;}
+  /* Timeline mobile: scrollable, dots exactly ON the line */
+  .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:.2rem;position:relative;}
+  .htl-nodes{flex-wrap:nowrap;min-width:max-content;padding-top:0;}
+  /* Each node: the dot sits at top:0 of the node (=line level), year text below */
+  .htl-n{min-width:72px;flex-shrink:0;flex:none;padding-top:0;}
+  /* Push year text down so it's below the dot with a small gap */
+  .htl-yr{font-size:10px;margin-top:.55rem;}
   .htl-t{font-size:10px;letter-spacing:.02em;}
   .htl-o{font-size:8px;}
+  /* Dots & rings: centered ON the line (top:0 of node = line position) */
+  .htl-dot{top:0!important;left:50%!important;transform:translate(-50%,-50%)!important;}
+  .htl-pulse{top:0!important;left:50%!important;transform:translate(-50%,-50%)!important;}
+  .htl-n.sel .htl-dot{top:0!important;transform:translate(-50%,-50%)!important;}
 
   /* Detail panel: scrollable */
   .exp-detail{overflow-y:auto!important;-webkit-overflow-scrolling:touch;max-height:240px;flex:none;}
