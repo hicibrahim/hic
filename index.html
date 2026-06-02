@@ -753,6 +753,53 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 
 /* ════ MOBILE-ONLY OVERRIDES (≤768px) ════ */
 @media(max-width:768px){
+  /* ── Hero horizontal carousel ── */
+  #hero-carousel-wrap{
+    display:flex;flex-direction:row;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;width:100%;height:100vh;
+  }
+  #hero-carousel-wrap::-webkit-scrollbar{display:none;}
+  .hero-slide{
+    flex-shrink:0;width:100vw;height:100vh;
+    scroll-snap-align:start;position:relative;
+    overflow:hidden;
+  }
+  #hero-carousel-wrap #hero{height:100vh;position:relative;overflow:hidden;}
+  /* Preview slides */
+  .hero-slide-page{
+    background:var(--bg);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hero-slide-inner{
+    display:flex;flex-direction:column;align-items:center;gap:1.5rem;
+    padding:2rem;
+  }
+  .hero-slide-label{
+    font-family:'Playfair Display',serif;
+    font-size:36px;font-weight:700;font-style:italic;
+    color:var(--gold);text-align:center;
+  }
+  .hero-slide-hint{
+    font-size:48px;color:var(--gold);opacity:.5;
+    animation:slide-hint .8s ease-in-out infinite alternate;
+  }
+  @keyframes slide-hint{from{transform:translateX(0)}to{transform:translateX(12px)}}
+  /* ── Page snap scroll ── */
+  #page-home{
+    scroll-snap-type:y mandatory;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling:touch;
+    height:100vh;
+  }
+  #hero-carousel-wrap,
+  #page-home .section{
+    scroll-snap-align:start;
+    min-height:100vh;
+    box-sizing:border-box;
+  }
+
   /* 1. Hide muck section (ticker + Featured News header) on home */
   #sec-haberler .muck-section{display:none!important;}
 
@@ -1495,7 +1542,11 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
 <!-- ══════ HABERLERİM (inner) ══════ -->
 <div id="page-home">
 
-  <!-- HERO -->
+  <!-- HERO CAROUSEL (mobile: swipe left to navigate pages) -->
+  <div id="hero-carousel-wrap">
+
+    <!-- Slide 0: Main hero -->
+    <div class="hero-slide">
   <section id="hero">
     <div class="hero-photo"></div>
     <div class="hero-content">
@@ -1521,8 +1572,42 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       <div class="ticker-outer"><div class="ticker-track" id="hticker"></div></div>
     </div>
   </section>
+    </div><!-- /slide 0 -->
 
-  <!-- HABERLER -->
+    <!-- Slide 1: Vodcast preview -->
+    <div class="hero-slide hero-slide-page" onclick="navTo('vodcast')" style="cursor:pointer;">
+      <div class="hero-slide-inner">
+        <div class="hero-slide-label">Vodcast</div>
+        <div class="hero-slide-hint">→</div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Podcast preview -->
+    <div class="hero-slide hero-slide-page" onclick="navTo('podcast')" style="cursor:pointer;">
+      <div class="hero-slide-inner">
+        <div class="hero-slide-label">Podcast</div>
+        <div class="hero-slide-hint">→</div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Professional Profile preview -->
+    <div class="hero-slide hero-slide-page" onclick="window.location.href='about.html'" style="cursor:pointer;">
+      <div class="hero-slide-inner">
+        <div class="hero-slide-label" data-tr="Profesyonel Profil" data-en="Professional Profile">Professional Profile</div>
+        <div class="hero-slide-hint">→</div>
+      </div>
+    </div>
+
+    <!-- Slide 4: News preview -->
+    <div class="hero-slide hero-slide-page" onclick="navTo('haberlerim')" style="cursor:pointer;">
+      <div class="hero-slide-inner">
+        <div class="hero-slide-label" data-tr="Haberlerim" data-en="News">News</div>
+        <div class="hero-slide-hint">→</div>
+      </div>
+    </div>
+
+  </div><!-- /hero-carousel-wrap -->
+
   <section id="sec-haberler" class="section">
     <div class="sec-head" style="display:flex;align-items:center;justify-content:space-between;">
       <h2 class="sec-title" data-tr="Haberlerim" data-en="News">News</h2>
@@ -2059,7 +2144,9 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       </div>
       <div class="pod-sec" id="ps-analiz">
         <div class="pod-sh" style="padding-bottom:4px;"><span class="pod-st">Analiz ve Görüşler</span><span class="pod-ct" id="ct-analiz"></span></div>
-        <div id="ep-analiz"><div class="loading">Yükleniyor...</div></div>
+        <div class="pod-emb" style="padding-top:16px;">
+          <iframe width="100%" height="390" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/anadolu-ajansi/playlist" style="display:block;border-radius:6px;" loading="lazy"></iframe>
+        </div>
       </div>
       <div class="pod-sec" id="ps-birbakista">
         <div class="pod-sh"><span class="pod-st">Bir Bakışta</span><span class="pod-ct">19 bölüm</span></div>
