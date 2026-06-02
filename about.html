@@ -51,7 +51,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .lang-btn:hover{border-color:var(--gold);color:var(--gold)}
 .burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
 .burger span{display:block;width:20px;height:1.5px;background:var(--ink)}
-@media(max-width:768px){.nav-links,.nav-dt{display:none}.burger{display:flex}.logo-hic{font-size:22px;}}
+@media(max-width:768px){.nav-links,.nav-dt{display:none}.burger{display:flex}.logo-hic{font-size:22px;} nav{padding:0 16px!important;height:54px!important;}}
 .mob-m{display:none;position:fixed;inset:62px 0 0;background:var(--bg);z-index:900;padding:36px 36px;border-top:1px solid var(--border2);flex-direction:column;transition:background .3s;}
 .mob-m.open{display:flex;}
 .mob-m a{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;font-style:italic;color:var(--ink);text-decoration:none;padding:12px 0;border-bottom:1px solid var(--border2);opacity:.55;transition:all .25s;}
@@ -355,7 +355,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 
   /* Timeline mobile: scrollable, dots on line via pseudo-elements */
   .htl{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-top:.4rem;position:relative;}
-  .htl-nodes{flex-wrap:nowrap;min-width:max-content;}
+  .htl-nodes{flex-wrap:nowrap;min-width:max-content;padding-top:.4rem;}
   .htl-n{min-width:72px;flex-shrink:0;flex:none;}
   .htl-yr{font-size:10px;}
   .htl-t{font-size:10px;letter-spacing:.02em;}

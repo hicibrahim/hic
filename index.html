@@ -756,24 +756,23 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   /* 1. Hide muck section (ticker + Featured News header) on home */
   #sec-haberler .muck-section{display:none!important;}
 
-  /* 2. p-tip mobile: single shared tooltip, aligned to first word's bottom */
-  .hero-principles{position:relative;flex-wrap:wrap;}
-  .p-w{display:inline-block;position:static;cursor:pointer;-webkit-tap-highlight-color:transparent;}
-  /* Hide ALL inline p-tips on mobile */
-  .p-tip{display:none!important;}
-  /* Use a shared fixed overlay tooltip instead */
-  #mob-tooltip{
-    display:none;position:fixed;
-    background:var(--bg);border:1px solid rgba(184,137,42,.6);
-    border-radius:6px;padding:7px 12px;
-    font-family:'Josefin Sans',sans-serif;font-size:12px;
-    color:var(--ink);letter-spacing:.04em;line-height:1.5;
-    box-shadow:0 4px 16px rgba(0,0,0,.2);
+  /* 2. p-tip mobile: show directly below each word */
+  .hero-principles{flex-wrap:wrap;}
+  .p-w{display:inline-block;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .p-tip{
+    display:none;
+    position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
+    background:var(--bg);border:1px solid rgba(184,137,42,.55);
+    border-radius:6px;padding:6px 11px;
+    font-family:'Josefin Sans',sans-serif;font-size:11px;
+    color:var(--ink);letter-spacing:.03em;line-height:1.5;
+    box-shadow:0 4px 14px rgba(0,0,0,.18);
     z-index:9999;pointer-events:none;
-    max-width:200px;white-space:normal;
-    top:auto;left:50%;transform:translateX(-50%);
+    width:180px;max-width:85vw;white-space:normal;
   }
-  #mob-tooltip.show{display:block;}
+  .p-w.tip-open .p-tip{display:block!important;}
+  .p-w:hover .p-tip{display:none;}
+  #mob-tooltip{display:none;}
 
   /* Vodcast: 2-col grid, no overflow */
   .vod-grid{grid-template-columns:1fr 1fr!important;gap:1px!important;padding:0 8px!important;}
@@ -808,12 +807,12 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   .pod-ep-playlist{display:block!important;max-height:240px;overflow-y:auto;}
   /* pod-ep-card: full width no overflow */
   .pod-ep-card{width:100%!important;max-width:100vw!important;overflow:hidden;}
-  .pod-sb .pod-ni-img{width:68px!important;height:68px!important;padding:3px!important;}
-  .pod-sb .pod-ni-img img{object-fit:contain!important;border-radius:5px!important;}
-  .pod-ni-img{width:68px!important;height:68px!important;padding:3px!important;}
-  .pod-ni-img img{object-fit:contain!important;width:100%!important;height:100%!important;border-radius:5px!important;}
+  .pod-sb .pod-ni-img,.pod-ni-img{width:72px!important;height:72px!important;padding:3px!important;}
+  .pod-sb .pod-ni-img img,.pod-ni-img img{object-fit:contain!important;width:100%!important;height:100%!important;border-radius:5px!important;}
+  #sec-podcast .pod-ni-img{width:72px!important;height:72px!important;}
   /* No gap between cover and title */
   .pl-left{gap:4px!important;}
+  .pl-left>a{margin-bottom:0!important;}
   .pl-left>a{margin-bottom:0!important;}
 }
 
@@ -2043,7 +2042,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
         <div id="ep-portre"><div class="loading">Yükleniyor...</div></div>
       </div>
       <div class="pod-sec" id="ps-analiz">
-        <div class="pod-sh"><span class="pod-st">Analiz ve Görüşler</span><span class="pod-ct" id="ct-analiz"></span></div>
+        <div class="pod-sh" style="padding-bottom:4px;"><span class="pod-st">Analiz ve Görüşler</span><span class="pod-ct" id="ct-analiz"></span></div>
         <div id="ep-analiz"><div class="loading">Yükleniyor...</div></div>
       </div>
       <div class="pod-sec" id="ps-birbakista">
@@ -2541,7 +2540,7 @@ function buildTicker(){
 
 /* ══ NEWS ══ */
 function newsHTML(n, feat, fullrow){
-  var lbl = n.l==='tr' ? 'TR' : n.l==='en' ? 'EN' : ((n.ll||'').substring(0,2).toUpperCase()||'–');
+  var lbl = n.l==='tr' ? 'TR' : n.l==='en' ? 'EN' : ((n.ll||'').substring(0,3));
   var isOther=(n.l==='other');
   var cls=(n.fullrow||fullrow)?'nbrick fullrow':isOther?'nbrick fullrow':(feat?'nbrick feat':'nbrick');
   var img = n.i
@@ -3375,51 +3374,22 @@ function hidePodCursor(){
 
 /* ── Mobile podcast swipe for channel switching ── */
 (function(){
-  // Principle word tooltips — shared overlay on mobile, inline on desktop
-  var mobTip=document.getElementById('mob-tooltip');
-  var activePw=null;
-
-  function openTip(el, text){
-    if(window.innerWidth>768){
-      // Desktop: use inline p-tip
-      document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
-      el.classList.add('tip-open');
-    } else {
-      // Mobile: use shared fixed tooltip
-      document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
-      if(!mobTip)return;
-      if(activePw===el){mobTip.classList.remove('show');activePw=null;return;}
-      activePw=el;
-      mobTip.textContent=text;
-      // Position below the hero-principles row, centered
-      var prins=document.querySelector('.hero-principles');
-      if(prins){
-        var r=prins.getBoundingClientRect();
-        mobTip.style.top=(r.bottom+8)+'px';
-        mobTip.style.left='50%';
-        mobTip.style.transform='translateX(-50%)';
-      }
-      mobTip.classList.add('show');
-    }
+  // Principle word tooltips — below each word, close on scroll or outside tap
+  function closeAllTips(){
+    document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
   }
-
   document.querySelectorAll('.p-w').forEach(function(el){
-    var getText=function(){return lang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');};
-    el.addEventListener('click',function(e){
+    function toggle(e){
       e.stopPropagation();
-      openTip(el, getText());
-    });
-    el.addEventListener('touchend',function(e){
-      e.preventDefault();e.stopPropagation();
-      openTip(el, getText());
-    },{passive:false});
-  });
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('.p-w')){
-      document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
-      if(mobTip){mobTip.classList.remove('show');activePw=null;}
+      var wasOpen=el.classList.contains('tip-open');
+      closeAllTips();
+      if(!wasOpen)el.classList.add('tip-open');
     }
+    el.addEventListener('click',toggle);
+    el.addEventListener('touchend',function(e){e.preventDefault();toggle(e);},{passive:false});
   });
+  document.addEventListener('click',function(e){if(!e.target.closest('.p-w'))closeAllTips();});
+  window.addEventListener('scroll',closeAllTips,{passive:true});
 
   // Podcast channel swipe
   var podSec=document.getElementById('sec-podcast');
