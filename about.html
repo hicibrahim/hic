@@ -195,8 +195,9 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   overflow:hidden;
 }
 
-/* ── Pillars ── */
-.pillars-row{
+/* pillar-scroll-row: invisible on desktop — just a flex pass-through */
+.pillar-scroll-row{display:contents;}
+
   display:flex;
   flex-direction:row;
   align-items:stretch;
@@ -335,34 +336,37 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .scroll-body{overflow-y:auto!important;-webkit-overflow-scrolling:touch;}
   .parchment-inner{height:auto!important;padding:.5rem .7rem .3rem;overflow-x:hidden;}
 
-  /* ── Pillars mobile: header full-width top row, pillars horizontal scroll second row ── */
+  /* ── Pillars mobile: header top, all 7 pillars horizontal scroll row ── */
   .pillars-row{
-    flex-direction:row!important;
-    flex-wrap:wrap!important;
-    overflow-x:auto!important;
-    overflow-y:hidden!important;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    border:.5px solid var(--border2);
-    border-radius:5px;
+    flex-direction:column!important;
+    border:.5px solid var(--border2)!important;
+    border-radius:5px!important;
+    overflow:hidden!important;
   }
-  .pillars-row::-webkit-scrollbar{display:none;}
   .pillars-header{
-    width:100%;flex:0 0 100%;
-    border-right:none;border-bottom:.5px solid var(--border2);
-    padding:.35rem .6rem;min-width:unset;flex-shrink:0;
+    width:100%;border-right:none!important;
+    border-bottom:.5px solid var(--border2)!important;
+    padding:.35rem .6rem!important;min-width:unset!important;
   }
-  .pillars-title{font-size:13px!important;font-weight:700;}
-  .pillars-subtitle{font-size:9px;}
-  .pillars-row>.pillar{
-    flex:0 0 auto;min-width:72px;
-    border-right:.5px solid var(--border2);border-bottom:none;
-    padding:.4rem .3rem;
-    display:flex;flex-direction:column;align-items:center;
+  .pillars-title{font-size:13px!important;font-weight:700!important;}
+  .pillars-subtitle{font-size:9px!important;}
+  /* Pillar items scroll horizontally in a nowrap row */
+  .pillar-scroll-row{
+    display:flex!important;flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;
+    scrollbar-width:none!important;width:100%!important;
   }
-  .pillars-row>.pillar:last-child{border-right:none;}
-  .pillar-icon{font-size:15px!important;}
-  .pillar-name{font-size:9px!important;}
+  .pillar-scroll-row::-webkit-scrollbar{display:none!important;}
+  .pillar-scroll-row>.pillar{
+    flex:0 0 auto!important;min-width:64px!important;
+    border-right:.5px solid var(--border2)!important;border-bottom:none!important;
+    padding:.35rem .25rem!important;
+    display:flex!important;flex-direction:column!important;align-items:center!important;
+  }
+  .pillar-scroll-row>.pillar:last-child{border-right:none!important;}
+  .pillar-icon{font-size:14px!important;}
+  .pillar-name{font-size:8px!important;}
   .pillar-sub{font-size:7px!important;}
 
   /* 1. Comm note: smaller bullets on mobile (30% smaller than current) */
@@ -622,6 +626,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
               <div class="pillars-title" data-tr="Yetenekler &amp; Deneyimler" data-en="Talents &amp; Experiences">Talents &amp; Experiences</div>
               <div class="pillars-subtitle">HIC</div>
             </div>
+            <div class="pillar-scroll-row">
             <div class="pillar" data-pillar="journalism"><i class="ti ti-news pillar-icon"></i><div class="pillar-name" data-tr="Gazetecilik" data-en="Journalism">Journalism</div><div class="pillar-sub" data-tr="10 yıl · AA" data-en="10 yrs · AA">10 yrs · AA</div></div>
             <div class="pillar" data-pillar="comms"><i class="ti ti-speakerphone pillar-icon"></i><div class="pillar-name" data-tr="İletişim &amp; Etkinlik" data-en="Communication &amp; Events">Comm. &amp; Events</div><div class="pillar-sub" data-tr="Medya İlişkileri" data-en="Targeted Media">Targeted Media</div></div>
             <div class="pillar" data-pillar="leadership"><i class="ti ti-briefcase pillar-icon"></i><div class="pillar-name" data-tr="Liderlik" data-en="Leadership">Leadership</div><div class="pillar-sub" data-tr="Bakan Mobil ÖKM" data-en="Chief of Staff">Chief of Staff</div></div>
@@ -629,6 +634,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
             <div class="pillar" data-pillar="hadith"><i class="ti ti-script pillar-icon"></i><div class="pillar-name" data-tr="Hadis" data-en="Hadith">Hadith</div><div class="pillar-sub" data-tr="+25000 hıfz" data-en="Over 25000 Memorized">Over 25000 Memorized</div></div>
             <div class="pillar" data-pillar="digital"><i class="ti ti-broadcast pillar-icon"></i><div class="pillar-name" data-tr="Dijital Medya" data-en="Digital Media">Digital Media</div><div class="pillar-sub">Vodcast &amp; Podcast</div></div>
             <div class="pillar" data-pillar="international"><i class="ti ti-world pillar-icon"></i><div class="pillar-name" data-tr="Uluslararası" data-en="International">International</div><div class="pillar-sub">US · ME · EU</div></div>
+            </div><!-- /pillar-scroll-row -->
           </div>
 
           <hr class="sec-div">
