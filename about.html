@@ -335,18 +335,35 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .scroll-body{overflow-y:auto!important;-webkit-overflow-scrolling:touch;}
   .parchment-inner{height:auto!important;padding:.5rem .7rem .3rem;overflow-x:hidden;}
 
-  /* Pillars: header ABOVE (column), pillars BELOW (horizontal scroll row) */
-  .pillars-row{flex-direction:column!important;border:none;overflow:visible;}
-  .pillars-header{width:100%;border-right:none;border-bottom:.5px solid var(--border2);padding:.35rem .5rem;min-width:unset;flex-shrink:0;}
-  .pillars-title{font-size:11px;font-weight:700;}
+  /* ── Pillars mobile: header full-width top row, pillars horizontal scroll second row ── */
+  .pillars-row{
+    flex-direction:row!important;
+    flex-wrap:wrap!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    border:.5px solid var(--border2);
+    border-radius:5px;
+  }
+  .pillars-row::-webkit-scrollbar{display:none;}
+  .pillars-header{
+    width:100%;flex:0 0 100%;
+    border-right:none;border-bottom:.5px solid var(--border2);
+    padding:.35rem .6rem;min-width:unset;flex-shrink:0;
+  }
+  .pillars-title{font-size:13px!important;font-weight:700;}
   .pillars-subtitle{font-size:9px;}
-  /* Make the inner pillar items a horizontal scroll */
-  .pillars-row>.pillar{display:inline-flex;flex-direction:column;align-items:center;min-width:64px;flex-shrink:0;border-right:.5px solid var(--border2);border-bottom:none;padding:.3rem .2rem;}
-  .pillars-scroll-wrap{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;width:100%;}
-  .pillars-scroll-wrap::-webkit-scrollbar{display:none;}
-  .pillar-icon{font-size:15px;}
-  .pillar-name{font-size:7px;}
-  .pillar-sub{font-size:6px;}
+  .pillars-row>.pillar{
+    flex:0 0 auto;min-width:72px;
+    border-right:.5px solid var(--border2);border-bottom:none;
+    padding:.4rem .3rem;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .pillars-row>.pillar:last-child{border-right:none;}
+  .pillar-icon{font-size:15px!important;}
+  .pillar-name{font-size:9px!important;}
+  .pillar-sub{font-size:7px!important;}
 
   /* 1. Comm note: smaller bullets on mobile (30% smaller than current) */
   .pillar-note b{font-size:60%;vertical-align:middle;}
