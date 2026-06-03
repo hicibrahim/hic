@@ -784,8 +784,15 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 
   /* 2. Podcast home: move channel tabs BELOW the title */
   #sec-podcast .sec-head{flex-direction:column!important;align-items:flex-start!important;gap:.6rem;padding:40px 16px 0!important;}
-  #sec-podcast .pl-tabs{padding:0!important;margin:0!important;width:100%;overflow-x:auto;scrollbar-width:none;}
-  #sec-podcast .pl-tabs::-webkit-scrollbar{display:none;}
+  /* Channel tabs: single nowrap scrollable row */
+  #sec-podcast .pl-tabs,.pod-sb{
+    display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+    overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;
+    scrollbar-width:none!important;padding:0!important;margin:0!important;width:100%!important;
+  }
+  #sec-podcast .pl-tabs::-webkit-scrollbar,.pod-sb::-webkit-scrollbar{display:none!important;}
+  /* Podcast page channel thumbnails: also prevent border overlap */
+  .pod-ni-img.on{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--gold)!important;border:none!important;}
   /* Podcast channel title: ZERO gap from thumbnail — kill all spacing */
   .pod-sh{
     padding:0 16px 6px!important;
@@ -821,9 +828,12 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   .pod-ep-playlist{display:block!important;max-height:240px;overflow-y:auto;}
   /* pod-ep-card: full width no overflow */
   .pod-ep-card{width:100%!important;max-width:100vw!important;overflow:hidden;}
-  .pod-sb .pod-ni-img,.pod-ni-img{width:72px!important;height:72px!important;padding:3px!important;}
-  .pod-sb .pod-ni-img img,.pod-ni-img img{object-fit:contain!important;width:100%!important;height:100%!important;border-radius:5px!important;}
-  #sec-podcast .pod-ni-img{width:72px!important;height:72px!important;}
+  /* Channel thumbnails: fit all in one row, border clears neighbours */
+  .pod-sb .pod-ni-img,.pod-ni-img{width:56px!important;height:56px!important;padding:3px!important;margin:2px!important;}
+  .pod-sb .pod-ni-img img,.pod-ni-img img{object-fit:contain!important;width:100%!important;height:100%!important;border-radius:4px!important;}
+  #sec-podcast .pod-ni-img{width:56px!important;height:56px!important;}
+  /* pod-ni-img.on border: ensure it doesn't overlap */
+  .pod-ni-img.on{border:2px solid var(--gold)!important;box-shadow:0 0 0 2px var(--bg)!important;}
   /* No gap between cover and title */
   .pl-left{gap:4px!important;}
   .pl-left>a{margin-bottom:0!important;}
@@ -2059,7 +2069,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       </div>
       <div class="pod-sec" id="ps-analiz">
         <div class="pod-sh" style="padding-bottom:4px;"><span class="pod-st">Analiz ve Görüşler</span><span class="pod-ct" id="ct-analiz"></span></div>
-        <div id="ep-analiz"><div class="loading">Yükleniyor...</div></div>
+        <div class="pod-emb" style="padding-top:16px;"><iframe width="100%" height="390" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/anadolu-ajansi/playlist" style="display:block;border-radius:6px;" loading="lazy"></iframe></div>
       </div>
       <div class="pod-sec" id="ps-birbakista">
         <div class="pod-sh"><span class="pod-st">Bir Bakışta</span><span class="pod-ct">19 bölüm</span></div>
@@ -2520,7 +2530,7 @@ function toggleMob(){document.getElementById('mob-m').classList.toggle('open');}
 function buildTicker(){
   const t=document.getElementById('hticker');
   const outer=document.querySelector('.ticker-outer');
-  const lm={tr:'TR',en:'EN',other:''};
+  const lm={tr:'TR',en:'EN',other:'–'};
   // Order: current lang first, then others
   const ordered = lang==='en'
     ? [...ND.filter(n=>n.l==='en'), ...ND.filter(n=>n.l!=='en')]
@@ -2558,7 +2568,7 @@ function buildTicker(){
 
 /* ══ NEWS ══ */
 function newsHTML(n, feat, fullrow){
-  var lbl = n.l==='tr' ? 'TR' : n.l==='en' ? 'EN' : ((n.ll||'').substring(0,3));
+  var lbl = n.l==='tr' ? 'TR' : n.l==='en' ? 'EN' : ((n.ll||'').substring(0,3).toUpperCase()||'–');
   var isOther=(n.l==='other');
   var cls=(n.fullrow||fullrow)?'nbrick fullrow':isOther?'nbrick fullrow':(feat?'nbrick feat':'nbrick');
   var img = n.i
@@ -3419,7 +3429,8 @@ function hidePodCursor(){
           var r=el.getBoundingClientRect();
           tip.style.top=(r.bottom+8)+'px';
           var l=r.left+r.width/2-100;
-          tip.style.left=Math.max(8,Math.min(window.innerWidth-208,l))+'px';
+          // Align left edge of tip to left edge of word
+          tip.style.left=Math.max(8,Math.min(window.innerWidth-208,r.left))+'px';
         }
         el.classList.add('tip-open');
       }

@@ -194,10 +194,13 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   box-sizing:border-box;
   overflow:hidden;
 }
+/* Awards column: pinned at bottom of parchment */
+.awards-col{flex-shrink:0;margin-top:.3rem;}
 
 /* pillar-scroll-row: invisible on desktop — just a flex pass-through */
 .pillar-scroll-row{display:contents;}
-
+/* ── Pillars ── */
+.pillars-row{
   display:flex;
   flex-direction:row;
   align-items:stretch;
@@ -227,10 +230,6 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .pillar-icon{font-size:26px;color:var(--gold);display:block;margin-bottom:.3rem;transition:color .2s}
 .pillar-name{font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;letter-spacing:.01em;color:var(--ink);line-height:1.2;text-align:center;}
 .pillar-sub{font-family:'Nunito',sans-serif;font-size:13px;color:var(--muted);margin-top:2px;font-weight:400;text-align:center;}
-  border-radius:4px;
-  overflow:hidden;
-  flex-shrink:0;
-}
 
 
 /* ── Timeline ── */
@@ -412,8 +411,12 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .ed-body{font-size:11px;line-height:1.55;}
   .ed-yr{font-size:11px;}
 
-  /* Awards: push to bottom, compact 3-in-row */
-  .awards-col{order:99;margin-top:.5rem;}
+  /* Awards: fixed at bottom, compact 3-in-row */
+  .awards-col{flex-shrink:0!important;margin-top:.2rem!important;order:10;}
+  /* Reduce gap between pillars row and timeline */
+  .pillars-row{margin-bottom:0!important;}
+  .sec-div{margin:.1rem 0!important;}
+  .htl{margin-bottom:.2rem!important;}
   .awards-grid{grid-template-columns:repeat(3,1fr);gap:.2rem;}
   .aw{padding:.25rem .15rem;gap:.15rem;flex-direction:column;align-items:center;text-align:center;}
   .aw-ring{width:22px;height:22px;font-size:10px;flex-shrink:0;}
