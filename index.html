@@ -2494,7 +2494,7 @@ function showHome(){
   var nl=document.getElementById('nl-home');if(nl)nl.classList.add('on');
   document.documentElement.scrollTop=0;
   document.body.scrollTop=0;
-    history.replaceState(null,'',location.pathname);
+    history.replaceState(null,'',location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'/')||'/');
   return false;
 }
 function navTo(page){
@@ -2521,7 +2521,7 @@ function navTo(page){
   if(page==='podcast'){showPodCursor();if(!podInited){podInited=true;initPod();}initPod2();}
   if(page==='hakkimda'){setTimeout(function(){window.dispatchEvent(new Event('ab-init'));},100);}
     // Hash güncelle
-  history.replaceState(null,'','#'+page);
+  history.replaceState(null,'',location.pathname.replace(/\/index\.html$/,'/').replace(/\/?$/,'/') + page);
   return false;
 }
 function toggleMob(){document.getElementById('mob-m').classList.toggle('open');}
@@ -3076,9 +3076,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   buildPlaylists();
   // Hash'e göre doğru sayfayı yükle
   (function(){
-    var hash=(window.location.hash||'#home').replace('#','');
     var pages=['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda'];
-    if(pages.indexOf(hash)>=0){navTo(hash);}else{showHome();}
+    var seg=location.pathname.split('/').filter(Boolean).pop();
+    var page=pages.indexOf(seg)>=0?seg:(location.hash||'').replace('#','');
+    if(pages.indexOf(page)>=0){navTo(page);}else{showHome();}
   })();
 });
 
