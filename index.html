@@ -854,6 +854,20 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 }
 
 
+/* ── Section see-more banner ── */
+.sec-more-btn{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin:2rem auto 1rem;
+  font-family:'Josefin Sans',sans-serif;font-size:9.5px;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(240,232,214,.55);cursor:pointer;
+  text-decoration:none;transition:color .25s;
+  width:fit-content;
+}
+.sec-more-btn:hover{color:var(--gold);}
+.sec-more-line{display:block;width:40px;height:1px;background:var(--gold);opacity:.5;
+  animation:barPulse 2.2s ease infinite;}
+
 .p-tip {
   display:none; position:fixed;
   background:var(--bg); border:.5px solid var(--border);
@@ -1492,7 +1506,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     <li><a href="#" onclick="navTo('perspektif')" id="nl-perspektif" data-tr="Perspektif" data-en="Perspective">Perspective</a></li>
     <li><a href="#" onclick="navTo('vodcast')" id="nl-vodcast" data-tr="Vodcast" data-en="Vodcast">Vodcast</a></li>
     <li><a href="#" onclick="navTo('podcast')" id="nl-podcast" data-tr="Podcast" data-en="Podcast">Podcast</a></li>
-            <li><a href="about.html" id="nl-hakkimda" data-tr="Profesyonel Profil" data-en="Professional Profile">Professional Profile</a></li>
+            <li><a href="about.html" id="nl-hakkimda" data-tr="Profil" data-en="Profile">Profile</a></li>
   </ul>
   <div class="nav-right">
     <div class="nav-dt" id="nav-dt"></div>
@@ -1509,7 +1523,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
   <a href="#" onclick="navTo('perspektif');toggleMob()">Perspektif</a>
   <a href="#" onclick="navTo('vodcast');toggleMob()">Vodcast</a>
   <a href="#" onclick="navTo('podcast');toggleMob()">Podcast</a>
-  <a href="about.html" data-tr="Profesyonel Profil" data-en="Professional Profile">Professional Profile</a>
+  <a href="about.html" data-tr="Profil" data-en="Profile">Profile</a>
 </div>
 
 <!-- ══════ HOME ══════ -->
@@ -1534,9 +1548,8 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
         <span class="p-w" data-tip-tr="Sakince kavrama" data-tip-en="Level-headedness">Teenni<span class="p-tip" id="tip-teenni">Sakince kavrama</span></span>
       </div>
       <div id="mob-tooltip"></div>
-      <a class="hero-scroll" href="#sec-haberler">
+      <a class="hero-scroll" href="#sec-haberler" style="pointer-events:none;">
         <span class="hero-scroll-bar"></span>
-        <span data-tr="Keşfet" data-en="Explore">Explore</span>
       </a>
     </div>
     <div class="hero-ticker-wrap">
@@ -1570,6 +1583,14 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     </div>
   </div>
   </section>
+  <div style="display:flex;justify-content:center;padding-bottom:1.5rem;">
+    <a class="sec-more-btn" href="#" onclick="navTo('haberlerim');return false;">
+      <span class="sec-more-line"></span>
+      <span data-tr="Tüm Haberler" data-en="All News">All News</span>
+      <span class="sec-more-line"></span>
+    </a>
+  </div>
+
 
   <!-- PODCAST -->
   <section id="sec-video" class="section">
@@ -1993,6 +2014,14 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     </div>
   </section>
 
+<div style="display:flex;justify-content:center;padding-bottom:1.5rem;">
+    <a class="sec-more-btn" href="#" onclick="navTo('vodcast');return false;">
+      <span class="sec-more-line"></span>
+      <span data-tr="Tüm Vodcast'lar" data-en="All Vodcasts">All Vodcasts</span>
+      <span class="sec-more-line"></span>
+    </a>
+  </div>
+
 </section>
 
   <!-- PODCAST SECTION -->
@@ -2019,12 +2048,20 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     <footer>
       <div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth">Pleasant echoes from the verdant and captivating Earth</div>
       <div style="display:flex;align-items:center;gap:1.2rem;">
-        <a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:11px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
         <span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:11px;"></i>Istanbul</span>
       </div>
-      <div class="f-dt" id="ft0"></div>
+      
     </footer>
   </section>
+
+<div style="display:flex;justify-content:center;padding-bottom:1.5rem;">
+    <a class="sec-more-btn" href="#" onclick="navTo('podcast');return false;">
+      <span class="sec-more-line"></span>
+      <span data-tr="Tüm Podcast'lar" data-en="All Podcasts">All Podcasts</span>
+      <span class="sec-more-line"></span>
+    </a>
+  </div>
 </div>
 
 
@@ -2040,9 +2077,9 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
   </div>
   <div class="nwall" id="nwall"></div>
   <footer><div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth">Pleasant echoes from the verdant and captivating Earth</div><div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
-        <a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:11px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
         <span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:11px;"></i>Istanbul</span>
-      </div><div class="f-dt" id="ft2"></div></footer>
+      </div></footer>
 </div>
 
 <!-- ══════ PERSPEKTİF ══════ -->
@@ -2290,10 +2327,10 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     <footer>
       <div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth">Pleasant echoes from the verdant and captivating Earth</div>
       <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
-        <a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:11px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
         <span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:11px;"></i>Istanbul</span>
       </div>
-      <div class="f-dt" id="ft-vod"></div>
+      
     </footer>
     </div>
   </div>
@@ -2463,7 +2500,7 @@ function tick(){
   const date=now.toLocaleDateString(lo,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const time=now.toLocaleTimeString(lo,{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   const s=date+' — '+time;
-  ['nav-dt','ft0','ft2','ft-vod'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});
+  const navDt=document.getElementById('nav-dt');if(navDt)navDt.textContent=s;
 }
 setInterval(tick,1000);tick();
 
@@ -2801,7 +2838,7 @@ function switchPl(idx){
   const loadContent=()=>{
     eps.innerHTML='';
     if(pl.label==='Analiz ve Görüşler'){
-      buildAnalizSection(eps,pl.cover);
+      // analiz uses static playlist iframe
       eps.style.opacity='1';
     }else if(pl.type==='rss'){
       fetch(pl.rss).then(r=>r.text()).then(txt=>{
