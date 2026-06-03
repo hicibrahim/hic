@@ -2,6 +2,15 @@
 <html lang="tr" data-theme="light">
 <head>
 <meta charset="UTF-8">
+  <meta property="og:title" content="Halil İbrahim Ciğer">
+  <meta property="og:description" content="Journalist · Georgetown DC · Anadolu Agency">
+  <meta property="og:image" content="https://hicibrahim.github.io/hic/portre.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://hicibrahim.github.io/hic/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://hicibrahim.github.io/hic/portre.jpg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Halil İbrahim Ciğer</title>
   <!-- v213190e7 -->
@@ -784,13 +793,17 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 
   /* 2. Podcast home: move channel tabs BELOW the title */
   #sec-podcast .sec-head{flex-direction:column!important;align-items:flex-start!important;gap:.6rem;padding:40px 16px 0!important;}
-  /* Channel tabs: single nowrap scrollable row */
-  #sec-podcast .pl-tabs,.pod-sb{
+  /* Channel tabs: single nowrap scrollable row — home + podcast page */
+  #sec-podcast .pl-tabs,.pod-sb,.pod-sb-wrap{
     display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
     overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;
-    scrollbar-width:none!important;padding:0!important;margin:0!important;width:100%!important;
+    scrollbar-width:none!important;padding:4px 0!important;margin:0!important;width:100%!important;
   }
   #sec-podcast .pl-tabs::-webkit-scrollbar,.pod-sb::-webkit-scrollbar{display:none!important;}
+  /* Each channel item: fixed small size */
+  #sec-podcast .pl-tabs .pod-ni,
+  #sec-podcast .pl-tabs .pod-ni-img,
+  .pod-sb .pod-ni{flex-shrink:0!important;}
   /* Podcast page channel thumbnails: also prevent border overlap */
   .pod-ni-img.on{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--gold)!important;border:none!important;}
   /* Podcast channel title: ZERO gap from thumbnail — kill all spacing */
@@ -3003,7 +3016,7 @@ function showAllNews(){
   });
   ND.forEach(n=>{if(!sorted.includes(n))sorted.push(n);});
   list.innerHTML=sorted.map((n,i)=>{
-    const lbl=n.l==='tr'?(lang==='en'?'Turkish':'Türkçe'):n.l==='en'?(lang==='en'?'English':'EN'):(n.ll||(lang==='en'?'Other':'Diğer'));
+    const lbl=n.l==='tr'?'TR':n.l==='en'?'EN':((n.ll||'').substring(0,3).toUpperCase()||'–');
     const imgH=n.i?`<img src="${n.i}" alt="" style="width:90px;height:60px;object-fit:cover;border-radius:3px;flex-shrink:0;">`
       :'<div style="width:90px;height:60px;background:var(--bg3);border-radius:3px;flex-shrink:0;"></div>';
     return `<a class="all-news-item" href="${n.u}" target="_blank" rel="noopener">

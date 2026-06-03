@@ -286,7 +286,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 .ed-yr{font-family:'Josefin Sans',sans-serif;font-size:9px;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;}
 .ed-title{font-family:'Playfair Display',serif;font-size:21px;font-weight:600;color:var(--ink);line-height:1.15;margin-bottom:2px;}
 .ed-org{font-size:13px;color:var(--ink2);margin-bottom:.7rem;}
-.ed-body{font-size:14px;color:var(--ink2);line-height:1.85;}
+.ed-body{font-size:21px;color:var(--ink2);line-height:3.7;letter-spacing:.056em;}
 .ed-body a{color:var(--gold);text-decoration:none;}
 .ed-body a:hover{color:var(--green);text-decoration:underline;}
 .ed-tag{display:inline-block;margin:5px 3px 0 0;padding:2px 9px;border-radius:10px;font-size:10px;border:.5px solid var(--border2);color:var(--ink2);font-family:'Josefin Sans',sans-serif;}
@@ -311,6 +311,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 }
 .exp-detail::-webkit-scrollbar{width:3px;}
 .exp-detail::-webkit-scrollbar-thumb{background:rgba(184,137,42,.25);border-radius:2px;}
+.awards-col{flex-shrink:0;}
 
 /* ── Awards ── */
 .aw-label{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;flex-shrink:0;}
@@ -411,8 +412,8 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   .ed-body{font-size:11px;line-height:1.55;}
   .ed-yr{font-size:11px;}
 
-  /* Awards: fixed at bottom, compact 3-in-row */
-  .awards-col{flex-shrink:0!important;margin-top:.2rem!important;order:10;}
+  /* Awards: sticky at bottom, not affected by timeline */
+  .awards-col{flex-shrink:0!important;margin-top:.2rem!important;position:sticky;bottom:0;background:var(--scroll-bg);z-index:5;}
   /* Reduce gap between pillars row and timeline */
   .pillars-row{margin-bottom:0!important;}
   .sec-div{margin:.1rem 0!important;}
@@ -683,7 +684,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
                       <span style="font-size:10px;color:rgba(140,100,40,.55);margin-left:5px;font-weight:300;">↗</span>
                     </a>
                   </div>
-                  <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Bursa'da kurulan ve Bursa'da uluslararası öğrenciler arasında kültürlerarası etkileşimi destekleyen öğrenci derneği." data-en="Founded in Bursa to foster cross-cultural exchange among international students in Bursa.">Founded in Bursa to foster cross-cultural exchange among international students in Bursa.</div>
+                  <div class="ngo-desc-text" style="font-size:13px;color:var(--ink2);line-height:1.75;" data-tr="Bursa'da kurulan ve uluslararası öğrenciler arasında kültürlerarası etkileşimi destekleyen öğrenci derneği." data-en="Founded in Bursa to foster cross-cultural exchange among international students in Bursa.">Founded in Bursa to foster cross-cultural exchange among international students in Bursa.</div>
                   <div style="margin-top:.5rem;"><span class="ed-tag" data-tr="Kurucu" data-en="Founder">Founder</span><span class="ed-tag">2006–2010</span></div>
                 </div>
                 <div>
@@ -933,7 +934,7 @@ function thesis2Close(){document.getElementById('thesis2-overlay').classList.rem
 })();
 
 /* ── TIMELINE ── */
-var hnMap=[4,6,3,2,5,1,0];
+var hnMap=[6,3,5,2,4,1,0];
 var expTimer=null,expCycling=true,expIdx=0;
 function expSel(n){
   document.querySelectorAll('.htl-n').forEach(function(h,i){h.classList.toggle('sel',hnMap[i]===n);});
@@ -1347,7 +1348,7 @@ window.addEventListener('load',function(){
   document.querySelectorAll('.pillar[data-pillar]').forEach(function(p){
     p.addEventListener('click',function(){
       var key=p.getAttribute('data-pillar');
-      if(activeP===key){hideNote();return;}
+      if(activeP===key){hideNote();activeP=null;return;}
       showNote(key,p.getBoundingClientRect());
     });
     p.addEventListener('mouseleave',hideNote);
