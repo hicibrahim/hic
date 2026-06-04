@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+// GitHub Pages 404 redirect for SPA
+// Converts /hic/podcast → /hic/#podcast and redirects
+(function(){
+  var path = window.location.pathname;
+  var base = '/hic';
+  var seg = path.replace(base, '').replace(/^\//, '').replace(/\/$/, '');
+  var pages = ['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda','about'];
+  if(seg === 'about') {
+    window.location.replace(base + '/about.html');
+  } else if(pages.indexOf(seg) >= 0) {
+    window.location.replace(base + '/index.html#' + seg);
+  } else {
+    window.location.replace(base + '/index.html');
+  }
+})();
+</script>
+</head>
+<body></body>
+</html>
