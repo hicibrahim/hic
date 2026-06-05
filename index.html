@@ -825,6 +825,12 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   /* Analiz: keep small spacing so playlist doesn't touch cover */
   #ps-analiz .pod-emb{padding-top:10px!important;}
 
+  /* Podcast home embed: full width on mobile */
+  #sec-podcast iframe{width:100%!important;}
+  #sec-podcast>div:nth-child(2){padding:0 8px 12px!important;}
+  /* News home: 1-col fullrow */
+  #home-news-grid{grid-template-columns:1fr!important;}
+  
   #sec-podcast .pl-body{margin:0!important;display:block!important;padding:0!important;}
   #sec-podcast .pl-left{display:none!important;}
   /* Swipeable episodes */
@@ -1564,8 +1570,8 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     <div class="sec-head" style="display:flex;align-items:center;justify-content:space-between;">
       <h2 class="sec-title" data-tr="Haberlerim" data-en="News">News</h2>
       <div class="news-tabs" style="margin:0;">
-        <button class="ntab on" onclick="filterHomeNews(this,'en')" data-tr="Türkçe" data-en="English">English</button>
-        <button class="ntab" onclick="filterHomeNews(this,'tr')" data-tr="İngilizce" data-en="Turkish">Turkish</button>
+        <button class="ntab on" onclick="filterHomeNews(this,'tr')" data-tr="Türkçe" data-en="Turkish">Turkish</button>
+        <button class="ntab" onclick="filterHomeNews(this,'en')" data-tr="İngilizce" data-en="English">English</button>
         <button class="ntab" onclick="filterHomeNews(this,'other')" data-tr="Diğer" data-en="Other">Other</button>
       </div>
     </div>
@@ -2027,23 +2033,11 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
 
   <!-- PODCAST SECTION -->
   <section id="sec-podcast" class="section">
-    <div class="sec-head" style="display:flex;align-items:center;justify-content:space-between;padding:0 80px;">
+    <div class="sec-head">
       <h2 class="sec-title" data-tr="Podcast" data-en="Podcast">Podcast</h2>
-      <div class="pl-tabs" id="pl-tabs" style="margin:0;padding:0;"></div>
     </div>
-    <div class="pl-body">
-      <div class="pl-left">
-        <a id="pl-link" href="#" target="_blank" rel="noopener" style="display:block;text-decoration:none">
-          <img class="pl-cover" id="pl-img" src="" alt="" onerror="this.style.opacity='.3'">
-        </a>
-        <div>
-          <a id="pl-name-link" href="#" target="_blank" rel="noopener" style="text-decoration:none">
-            <div class="pl-prog-name" id="pl-name" style="cursor:pointer"></div>
-          </a>
-          <div class="pl-prog-ct" id="pl-ct"></div>
-        </div>
-      </div>
-      <div class="pl-eps" id="pl-eps"></div>
+    <div style="padding:0 80px 16px;">
+      <iframe width="100%" height="390" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/anadolu-ajansi/playlist" style="display:block;border-radius:8px;"></iframe>
     </div>
   
     <footer>
@@ -2682,9 +2676,10 @@ function fillGridGaps(items){
 function buildHomeNews(f){
   var g=document.getElementById('home-news-grid');
   if(!g)return;
-  var filter=f||(lang==='en'?'en':'tr');
-  var items=ND.filter(function(n){return n.l===filter;});
-  g.innerHTML=fillGridGaps(items);
+  var filter=f||(lang==='tr'?'tr':'en');
+  var all=ND.filter(function(n){return n.l===filter;});
+  var items=all.slice(0,2);
+  g.innerHTML=items.map(function(n){return newsHTML(n,false,true);}).join('');
 }
 function filterHomeNews(btn,f){document.querySelectorAll('.ntab').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');buildHomeNews(f);}
 function getDefaultNewsLang(){return lang==='en'?'en':'tr';}
