@@ -223,6 +223,7 @@ text-transform:none;}
 
 /* Ticker — right side center, vertical scroll, max 2 visible */
 .hero-ticker-wrap {
+  display:none;
   position:absolute;
   right:16px; top:50%; transform:translateY(-50%);
   width:36%; z-index:2;
@@ -744,7 +745,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   font-size:clamp(24px,3vw,40px); font-weight:700; font-style:italic;
   color:var(--ink); line-height:1; letter-spacing:-.01em; transition:color .3s;
 }
-.vod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 48px;}
+.vod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px;}
 /* Override vid-card width for vodcast grid */
 .vod-grid .vid-card { width:100%; border-radius:4px; overflow:hidden; }
 .vod-grid .vid-thumb { aspect-ratio:16/9; }
@@ -862,16 +863,19 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 
 /* ── Section see-more banner ── */
 .sec-more-btn{
-  display:flex;align-items:center;justify-content:center;gap:14px;
-  margin:2rem auto 1rem;
-  font-family:'Josefin Sans',sans-serif;font-size:9.5px;
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  margin:2rem auto 1.5rem;
+  font-family:'Josefin Sans',sans-serif;font-size:13.3px;
   letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(240,232,214,.55);cursor:pointer;
-  text-decoration:none;transition:color .25s;
+  color:var(--ink2);cursor:pointer;
+  text-decoration:none;transition:all .25s;
   width:fit-content;
+  border:.5px solid var(--border2);
+  padding:.7rem 2rem;border-radius:4px;
+  background:rgba(184,137,42,.06);
 }
-.sec-more-btn:hover{color:var(--gold);}
-.sec-more-line{display:block;width:40px;height:1px;background:var(--gold);opacity:.5;
+.sec-more-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(184,137,42,.1);}
+.sec-more-line{display:block;width:40px;height:1px;background:var(--gold);opacity:.7;
   animation:barPulse 2.2s ease infinite;}
 
 .p-tip {
@@ -1277,20 +1281,20 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 /* ── Video carousel overlay arrows ── */
 .vid-track-wrap { overflow-y:hidden; position:relative; }
 .vid-arr-overlay {
-  position:absolute; top:50%; transform:translateY(-50%);
-  width:40px; height:40px; border-radius:50%;
-  background:rgba(var(--bg-rgb,245,242,235),.9);
-  border:.5px solid var(--border2);
+  position:absolute; top:0; bottom:0;
+  width:54px;
+  background:rgba(0,0,0,.15);
+  border:none;
   display:flex; align-items:center; justify-content:center;
-  cursor:pointer; z-index:10; transition:all .2s;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  cursor:pointer; z-index:10; transition:background .2s;
+  opacity:1;
 }
-.vid-arr-overlay:hover { background:var(--gold); color:#fff; border-color:var(--gold); }
-.vid-arr-overlay:hover svg path { fill:#fff; }
-.vid-arr-overlay.arr-prev { left:8px; }
-.vid-arr-overlay.arr-next { right:8px; }
-.vid-arr-overlay svg { width:20px; height:20px; }
-.vid-arr-overlay svg path { fill:var(--ink); transition:fill .2s; }
+.vid-arr-overlay:hover { background:rgba(184,137,42,.35); }
+.vid-arr-overlay:hover svg path { fill:var(--gold); }
+.vid-arr-overlay.arr-prev { left:0; }
+.vid-arr-overlay.arr-next { right:0; }
+.vid-arr-overlay svg { width:24px; height:24px; }
+.vid-arr-overlay svg path { fill:rgba(255,255,255,.8); transition:fill .2s; }
 
 #page-vodcast .vid-title{font-size:18px;line-height:1.4;}
 
@@ -1590,13 +1594,14 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     </div>
   </div>
   </section>
-  <div style="display:flex;justify-content:center;padding-bottom:1.5rem;">
+  <div style="display:flex;justify-content:center;padding-bottom:2rem;">
     <a class="sec-more-btn" href="#" onclick="navTo('haberlerim');return false;">
       <span class="sec-more-line"></span>
-      <span data-tr="Tüm Haberler" data-en="All News">All News</span>
+      <span data-tr="Tüm Haberler" data-en="All News">All News →</span>
       <span class="sec-more-line"></span>
     </a>
   </div>
+  <div style="height:1rem;"></div>
 
 
   <!-- PODCAST -->
@@ -2024,7 +2029,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
 <div style="display:flex;justify-content:center;padding-bottom:1.5rem;">
     <a class="sec-more-btn" href="#" onclick="navTo('vodcast');return false;">
       <span class="sec-more-line"></span>
-      <span data-tr="Tüm Vodcast'lar" data-en="All Vodcasts">All Vodcasts</span>
+      <span data-tr="Tüm Vodcast'lar" data-en="All Vodcasts">All Vodcasts →</span>
       <span class="sec-more-line"></span>
     </a>
   </div>
@@ -2033,8 +2038,16 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
 
   <!-- PODCAST SECTION -->
   <section id="sec-podcast" class="section">
-    <div class="sec-head">
+    <div class="sec-head" style="display:flex;align-items:center;justify-content:space-between;">
       <h2 class="sec-title" data-tr="Podcast" data-en="Podcast">Podcast</h2>
+      <div style="display:flex;align-items:center;gap:10px;padding-right:80px;" id="home-pod-channels">
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('.pod-ni-img[title=Portre]'),'portre');},200);return false;" title="Portre" style="display:block;"><img src="portre.jpg" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Portre"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Analiz]'),'analiz');},200);return false;" title="Analiz" style="display:block;"><img src="analiz_ve_gorusler.jpg" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Analiz"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Bir]'),'birbakista');},200);return false;" title="Bir Bakışta" style="display:block;"><img src="bir_bakista.webp" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Bir Bakışta"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Mahreç]'),'mahrec');},200);return false;" title="Mahreç" style="display:block;"><img src="mahrec.jpg" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Mahreç"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Anadolu]'),'atalks');},200);return false;" title="Anadolu Talk Zone" style="display:block;"><img src="anadolu_talk_zone.webp" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Anadolu Talk Zone"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Serüven]'),'seruven');},200);return false;" title="100 Yıllık Serüven" style="display:block;"><img src="seruven.png" style="width:44px;height:44px;border-radius:6px;object-fit:contain;background:#c41e3a;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="100 Yıllık Serüven"></a>
+      </div>
     </div>
     <div style="padding:0 80px 16px;">
       <iframe width="100%" height="390" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/anadolu-ajansi/playlist" style="display:block;border-radius:8px;"></iframe>
@@ -2043,8 +2056,8 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     <footer>
       <div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth" style="cursor:pointer;" onclick="this.textContent=this.textContent===this.getAttribute('data-en')?this.getAttribute('data-tr'):this.getAttribute('data-en')">Pleasant echoes from the verdant and captivating Earth</div>
       <div style="display:flex;align-items:center;gap:1.2rem;">
-        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:11px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:11px;"></i>Istanbul</span>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:15px;"></i>Istanbul</span>
       </div>
       
     </footer>
@@ -2053,7 +2066,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
 <div style="display:flex;justify-content:center;padding-bottom:1.5rem;">
     <a class="sec-more-btn" href="#" onclick="navTo('podcast');return false;">
       <span class="sec-more-line"></span>
-      <span data-tr="Tüm Podcast'lar" data-en="All Podcasts">All Podcasts</span>
+      <span data-tr="Tüm Podcast'lar" data-en="All Podcasts">All Podcasts →</span>
       <span class="sec-more-line"></span>
     </a>
   </div>
@@ -2072,8 +2085,8 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
   </div>
   <div class="nwall" id="nwall"></div>
   <footer><div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth" style="cursor:pointer;" onclick="this.textContent=this.textContent===this.getAttribute('data-en')?this.getAttribute('data-tr'):this.getAttribute('data-en')">Pleasant echoes from the verdant and captivating Earth</div><div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
-        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:11px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:11px;"></i>Istanbul</span>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:15px;"></i>Istanbul</span>
       </div></footer>
 </div>
 
@@ -2322,8 +2335,8 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     <footer>
       <div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth" style="cursor:pointer;" onclick="this.textContent=this.textContent===this.getAttribute('data-en')?this.getAttribute('data-tr'):this.getAttribute('data-en')">Pleasant echoes from the verdant and captivating Earth</div>
       <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
-        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:11px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:11px;"></i>hc685@georgetown.edu</a>
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.35rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:11px;"></i>Istanbul</span>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:15px;"></i>Istanbul</span>
       </div>
       
     </footer>
@@ -2525,6 +2538,12 @@ function toggleLang(){
     document.querySelector('.lang-btn').textContent='EN';
     document.querySelectorAll('[data-tr]').forEach(el=>el.textContent=el.getAttribute('data-tr'));
   }
+  // Set active news tab based on language
+  var tabs=document.querySelectorAll('.ntab');
+  tabs.forEach(function(t){t.classList.remove('on');});
+  var defLang=lang==='tr'?'tr':'en';
+  var defTab=document.querySelector('.ntab[onclick*="'+defLang+'"]');
+  if(defTab)defTab.classList.add('on');
 })();
 
 /* ══ ROUTING ══ */
