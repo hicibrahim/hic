@@ -582,7 +582,7 @@ text-transform:none;}
 /* Podcast inner */
 .pod-layout { display:grid; grid-template-columns:110px 1fr; min-height:calc(100vh - 62px); }
 .pod-sb { border-right:1px solid var(--border2); padding:28px 0; position:sticky; top:62px; height:calc(100vh - 62px); overflow-y:auto; background:var(--bg); transition:background .3s; }
-.pod-sb-lbl { font-family:'Josefin Sans',sans-serif; font-weight:400; font-size:11px; letter-spacing:.1em; color:var(--ink); text-transform:none; padding:20px 20px 12px; opacity:0.7; border-bottom:1px solid var(--border2); margin-bottom:8px; }
+.pod-sb-lbl { font-family:'Josefin Sans',sans-serif; font-weight:400; font-size:11px; letter-spacing:.1em; color:var(--ink); text-transform:none; padding:8px 20px 8px; opacity:0.7; border-bottom:1px solid var(--border2); margin-bottom:4px; }
 .pod-ni { padding:12px 20px; cursor:pointer; font-family:'Josefin Sans',sans-serif; font-weight:400; font-size:10.5px; letter-spacing:.08em; color:var(--ink2); text-transform:uppercase; transition:all .25s; border-left:2px solid transparent; margin-left:-1px; opacity:0.85; line-height:1.4; word-break:keep-all; hyphens:none; }
 .pod-ni:hover{color:var(--ink);opacity:1;} .pod-ni.on{color:var(--gold);border-left-color:var(--gold);background:rgba(184,137,42,.06);opacity:1;}
 .pod-main { overflow-y:auto; max-height:calc(100vh - 62px); background:var(--bg); transition:background .3s; }
@@ -745,9 +745,10 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   font-size:clamp(24px,3vw,40px); font-weight:700; font-style:italic;
   color:var(--ink); line-height:1; letter-spacing:-.01em; transition:color .3s;
 }
-.vod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 4px;}
+.vod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px;}
 /* Override vid-card width for vodcast grid */
 .vod-grid .vid-card { width:100%; border-radius:4px; overflow:hidden; }
+#sec-video .vid-title { font-size:19.5px; }
 .vod-grid .vid-thumb { aspect-ratio:16/9; }
 .vod-grid .vid-title { font-size:13px; padding:10px 14px; line-height:1.4; }
 .vod-grid .vid-info { padding:10px 14px 14px; }
@@ -878,15 +879,17 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 .sec-more-line{display:block;width:40px;height:1px;background:var(--gold);opacity:.7;
   animation:barPulse 2.2s ease infinite;}
 
+.p-w{display:inline-block;position:relative;}
 .p-tip {
-  display:none; position:fixed;
-  background:var(--bg); border:.5px solid var(--border);
-  color:var(--ink); font-size:12px; white-space:nowrap;
-  padding:5px 12px; border-radius:4px; pointer-events:none;
+  display:none; position:absolute;
+  top:100%; left:0; margin-top:6px;
+  background:var(--bg); border:1px solid var(--gold);
+  color:var(--ink); font-size:12px;
+  padding:6px 12px; border-radius:4px; pointer-events:none;
   font-family:'Josefin Sans',sans-serif; font-weight:400;
   letter-spacing:.08em; z-index:9999;
   box-shadow:0 4px 16px rgba(0,0,0,0.18);
-  max-width:280px; white-space:normal; line-height:1.4;
+  max-width:260px; white-space:normal; line-height:1.4;
 }
 .p-w:hover .p-tip { display:block; }
 
@@ -1580,10 +1583,8 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       </div>
     </div>
     <div class="news-grid" id="home-news-grid"></div>
-
   </section>
-
-<div style="display:flex;justify-content:center;padding-bottom:2rem;">
+  <div style="display:flex;justify-content:center;padding-bottom:2rem;">
     <a class="sec-more-btn" href="#" onclick="navTo('haberlerim');return false;">
       <span class="sec-more-line"></span>
       <span data-tr="Tüm Haberler" data-en="All News">All News →</span>
@@ -2029,20 +2030,29 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
   <section id="sec-podcast" class="section">
     <div class="sec-head" style="display:flex;align-items:center;justify-content:space-between;">
       <h2 class="sec-title" data-tr="Podcast" data-en="Podcast">Podcast</h2>
-      <div style="display:flex;align-items:center;gap:10px;padding-right:80px;" id="home-pod-channels">
-        <a href="index.html#podcast" onclick="navTo('podcast');return false;" title="Portre" style="display:block;"><img src="portre.jpg" style="width:60px;height:60px;border-radius:6px;object-fit:cover;opacity:1;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=1;this.style.borderColor='transparent'" alt="Portre"></a>
-        <a href="index.html#podcast" onclick="navTo('podcast');return false;" title="Analiz" style="display:block;"><img src="analiz_ve_gorusler.jpg" style="width:60px;height:60px;border-radius:6px;object-fit:cover;opacity:1;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=1;this.style.borderColor='transparent'" alt="Analiz"></a>
-        <a href="index.html#podcast" onclick="navTo('podcast');return false;" title="Bir Bakışta" style="display:block;"><img src="bir_bakista.webp" style="width:60px;height:60px;border-radius:6px;object-fit:cover;opacity:1;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=1;this.style.borderColor='transparent'" alt="Bir Bakışta"></a>
-        <a href="index.html#podcast" onclick="navTo('podcast');return false;" title="Mahreç" style="display:block;"><img src="mahrec.jpg" style="width:60px;height:60px;border-radius:6px;object-fit:cover;opacity:1;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=1;this.style.borderColor='transparent'" alt="Mahreç"></a>
-        <a href="index.html#podcast" onclick="navTo('podcast');return false;" title="Anadolu Talk Zone" style="display:block;"><img src="anadolu_talk_zone.webp" style="width:60px;height:60px;border-radius:6px;object-fit:cover;opacity:1;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=1;this.style.borderColor='transparent'" alt="Anadolu Talk Zone"></a>
-        <a href="index.html#podcast" onclick="navTo('podcast');return false;" title="100 Yıllık Serüven" style="display:block;"><img src="seruven.png" style="width:60px;height:60px;border-radius:6px;object-fit:contain;background:#c41e3a;opacity:1;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=1;this.style.borderColor='transparent'" alt="100 Yıllık Serüven"></a>
+      <div style="display:flex;align-items:center;gap:15px;padding-right:80px;" id="home-pod-channels">
+        <a href="#podcast" onclick="navTo('podcast');setTimeout(function(){var tab=document.querySelector('[data-id="portre"]');if(tab)tab.click();},500);return false;" title="Portre" style="display:block;"><img src="portre.jpg" style="width:60px;height:60px;border-radius:6px;object-fit:cover;transition:all .2s;border:2px solid transparent;display:block;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='transparent'" alt="Portre"></a>
+        <a href="#podcast" onclick="navTo('podcast');setTimeout(function(){var tab=document.querySelector('[data-id="analiz"]');if(tab)tab.click();},500);return false;" title="Analiz ve Görüşler" style="display:block;"><img src="analiz_ve_gorusler.jpg" style="width:60px;height:60px;border-radius:6px;object-fit:cover;transition:all .2s;border:2px solid transparent;display:block;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='transparent'" alt="Analiz ve Görüşler"></a>
+        <a href="#podcast" onclick="navTo('podcast');setTimeout(function(){var tab=document.querySelector('[data-id="birbakista"]');if(tab)tab.click();},500);return false;" title="Bir Bakışta" style="display:block;"><img src="bir_bakista.webp" style="width:60px;height:60px;border-radius:6px;object-fit:cover;transition:all .2s;border:2px solid transparent;display:block;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='transparent'" alt="Bir Bakışta"></a>
+        <a href="#podcast" onclick="navTo('podcast');setTimeout(function(){var tab=document.querySelector('[data-id="mahrec"]');if(tab)tab.click();},500);return false;" title="Mahreç Dünya" style="display:block;"><img src="mahrec.jpg" style="width:60px;height:60px;border-radius:6px;object-fit:cover;transition:all .2s;border:2px solid transparent;display:block;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='transparent'" alt="Mahreç Dünya"></a>
+        <a href="#podcast" onclick="navTo('podcast');setTimeout(function(){var tab=document.querySelector('[data-id="atalks"]');if(tab)tab.click();},500);return false;" title="Anadolu Talk Zone" style="display:block;"><img src="anadolu_talk_zone.webp" style="width:60px;height:60px;border-radius:6px;object-fit:cover;transition:all .2s;border:2px solid transparent;display:block;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='transparent'" alt="Anadolu Talk Zone"></a>
+        <a href="#podcast" onclick="navTo('podcast');setTimeout(function(){var tab=document.querySelector('[data-id="seruven"]');if(tab)tab.click();},500);return false;" title="100 Yıllık Serüven" style="display:block;"><img src="seruven.png" style="width:60px;height:60px;border-radius:6px;object-fit:contain;background:#c41e3a;transition:all .2s;border:2px solid transparent;display:block;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='transparent'" alt="100 Yıllık Serüven"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('.pod-ni-img[title=Portre]'),'portre');},200);return false;" title="Portre" style="display:block;"><img src="portre.jpg" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Portre"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Analiz]'),'analiz');},200);return false;" title="Analiz" style="display:block;"><img src="analiz_ve_gorusler.jpg" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Analiz"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Bir]'),'birbakista');},200);return false;" title="Bir Bakışta" style="display:block;"><img src="bir_bakista.webp" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Bir Bakışta"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Mahreç]'),'mahrec');},200);return false;" title="Mahreç" style="display:block;"><img src="mahrec.jpg" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Mahreç"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Anadolu]'),'atalks');},200);return false;" title="Anadolu Talk Zone" style="display:block;"><img src="anadolu_talk_zone.webp" style="width:44px;height:44px;border-radius:6px;object-fit:cover;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="Anadolu Talk Zone"></a>
+        <a href="index.html#podcast" onclick="navTo('podcast');setTimeout(function(){switchPod(document.querySelector('[title=Serüven]'),'seruven');},200);return false;" title="100 Yıllık Serüven" style="display:block;"><img src="seruven.png" style="width:44px;height:44px;border-radius:6px;object-fit:contain;background:#c41e3a;opacity:.75;transition:all .2s;border:1.5px solid transparent;" onmouseover="this.style.opacity=1;this.style.borderColor='var(--gold)'" onmouseout="this.style.opacity=.75;this.style.borderColor='transparent'" alt="100 Yıllık Serüven"></a>
       </div>
+    </div>
+    <div style="padding:0 80px 16px;">
+      <iframe width="100%" height="390" frameborder="no" scrolling="no" seamless src="https://share.transistor.fm/e/anadolu-ajansi/playlist" style="display:block;border-radius:8px;"></iframe>
     </div>
   
     <footer>
       <div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth" style="cursor:pointer;" onclick="this.textContent=this.textContent===this.getAttribute('data-en')?this.getAttribute('data-tr'):this.getAttribute('data-en')">Pleasant echoes from the verdant and captivating Earth</div>
       <div style="display:flex;align-items:center;gap:1.2rem;">
-        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu?subject=Contact" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
         <span style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:15px;"></i>Istanbul</span>
       </div>
       
@@ -2071,7 +2081,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
   </div>
   <div class="nwall" id="nwall"></div>
   <footer><div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth" style="cursor:pointer;" onclick="this.textContent=this.textContent===this.getAttribute('data-en')?this.getAttribute('data-tr'):this.getAttribute('data-en')">Pleasant echoes from the verdant and captivating Earth</div><div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
-        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu?subject=Contact" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
         <span style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:15px;"></i>Istanbul</span>
       </div></footer>
 </div>
@@ -2101,7 +2111,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'birbakista')" title="Bir Bakışta"><img src="bir_bakista.webp" alt="Bir Bakışta" loading="lazy"></div>
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'mahrec')" title="Mahreç Dünya"><img src="mahrec.jpg" alt="Mahreç Dünya" loading="lazy"></div>
       <div class="pod-ni pod-ni-img" onclick="switchPod(this,'atalks')" title="Anadolu Talk Zone"><img src="anadolu_talk_zone.webp" alt="Anadolu Talk Zone" loading="lazy"></div>
-      <div class="pod-ni pod-ni-img" onclick="switchPod(this,'seruven')" title="100 Yıllık Serüven"><img src="seruven.png" alt="100 Yıllık Serüven" loading="lazy"></div>n" loading="lazy"></div>
+      <div class="pod-ni pod-ni-img" onclick="switchPod(this,'seruven')" title="100 Yıllık Serüven"><img src="seruven.png" alt="100 Yıllık Serüven" loading="lazy"></div>
     </div>
     <div class="pod-main">
       <div class="pod-sec on" id="ps-portre">
@@ -2136,6 +2146,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       </div>
     </div>
   </div>
+</div>
 
 
 <div id="page-vodcast" class="ip">
@@ -2320,7 +2331,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
     <footer>
       <div class="f-sig" data-tr="Yeşil ve tatlı Dünya'dan hoş sadâlar" data-en="Pleasant echoes from the verdant and captivating Earth" style="cursor:pointer;" onclick="this.textContent=this.textContent===this.getAttribute('data-en')?this.getAttribute('data-tr'):this.getAttribute('data-en')">Pleasant echoes from the verdant and captivating Earth</div>
       <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
-        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu?subject=Contact" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
+        <a href="https://www.linkedin.com/in/ibrahim-ciger-68393b12a/" target="_blank" rel="noopener" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-brand-linkedin" style="color:var(--gold);font-size:15px;"></i>LinkedIn</a><span style="font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);opacity:.4;">·</span><a href="mailto:hc685@georgetown.edu" style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-mail" style="color:var(--gold);font-size:15px;"></i>hc685@georgetown.edu</a>
         <span style="font-family:'Josefin Sans',sans-serif;font-size:14px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.45rem;"><i class="ti ti-map-pin" style="color:var(--gold);font-size:15px;"></i>Istanbul</span>
       </div>
       
@@ -2681,6 +2692,9 @@ function buildHomeNews(f){
   var g=document.getElementById('home-news-grid');
   if(!g)return;
   var filter=f||(lang==='tr'?'tr':'en');
+  document.querySelectorAll('.ntab').forEach(function(b){b.classList.remove('on');});
+  var activeTab=document.querySelector('.ntab[onclick*="'+filter+'"]');
+  if(activeTab)activeTab.classList.add('on');
   var all=ND.filter(function(n){return n.l===filter;});
   var items=all.slice(0,2);
   g.innerHTML=items.map(function(n){return newsHTML(n,false,true);}).join('');
