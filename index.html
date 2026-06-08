@@ -1560,11 +1560,11 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       <span class="hero-name">İBRAHİM</span>
       <span class="hero-name-last">Ciğer</span>
       <div class="hero-principles">
-        <span class="p-w" data-tip-tr="Hayra yorma" data-tip-en="To maintain a positive outlook">Tefe'ul<span class="p-tip" id="tip-tefeul">Hayra yorma</span></span>
+        <span class="p-w" data-tip-tr="Hayra yorma" data-tip-en="To maintain a positive outlook">Tefe'ul</span>
         <span class="p-sep"></span>
-        <span class="p-w" data-tip-tr="Olmadan farketme" data-tip-en="Preemptive action">Tedebbür<span class="p-tip" id="tip-tedebbur">Olmadan farketme</span></span>
+        <span class="p-w" data-tip-tr="Olmadan farketme" data-tip-en="Preemptive action">Tedebbür</span>
         <span class="p-sep"></span>
-        <span class="p-w" data-tip-tr="Sakince kavrama" data-tip-en="Level-headedness">Teenni<span class="p-tip" id="tip-teenni">Sakince kavrama</span></span>
+        <span class="p-w" data-tip-tr="Sakince kavrama" data-tip-en="Level-headedness">Teenni</span>
       </div>
       <div id="mob-tooltip"></div>
       <a class="hero-scroll" href="#sec-haberler" style="pointer-events:none;display:flex;align-items:center;gap:10px;">
@@ -1597,7 +1597,7 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
       <span class="sec-more-line"></span>
     </a>
   </div>
-  <div style="height:0.3rem;"></div>
+  <div style="height:0.09rem;"></div>
 
 
   <!-- PODCAST -->
@@ -3480,11 +3480,8 @@ function goToChannel(channelId){
 (function(){
   // Principle word tooltips — fixed position below each word on mobile
   function closeAllTips(){
-    document.querySelectorAll('.p-w').forEach(function(w){
-      w.classList.remove('tip-open');
-      var t=w.querySelector('.p-tip');
-      if(t){t.style.left='';t.style.top='';}
-    });
+    document.querySelectorAll('.p-w').forEach(function(w){w.classList.remove('tip-open');});
+    if(typeof gTip!=='undefined')gTip.style.display='none';
   }
   // Global tooltip — appended to body, avoids overflow:hidden clipping
   var gTip=document.createElement('div');
