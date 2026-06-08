@@ -432,7 +432,20 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   #ed4>div>div:last-child{width:100%!important;border-left:none!important;border-top:.5px solid var(--border2)!important;padding-left:0!important;padding-top:.6rem!important;margin-top:.6rem!important;flex-direction:row!important;flex-wrap:wrap!important;gap:.5rem!important;}
 
   .ngo-grid{grid-template-columns:1fr!important;gap:.4rem!important;}
-  .ngo-title-link{font-size:9px!important;letter-spacing:.05em!important;}
+  .ngo-title-link{
+  font-family:'Josefin Sans',sans-serif;
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  background:#1a3a6b;
+  padding:4px 10px;
+  border-radius:3px;
+  display:inline-block;
+  transition:background .2s;
+}
   .ngo-desc-text{font-family:'Josefin Sans',sans-serif!important;font-size:10px!important;letter-spacing:.03em;line-height:1.4!important;}
 
   /* NGO abbreviations */
@@ -549,12 +562,14 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 
 /* NGO links */
 .ngo-title-link{
-  font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--gold);display:block;text-decoration:none;
-  margin-bottom:.5rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);
-  transition:color .2s;
+  font-family:'Josefin Sans',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  color:#fff;display:inline-block;text-decoration:none;
+  background:#1a3a6b;padding:5px 12px;border-radius:4px;
+  margin-bottom:.8rem;margin-top:.3rem;
+  transition:background .2s;font-weight:700;
+  cursor:pointer;
 }
-.ngo-title-link:hover{color:var(--gold2);}
+.ngo-title-link:hover{background:#0e2447;color:#fff;}
 
 /* THESIS MODAL */
 .thesis-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
@@ -665,7 +680,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
               <div class="ed-yr">2006 — present</div>
               <div class="ed-title" data-tr="STK Faaliyetleri" data-en="NGO Activities">NGO Activities</div>
               <div class="ed-org" style="font-weight:700;font-size:11px;margin-bottom:.8rem;" data-tr="Sivil Toplum Kuruluşları Kurucu ve Üyelikler" data-en="Civil Society Memberships">Civil Society Memberships</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-top:0;" class="ngo-grid">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-top:1rem;" class="ngo-grid">
                 <div>
                   <div style="font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:.5px solid var(--border2);">
                     <a class="ngo-title-link" href="https://sinanwren.org/" target="_blank" style="display:block;text-decoration:none;color:inherit;">
@@ -913,9 +928,9 @@ function toggleLang(){
     if(btn)btn.textContent='TR';
     // ed5/ed6
     var ed5b=document.getElementById('ed5-body');
-    if(ed5b)ed5b.innerHTML='Yüksek Lisans Tezi: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"An Investigation on the Economical Life of the Holy Prophet"</a> — Ülkenin en saygın hocalarının rehberliğinde İslam hukuku ve finansı konusunda kapsamlı bir temel; Hz. Peygamber\'in ekonomik hayatı ve nebevi birikim üzerine uzmanlaşarak araştırmalar yürütüldü.';
+    if(ed5b)ed5b.innerHTML='Yüksek Lisans Tezi: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"Hz. Peygamberin Ekonomik Hayatı Üzerine Bir Araştırma"</a> — Ülkenin en saygın hocalarının rehberliğinde İslam hukuku ve finansı konusunda kapsamlı bir temel; Hz. Peygamberin ekonomik hayatı üzerine uzmanlaşarak araştırmalar yürütüldü.';
     var ed6b=document.getElementById('ed6-body');
-    if(ed6b)ed6b.innerHTML='Lisans tezi: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Economic Analysis of Participation Banks"</a> — Mikro/Makro iktisat, betimsel/çıkarımsal istatistik ve veri analizi alanlarında bir temel kazanmanın yanı sıra uluslararası ilişkiler ve AB ilişkileri eğitimi alınarak sosyal faaliyetler ve gençlik girişimlerine liderlik edildi.';
+    if(ed6b)ed6b.innerHTML='Lisans Tezi: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Katılım Bankalarının Ekonomik Analizi"</a> — Mikro/Makro iktisat, betimsel/çıkarımsal istatistik ve veri analizi alanlarında bir temel kazanmanın yanı sıra uluslararası ilişkiler ve AB ilişkileri eğitimi alınarak sosyal faaliyetler ve gençlik girişimlerine liderlik edildi.';
   }
 })();
 

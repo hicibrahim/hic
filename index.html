@@ -886,19 +886,18 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 .sec-more-line{display:block;width:40px;height:1px;background:var(--gold);opacity:.7;
   animation:barPulse 2.2s ease infinite;}
 
-.p-w{display:inline-block;position:relative;}
-.p-tip {
-  display:none; position:absolute;
-  top:100%; left:0; margin-top:6px;
-  background:var(--bg); border:1px solid var(--gold);
-  color:var(--ink); font-size:12px;
+.p-w{display:inline-block;position:relative;cursor:pointer;}
+/* Global tooltip — appended to body to avoid overflow:hidden clipping */
+#global-tip {
+  display:none; position:fixed;
+  background:var(--bg); border:1px solid rgba(184,137,42,.8);
+  color:var(--ink); font-size:11px;
   padding:5px 10px; border-radius:4px; pointer-events:none;
   font-family:'Josefin Sans',sans-serif; font-weight:400;
-  letter-spacing:.06em; z-index:9999;
-  box-shadow:0 4px 16px rgba(0,0,0,0.18);
-  max-width:120px; white-space:normal; line-height:1.4;
+  letter-spacing:.05em; z-index:99999;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2);
+  width:112px; white-space:normal; line-height:1.6;
 }
-.p-w:hover .p-tip { display:block; }
 
 /* ── Analiz ve Görüşler special design ── */
 .analiz-wrap { padding:0; }
@@ -3487,6 +3486,24 @@ function goToChannel(channelId){
       if(t){t.style.left='';t.style.top='';}
     });
   }
+  // Global tooltip — appended to body, avoids overflow:hidden clipping
+  var gTip=document.createElement('div');
+  gTip.id='global-tip';
+  document.body.appendChild(gTip);
+  document.querySelectorAll('.p-w').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      var txt=lang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');
+      if(!txt)return;
+      gTip.textContent=txt;
+      var r=el.getBoundingClientRect();
+      gTip.style.left=r.left+'px';
+      gTip.style.top=(r.bottom+8)+'px';
+      gTip.style.display='block';
+    });
+    el.addEventListener('mouseleave',function(){
+      gTip.style.display='none';
+    });
+  });
   document.querySelectorAll('.p-w').forEach(function(el){
     function toggle(e){
       e.stopPropagation();
