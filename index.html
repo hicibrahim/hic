@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
   <meta property="og:title" content="Halil İbrahim Ciğer">
@@ -2513,8 +2513,7 @@ function toggleLang(){
   document.querySelector('.lang-btn').textContent=lang==='en'?'TR':'EN';
   document.querySelectorAll('[data-tr]').forEach(el=>el.textContent=el.getAttribute('data-'+lang));
   document.querySelectorAll('[data-tip-tr]').forEach(el=>{
-    const tip=el.querySelector('.p-tip');
-    if(tip)tip.textContent=el.getAttribute('data-tip-'+lang);
+    // gTip is dynamic — no action needed here, gTip reads lang on hover
   });
   // Rebuild news grid with correct language
   buildHomeNews();
@@ -3135,7 +3134,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   document.querySelectorAll('[data-tip-tr]').forEach(el=>{
     const tip=el.querySelector('.p-tip');
-    if(tip){const v=el.getAttribute('data-tip-en');if(v)tip.textContent=v;}
+    if(tip){const v=el.getAttribute('data-tip-'+lang);if(v)tip.textContent=v;}
   });
   // Tüm ip sayfalarını başlangıçta gizle
   buildTicker();
