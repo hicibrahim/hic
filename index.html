@@ -769,6 +769,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   #sec-haberler .muck-section{display:none!important;}
 
   /* 2. p-tip mobile: fixed position below each word, not clipped by hero overflow */
+  .hero-ticker-wrap{display:none!important;}
   .hero-principles{flex-wrap:wrap;}
   .p-w{display:inline-block;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;}
   .p-tip{
@@ -831,8 +832,8 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   /* All Podcasts below podcast title on mobile */
   #sec-podcast~div.sec-more-btn-wrap{margin-top:0!important;}
   /* Home podcast channel thumbs: smaller for mobile */
-  #home-pod-channels a img{width:44px!important;height:44px!important;}
-  #home-pod-channels{gap:10px!important;padding-right:12px!important;flex-wrap:wrap!important;}
+  #home-pod-channels a img{width:36px!important;height:36px!important;border-radius:4px!important;}
+  #home-pod-channels{gap:6px!important;padding-right:8px!important;flex-wrap:nowrap!important;overflow-x:auto;max-width:100%;}
   /* Podcast home embed: full width on mobile */
   #sec-podcast iframe{width:100%!important;}
   #sec-podcast>div:nth-child(2){padding:0 8px 12px!important;}
@@ -1567,12 +1568,12 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
       </div>
       <a href="#" onclick="goToProfile();return false;" class="hero-about-me" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-top:.9rem;margin-bottom:1.4rem;font-family:'Josefin Sans',sans-serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,232,214,.65);font-weight:200;border:.5px solid rgba(184,137,42,.35);padding:.45rem 1.2rem;border-radius:2px;transition:all .25s;backdrop-filter:blur(2px);" onmouseover="this.style.color='rgba(240,232,214,1)';this.style.borderColor='rgba(184,137,42,.8)';" onmouseout="this.style.color='rgba(240,232,214,.65)';this.style.borderColor='rgba(184,137,42,.35)';">
         <span data-tr="Hakkımda" data-en="About Me">About Me</span>
-        <span style="font-size:11px;opacity:.7;">↗</span>
+        <span style="font-size:10px;color:rgba(184,137,42,.8);">↗</span>
       </a>
       <div id="mob-tooltip"></div>
       <a class="hero-scroll" href="#sec-haberler" style="pointer-events:none;display:flex;align-items:center;gap:10px;">
         <span class="hero-scroll-bar"></span>
-        <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,232,214,.45);font-weight:100;">By AI</span>
+        <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.6;font-weight:100;">By AI</span>
       </a>
     </div>
     <div class="hero-ticker-wrap" style="display:block!important;">
@@ -2081,7 +2082,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 <!-- ══════ PERSPEKTİF ══════ -->
 <div id="page-perspektif" class="ip">
   <div class="void-page">
-    <div class="void-word">Perspektif</div>
+    <div class="void-word" data-tr="Perspektif" data-en="Perspective">Perspective</div>
     <div class="void-line"></div>
     <div class="coming-soon-wrap">
       <span class="cs-left" data-tr="Yakında" data-en="Coming">Coming</span>
@@ -2551,7 +2552,7 @@ function showHome(){
   document.documentElement.scrollTop=0;
   document.body.scrollTop=0;
     // Use hash-based routing to avoid 404 on GitHub Pages
-    var cleanPath=location.pathname.replace(/\/index\.html$/,'/'); history.replaceState(null,'',cleanPath);
+    var cleanPath=location.pathname.replace(/\/index\.html$/,'/'); if(cleanPath!==location.pathname)history.replaceState(null,'',cleanPath);
   return false;
 }
 function navTo(page,noHistory){
@@ -3521,17 +3522,14 @@ function goToChannel(channelId){
       var wasOpen=el.classList.contains('tip-open');
       closeAllTips();
       if(!wasOpen){
-        // Update tip text for current language
-        var tip=el.querySelector('.p-tip');
-        if(tip){
-          var txt=lang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');
-          if(txt)tip.textContent=txt;
-          // Set fixed coordinates below the word
+        var curLang=window.lang||lang;
+        var txt=curLang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');
+        if(txt&&window.gTip){
+          window.gTip.textContent=txt;
           var r=el.getBoundingClientRect();
-          tip.style.top=(r.bottom+8)+'px';
-          var l=r.left+r.width/2-100;
-          // Align left edge of tip to left edge of word
-          tip.style.left=Math.max(8,Math.min(window.innerWidth-208,r.left))+'px';
+          window.gTip.style.left=Math.max(8,Math.min(window.innerWidth-120,r.left))+'px';
+          window.gTip.style.top=(r.bottom+8)+'px';
+          window.gTip.style.display='block';
         }
         el.classList.add('tip-open');
       }
