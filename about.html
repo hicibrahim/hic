@@ -794,7 +794,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
         LinkedIn
       </a>
       <span class="f-sep">·</span>
-      <span class="f-link"><i class="ti ti-mail"></i>hc685@georgetown.edu</span>
+      <a class="f-link" href="mailto:hc685@georgetown.edu?subject=Contact" style="display:flex;align-items:center;gap:.4rem;text-decoration:none;"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Georgetown_Hoyas_logo.svg/120px-Georgetown_Hoyas_logo.svg.png" width="14" height="14" style="object-fit:contain;flex-shrink:0;" alt="GU" onerror="this.style.display='none'">hc685@georgetown.edu</a>
       <span class="f-sep">·</span>
       <span class="f-link"><i class="ti ti-map-pin"></i>Istanbul</span>
     </div>
@@ -881,7 +881,9 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 
 <script>
 /* ── UTILS ── */
-var lang=(localStorage.getItem('hic_lang')||'en');
+var _urlLang=new URLSearchParams(window.location.search).get('lang');
+var lang=_urlLang||(localStorage.getItem('hic_lang')||'en');
+if(_urlLang)localStorage.setItem('hic_lang',_urlLang);
 function toggleLang(){
   lang=lang==='en'?'tr':'en';
   localStorage.setItem('hic_lang',lang);
@@ -919,21 +921,22 @@ function toggleLang(){
 }
 // Apply saved language on page load
 (function(){
-  if(lang==='tr'){
-    // Force TR display
+  function applyLang(l){
     document.querySelectorAll('[data-tr]').forEach(function(el){
-      var v=el.getAttribute('data-tr');
+      var v=l==='en'?el.getAttribute('data-en'):el.getAttribute('data-tr');
       if(!v)return;
-      if(v.indexOf('<')!==-1||v.indexOf('&lt;')!==-1){el.innerHTML=v.replace(/&lt;/g,'<').replace(/&gt;/g,'>');}
+      if(v.indexOf('<')!==-1){el.innerHTML=v;}
       else{el.textContent=v;}
     });
     var btn=document.querySelector('.lang-btn');
-    if(btn)btn.textContent='TR';
-    // ed5/ed6
+    if(btn)btn.textContent=l==='en'?'TR':'EN';
+  }
+  applyLang(lang);
+  if(lang==='tr'){
     var ed5b=document.getElementById('ed5-body');
-    if(ed5b)ed5b.innerHTML='Yüksek Lisans Tezi: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"Hz. Peygamberin Ekonomik Hayatı Üzerine Bir Araştırma"</a> — Ülkenin en saygın hocalarının rehberliğinde İslam hukuku ve finansı konusunda kapsamlı bir temel; Hz. Peygamberin ekonomik hayatı üzerine uzmanlaşarak araştırmalar yürütüldü.';
+    if(ed5b)ed5b.innerHTML='Yüksek Lisans Tezi: <a href="#" onclick="thesisOpen();return false;" class="thesis-link">"Hz. Peygamberin Ekonomik Hayat\u0131 \u00dczerine Bir Ara\u015ft\u0131rma"</a> — Ülkenin en sayg\u0131n hocalar\u0131n\u0131n rehberli\u011finde \u0130slam hukuku ve finansı konusunda kapsamlı bir temel; Hz. Peygamberin ekonomik hayatı üzerine uzmanlaşarak araştırmalar yürütüldü.';
     var ed6b=document.getElementById('ed6-body');
-    if(ed6b)ed6b.innerHTML='Lisans Tezi: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Katılım Bankalarının Ekonomik Analizi"</a> — Mikro/Makro iktisat, betimsel/çıkarımsal istatistik ve veri analizi alanlarında bir temel kazanmanın yanı sıra uluslararası ilişkiler ve AB ilişkileri eğitimi alınarak sosyal faaliyetler ve gençlik girişimlerine liderlik edildi.';
+    if(ed6b)ed6b.innerHTML='Lisans Tezi: <a href="#" onclick="thesis2Open();return false;" class="thesis-link">"Katılım Bankalarının Ekonomik Analizi"</a> — Mikro/Makro iktisat, betimsel/çıkarımsal istatistik ve veri analizi alanlarında bir temel kazanıldı.';
   }
 })();
 
