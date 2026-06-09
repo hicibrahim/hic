@@ -2485,7 +2485,7 @@ const PLAYLISTS = [
 ];
 
 /* ══ STATE ══ */
-let lang=(localStorage.getItem('hic_lang')||'tr'), plIdx=0, plLoaded={}, vidOff=0, pvTimers={};
+let lang=(localStorage.getItem('hic_lang')||'en'), plIdx=0, plLoaded={}, vidOff=0, pvTimers={};
 let podInited=false;
 let currentAudio=null; // the ep row currently playing
 let isPlaying=false;
@@ -2535,6 +2535,11 @@ function toggleLang(){
 })();
 
 /* ══ ROUTING ══ */
+// ── Handle browser back/forward
+window.addEventListener('popstate',function(e){
+  if(e.state&&e.state.page){navTo(e.state.page,true);}
+  else{showHome();}
+});
 function showHome(){
   hidePodCursor();
   document.querySelectorAll('.ip').forEach(function(el){
@@ -2550,7 +2555,7 @@ function showHome(){
     history.replaceState(null,'',location.pathname.replace(/\/index\.html$/,'/'));
   return false;
 }
-function navTo(page){
+function navTo(page,noHistory){
   if(page!=='podcast') hidePodCursor();
   // 1. Home'u gizle
   document.getElementById('page-home').style.display='none';
@@ -2574,9 +2579,9 @@ function navTo(page){
   if(page==='podcast'){showPodCursor();if(!podInited){podInited=true;initPod();}initPod2();}
   if(page==='hakkimda'){setTimeout(function(){window.dispatchEvent(new Event('ab-init'));},100);}
     // Hash güncelle
-  // Clean URL: always relative to site root /hic/
-  var base=location.pathname.replace(/\/index\.html$/,'/').replace(/\/(haberlerim|perspektif|vodcast|podcast|hayatim|hakkimda)$/,'/');
-  history.replaceState(null,'',base+page);
+  // Clean URL: push new history entry so back button works
+  if(!noHistory){var base=location.pathname.replace(/\/index\.html$/,'/').replace(/\/(haberlerim|perspektif|vodcast|podcast|hayatim|hakkimda)$/,'/');
+  history.pushState({page:page},'',base+page);}
   return false;
 }
 function toggleMob(){document.getElementById('mob-m').classList.toggle('open');}
