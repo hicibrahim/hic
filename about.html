@@ -1388,7 +1388,8 @@ window.addEventListener('load',function(){
   }
 
   document.querySelectorAll('.pillar[data-pillar]').forEach(function(p){
-    p.addEventListener('click',function(){
+    p.addEventListener('click',function(e){
+      e.stopPropagation();
       var key=p.getAttribute('data-pillar');
       if(activeP===key){hideNote();activeP=null;return;}
       showNote(key,p.getBoundingClientRect());

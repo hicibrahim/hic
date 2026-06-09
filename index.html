@@ -717,7 +717,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   .a-cover{width:32px;height:32px;}
   footer{padding:20px;flex-direction:column;gap:10px;text-align:center;}
   .mob-m{padding:32px 24px;}
-  .mob-m a{font-size:28px;padding:10px 0;}
+  .mob-m a{font-size:28px;padding:10px 0;opacity:1!important;color:var(--ink)!important;font-weight:700;}
 }
 @media(max-width:480px){
   .hero-name{font-size:clamp(36px,11vw,52px);}
@@ -832,8 +832,9 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   /* All Podcasts below podcast title on mobile */
   #sec-podcast~div.sec-more-btn-wrap{margin-top:0!important;}
   /* Home podcast channel thumbs: smaller for mobile */
-  #home-pod-channels a img{width:36px!important;height:36px!important;border-radius:4px!important;}
-  #home-pod-channels{gap:6px!important;padding-right:8px!important;flex-wrap:nowrap!important;overflow-x:auto;max-width:100%;}
+  #home-pod-channels a img{width:32px!important;height:32px!important;border-radius:4px!important;}
+  #home-pod-channels{gap:5px!important;padding-right:8px!important;flex-wrap:nowrap!important;overflow-x:hidden!important;max-width:calc(100vw - 120px)!important;}
+  #sec-podcast .sec-head{flex-wrap:wrap!important;gap:6px!important;}
   /* Podcast home embed: full width on mobile */
   #sec-podcast iframe{width:100%!important;}
   #sec-podcast>div:nth-child(2){padding:0 8px 12px!important;}
@@ -1576,7 +1577,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
         <span style="font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.6;font-weight:100;">By AI</span>
       </a>
     </div>
-    <div class="hero-ticker-wrap" style="display:block!important;">
+    <div class="hero-ticker-wrap">
       <div class="ticker-label" data-tr="ÖRNEK HABERLER" data-en="SAMPLE OF RECENT STORIES" style="font-family:'Josefin Sans',sans-serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,232,214,.5);font-weight:100;display:flex;align-items:center;gap:14px;padding:0 40px 16px;"><span style="display:block;width:40px;height:1px;background:var(--gold);opacity:.6;animation:barPulse 2.2s ease infinite;"></span>SAMPLE OF RECENT STORIES</div>
       <div class="ticker-outer"><div class="ticker-track" id="hticker"></div></div>
     </div>
