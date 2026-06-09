@@ -139,7 +139,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 
 /* ══ SCROLL NAV — inside roller-bot ══ */
 .scroll-nav{
-  height:45px;
+  height:31.5px;
   background:rgba(20,12,4,.45);
   display:flex;
   align-items:center;
@@ -273,7 +273,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 }
 .htl-n.sel .htl-dot{background:var(--gold);border-color:var(--gold);width:11px;height:11px;}
 .htl-n:hover .htl-dot{border-color:var(--gold);}
-.htl-yr{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:600;color:var(--gold);margin-top:1.8rem;font-style:normal;}
+.htl-yr{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:600;color:var(--gold);margin-top:0.72rem;font-style:normal;}
 .htl-t{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:16px;font-weight:600;text-align:center;color:var(--ink);line-height:1.2;letter-spacing:.04em;text-transform:uppercase;}
 .htl-o{font-family:'EB Garamond','Palatino Linotype',Palatino,Georgia,serif;font-size:15px;font-weight:500;color:var(--muted);text-align:center;text-transform:uppercase;}
 
@@ -300,7 +300,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
   font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.22em;
   text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;
 }
-.htl{position:relative;padding-top:1.8rem;margin-bottom:.4rem;flex-shrink:0;margin-top:.01rem;}
+.htl{position:relative;padding-top:1.8rem;margin-bottom:.4rem;flex-shrink:0;margin-top:.004rem;}
 
 /* Detail panel — raised 20% closer to timeline */
 .exp-detail{
@@ -562,14 +562,14 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 
 /* NGO links */
 .ngo-title-link{
-  font-family:'Josefin Sans',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
-  color:#fff;display:inline-block;text-decoration:none;
-  background:#2563a8;padding:5px 12px;border-radius:4px;
-  margin-bottom:.8rem;margin-top:.3rem;
-  transition:background .2s;font-weight:700;
+  font-family:'Josefin Sans',sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  color:#2563a8;display:inline-block;text-decoration:none;
+  background:none;padding:0;border-radius:0;
+  margin-bottom:.6rem;margin-top:.3rem;
+  transition:color .2s;font-weight:700;
   cursor:pointer;
 }
-.ngo-title-link:hover{background:#1a4f8a;color:#fff;}
+.ngo-title-link:hover{color:#1a3a6b;}
 
 /* THESIS MODAL */
 .thesis-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
@@ -668,7 +668,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
               <div class="htl-n" onclick="expSel(5);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2012</div><div class="htl-t" data-tr="MASTER" data-en="MA">MA</div><div class="htl-o" data-tr="İSTANBUL" data-en="ISTANBUL">ISTANBUL</div></div>
               <div class="htl-n" onclick="expSel(2);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2015</div><div class="htl-t" data-tr="DANIŞMAN" data-en="ADVISOR">ADVISOR</div><div class="htl-o" data-tr="TBMM" data-en="PARLIAMENT">PARLIAMENT</div></div>
               <div class="htl-n" onclick="expSel(4);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2016</div><div class="htl-t">GEORGETOWN</div><div class="htl-o" data-tr="WASHINGTON DC" data-en="WASHINGTON DC">WASHINGTON DC</div></div>
-              <div class="htl-n" onclick="expSel(1);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2018</div><div class="htl-t" data-tr="ÖZEL KALEM MÜDÜRÜ" data-en="CHIEF OF EXECUTIVE OFFICE">CHIEF OF EXECUTIVE OFFICE</div><div class="htl-o" data-tr="BAKANLIK" data-en="MINISTRY">MINISTRY</div></div>
+              <div class="htl-n" onclick="expSel(1);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2018</div><div class="htl-t" data-tr="ÖZEL KALEM MÜDÜRÜ" data-en="CHIEF OF STAFF">CHIEF OF STAFF</div><div class="htl-o" data-tr="BAKANLIK" data-en="MINISTRY">MINISTRY</div></div>
               <div class="htl-n sel" onclick="expSel(0);expStop()"><div class="htl-pulse"></div><div class="htl-dot"></div><div class="htl-yr">2016</div><div class="htl-t" data-tr="GAZETECİ" data-en="JOURNALIST">JOURNALIST</div><div class="htl-o" data-tr="ANADOLU AJANSI" data-en="ANADOLU AGENCY">ANADOLU AGENCY</div></div>
             </div>
           </div>
@@ -812,7 +812,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
       <div class="tm-meta"><span>Halil Ibrahim Ciger</span><span class="tm-sep">·</span><span>Istanbul University</span><span class="tm-sep">·</span><span>2015</span></div>
     </div>
     <div class="tm-div"></div>
-    <div class="tm-body">
+    <div class="tm-body" id="tm-body1">
       <div class="tm-col">
         <div class="tm-kick">Preface</div>
         <p class="tm-lead">This thesis examines the economic dimensions of the Prophet Muhammad's life through a rigorous interdisciplinary lens, drawing on classical Islamic sources and contemporary economic analysis.</p>
@@ -848,7 +848,7 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
       <div class="tm-meta"><span>Halil Ibrahim Ciger</span><span class="tm-sep">·</span><span>Uludag University</span><span class="tm-sep">·</span><span>2010</span></div>
     </div>
     <div class="tm-div"></div>
-    <div class="tm-body">
+    <div class="tm-body" id="tm-body2">
       <div class="tm-col">
         <div class="tm-kick">Overview</div>
         <p class="tm-lead">This thesis examines participation banking as an alternative financial model grounded in Islamic economic principles, analysing its structure, operations, and performance within the Turkish banking sector.</p>
@@ -947,12 +947,20 @@ function thesisOpen(){
   document.getElementById('thesis-overlay').classList.add('open');
   var t=document.getElementById('tm-title1');
   if(t)t.innerHTML=lang==='tr'?'Hz. Peygamberin Ekonomik Hayat\u0131<br>\u00dczerine Bir Ara\u015ft\u0131rma':'An Investigation on the Economical Life<br>of the Holy Prophet';
+  var body=document.getElementById('tm-body1');
+  if(body&&lang==='tr'){
+    body.innerHTML='<div class="tm-col"><div class="tm-kick">Önsöz</div><p class="tm-lead">Bu tez, Hz. Peygamberin ekonomik hayatını klasik İslami kaynaklar ve çağdaş ekonomi analizi çerçevesinde inceler.</p><p>Çalışma, İslam hukuku ve modern iktisat metodolojilerini bir araya getirerek peygamberlik öncesi ve sonrası dönemlerde tutarlı ve ilkeli bir ekonomik yapıyı ortaya koymaktadır.</p><div class="tm-kick">I. Bölüm · Peygamberlik Öncesi Dönem</div><p>6. yüzyıl Arabistanında ticaret pratikleri, Hz. Peygamberin Hz. Hatice ile ortaklığı ve mudarebe düzenlemeleri ele alınmaktadır.</p><div class="tm-kick">II. Bölüm · Medine Çarşısı</div><p>İlk İslam pazarının kuruluşu, tekelci ve aldatıcı uygulamaların yasaklanması, ölçü-tartı standardizasyonu incelenmektedir.</p></div><div class="tm-col"><div class="tm-kick">III. Bölüm · Mali Politika</div><p>Yeniden dağıtıcı bir kurum olarak zekat, ganimet kuralları, haraç vergisi ve kamu maliyesi ele alınmaktadır.</p><div class="tm-kick">IV. Bölüm · Miras ve Günümüzdeki Önemi</div><p>Nebevi ekonomik ilkelerin İslam finansı, vakıf kurumları, kâr-zarar ortaklıkları ve çağdaş Müslüman ekonomilere etkisi tartışılmaktadır.</p><div class="tm-kick">Sonuç</div><p>Hz. Peygamberin ekonomik modeli; şeffaflık, sömürüyü önleme ve toplumsal dayanışmayı esas alan, ruhani ve pragmatik dengeyi kuran tutarlı bir sistemdir.</p><div class="tm-pull">"Adalet, şeffaflık ve toplumsal dayanışmaya dayanan ilkeli bir ekonomik model."</div></div>';
+  }
 }
 function thesisClose(){document.getElementById('thesis-overlay').classList.remove('open');}
 function thesis2Open(){
   document.getElementById('thesis2-overlay').classList.add('open');
   var t=document.getElementById('tm-title2');
-  if(t)t.innerHTML=lang==='tr'?'Kat\u0131l\u0131m Bankalar\u0131n\u0131n<br>Ekonomik Analizi':'Economic Analysis of<br>Participation Banks';
+  if(t)t.innerHTML=lang==='tr'?'Katılım Bankalarının<br>Ekonomik Analizi':'Economic Analysis of<br>Participation Banks';
+  var body=document.getElementById('tm-body2');
+  if(body&&lang==='tr'){
+    body.innerHTML='<div class="tm-col"><div class="tm-kick">Önsöz</div><p class="tm-lead">Bu tez, katılım bankacılığının ekonomik yapısını mikro ve makro iktisat perspektifinden analiz etmektedir.</p><p>Çalışma, fıkhı finans ilkeleriyle modern bankacılık teorisini bir araya getirerek katılım bankalarının geleneksel bankalarla karşılaştırmalı analizini yapmaktadır.</p><div class="tm-kick">I. Bölüm · Teorik Çerçeve</div><p>Fıkıh prensipleri öğrenilerek başlayan çalışma, modern katılım bankacılığının faiz yasağı prensibine dayanan yapısı ele alınmaktadır.</p><div class="tm-kick">II. Bölüm · Ekonomik Analiz</div><p>Betimsel ve çıkarımsal istatistik yöntemleriyle katılım bankalarının bilanço verileri, kâr zarar oranı ve büyme performansı analiz edilmektedir.</p></div><div class="tm-col"><div class="tm-kick">III. Bölüm · Karşılaştırmalı Değerlendirme</div><p>Katılım bankaları ile geleneksel bankalar arasındaki risk profili, kârlılık ve sistem istikrarı karşılaştırılmaktadır.</p><div class="tm-kick">Sonuç</div><p>Katılım bankacılığı, etik finans ve ekonomik verimlilik arasında sürdürülebilir bir denge sunmakta; İslam ekonomisinin modern finans sistemine entegrasyonunda önemli bir araç olmaktadır.</p><div class="tm-pull">"Etik finans ilkeleriyle ekonomik verimliliği birleştiren sürdürülebilir bir model."</div></div>';
+  }
 }
 function thesis2Close(){document.getElementById('thesis2-overlay').classList.remove('open');}
 
@@ -1306,8 +1314,9 @@ window.addEventListener('load',function(){
 (function(){
   var NOTES={
     journalism:{
-      en:'A decade of global news agency experience driving content excellence and cutting-edge digital media strategies',
-      tr:'İçerik zenginliği ve inovatif dijital medya stratejilerine yön veren, on yıllık Anadolu Ajansı deneyimi.'
+      en:"Under a prestigious international news agency, spearheaded <a href='https://www.anadoluajans.com.tr/podcast' target='_blank' style='color:var(--gold);text-decoration:none;'>AA Podcast</a> and <a href='https://www.anadoluajans.com.tr/portakalmaavi' target='_blank' style='color:var(--gold);text-decoration:none;'>AA Portre</a> projects while managing institutional operations and producing news in multiple languages. Pioneered the integration of advanced news writing and audio-focused journalism into modern digital content. Gained advanced expertise in video journalism across a wide spectrum — international affairs, national politics, environment, economy, health, cultural heritage and diplomatic protocol — building mastery of interview techniques and news documentary production.",
+      tr:"Saygın ve prestijli bir uluslararası ajans yapısı altında, <a href='https://www.anadoluajans.com.tr/podcast' target='_blank' style='color:var(--gold);text-decoration:none;'>AA Podcast</a> ve <a href='https://www.anadoluajans.com.tr/portakalmaavi' target='_blank' style='color:var(--gold);text-decoration:none;'>AA Portre</a> projelerine öncelik edilmiş, kurumsal işleyiş yürütülerek farklı dillerde haberler üretilirken, gelişmiş haber dili ile ses odaklı haberciliğin modern dijital içeriklere entegrasyonu sağlanmıştır. Ayrıca, video haberciliği alanında gelişmiş bir birikim elde ederek; uluslararası ilişkilerden ulusal ve yerel haberlere kadar uzanan geniş bir yelpazede çevre, siyaset, ekonomi, sağlık, kültürel miras ve diplomatik protokol gibi her alanda zengin bir haber tecrübesi edinilerek röportaj teknikleri ve haber belgeselciliği alanında üst düzey uzmanlık sağlanmıştır.",
+      html:true
     },
     digital:{
       en:"Spearheaded the production and strategic growth of flagship digital audio and video formats, pioneering the integration of advanced news styling into modern digital content.",

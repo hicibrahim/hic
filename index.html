@@ -2571,7 +2571,9 @@ function navTo(page){
   if(page==='podcast'){showPodCursor();if(!podInited){podInited=true;initPod();}initPod2();}
   if(page==='hakkimda'){setTimeout(function(){window.dispatchEvent(new Event('ab-init'));},100);}
     // Hash güncelle
-  history.replaceState(null,'',location.pathname.replace(/\/index\.html$/,'/')+page);
+  // Clean URL: always relative to site root /hic/
+  var base=location.pathname.replace(/\/index\.html$/,'/').replace(/\/(haberlerim|perspektif|vodcast|podcast|hayatim|hakkimda)$/,'/');
+  history.replaceState(null,'',base+page);
   return false;
 }
 function toggleMob(){document.getElementById('mob-m').classList.toggle('open');}
