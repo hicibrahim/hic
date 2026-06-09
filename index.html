@@ -1399,7 +1399,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
   font-family:'Josefin Sans',sans-serif; font-size:12px; color:var(--muted);
   letter-spacing:.08em;
 }
-/* cursor: microphone on podcast page */
+/* cursor: removed */
 #page-podcast { }
 
 /* ── Video carousel arrow buttons ── */
@@ -1499,10 +1499,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 }
 
 /* Podcast page cursor */
-#page-podcast{cursor:none;}
-#page-podcast *{cursor:none !important;}
-#page-podcast .ep-item,#page-podcast .ep-item *,#page-podcast .ep-play-btn,#page-podcast .ep-play-btn *,#page-podcast .a-bar,#page-podcast .a-close{cursor:default !important;}
-body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-active nav .logo{cursor:none !important;}
+/* podcast cursor removed */
 
 /* Vodcast thumbnail %20 bigger */
 #page-vodcast .vid-card .vid-thumb{aspect-ratio:16/9;padding-bottom:0;height:auto;position:relative;overflow:hidden;}
@@ -1520,10 +1517,10 @@ body.pod-cursor-active nav a,body.pod-cursor-active .logo-hic,body.pod-cursor-ac
   </a>
   <ul class="nav-links">
     <li><a href="#" onclick="showHome()" id="nl-home" class="on" data-tr="Anasayfa" data-en="Home">Home</a></li>
-    <li><a href="#" onclick="navTo('haberlerim')" id="nl-haberlerim" data-tr="Haberlerim" data-en="News">News</a></li>
-    <li><a href="#" onclick="navTo('perspektif')" id="nl-perspektif" data-tr="Perspektif" data-en="Perspective">Perspective</a></li>
-    <li><a href="#" onclick="navTo('vodcast')" id="nl-vodcast" data-tr="Vodcast" data-en="Vodcast">Vodcast</a></li>
-    <li><a href="#" onclick="navTo('podcast')" id="nl-podcast" data-tr="Podcast" data-en="Podcast">Podcast</a></li>
+    <li><a href="#" onclick="navTo('haberlerim');return false;" id="nl-haberlerim" data-tr="Haberlerim" data-en="News">News</a></li>
+    <li><a href="#" onclick="navTo('perspektif');return false;" id="nl-perspektif" data-tr="Perspektif" data-en="Perspective">Perspective</a></li>
+    <li><a href="#" onclick="navTo('vodcast');return false;" id="nl-vodcast" data-tr="Vodcast" data-en="Vodcast">Vodcast</a></li>
+    <li><a href="#" onclick="navTo('podcast');return false;" id="nl-podcast" data-tr="Podcast" data-en="Podcast">Podcast</a></li>
             <li><a href="about.html" id="nl-hakkimda" data-tr="Profil" data-en="Profile">Profile</a></li>
   </ul>
   <div class="nav-right">
@@ -3493,21 +3490,22 @@ function goToChannel(channelId){
     if(typeof gTip!=='undefined')gTip.style.display='none';
   }
   // Global tooltip — appended to body, avoids overflow:hidden clipping
-  var gTip=document.createElement('div');
-  gTip.id='global-tip';
-  document.body.appendChild(gTip);
+  window.gTip=document.createElement('div');
+  window.gTip.id='global-tip';
+  document.body.appendChild(window.gTip);
   document.querySelectorAll('.p-w').forEach(function(el){
     el.addEventListener('mouseenter',function(){
-      var txt=lang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');
+      var curLang=window.lang||lang;
+      var txt=curLang==='tr'?(el.getAttribute('data-tip-tr')||''):(el.getAttribute('data-tip-en')||'');
       if(!txt)return;
-      gTip.textContent=txt;
+      window.gTip.textContent=txt;
       var r=el.getBoundingClientRect();
-      gTip.style.left=r.left+'px';
-      gTip.style.top=(r.bottom+8)+'px';
-      gTip.style.display='block';
+      window.gTip.style.left=r.left+'px';
+      window.gTip.style.top=(r.bottom+8)+'px';
+      window.gTip.style.display='block';
     });
     el.addEventListener('mouseleave',function(){
-      gTip.style.display='none';
+      window.gTip.style.display='none';
     });
   });
   document.querySelectorAll('.p-w').forEach(function(el){
