@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <script>
-// GitHub Pages 404 redirect for SPA
-// Converts /hic/podcast → /hic/#podcast and redirects
+// GitHub Pages SPA redirect
+// Converts /hic/podcast → /hic/#podcast and redirects to index.html
 (function(){
-  var path = window.location.pathname;
-  var base = '/hic';
-  var seg = path.replace(base, '').replace(/^\//, '').replace(/\/$/, '');
-  var pages = ['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda','about'];
-  if(seg === 'about') {
-    window.location.replace(base + '/about.html');
-  } else if(pages.indexOf(seg) >= 0) {
-    window.location.replace(base + '/index.html#' + seg);
+  var base='/hic';
+  var path=window.location.pathname;
+  var seg=path.replace(base,'').replace(/^\//,'').replace(/\/$/,'');
+  var pages=['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda'];
+  if(seg==='about'||seg==='about.html'){
+    var lang=new URLSearchParams(window.location.search).get('lang')||'en';
+    window.location.replace(base+'/about.html?lang='+lang);
+  } else if(pages.indexOf(seg)>=0){
+    window.location.replace(base+'/index.html#'+seg);
   } else {
-    window.location.replace(base + '/index.html');
+    window.location.replace(base+'/index.html');
   }
 })();
 </script>
