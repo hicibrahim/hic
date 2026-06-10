@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
   <meta property="og:title" content="Halil İbrahim Ciğer">
   <meta property="og:description" content="Journalist · Georgetown DC · Anadolu Agency">
-  <meta property="og:image" content="https://hicibrahim.github.io/hic/photo.jpg">
+  <meta property="og:image" content="https://hicibrahim.github.io/hic/og_preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://hicibrahim.github.io/hic/">
+  <meta property="og:url" content="https://hicibrahim.github.io/hic">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://hicibrahim.github.io/hic/photo.jpg">
+  <meta name="twitter:image" content="https://hicibrahim.github.io/hic/og_preview.jpg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Halil İbrahim Ciğer</title>
   <!-- v213190e7 -->
@@ -1536,12 +1537,12 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a class="logo" href="#" onclick="showHome()">
+  <a class="logo" href="javascript:void(0)" onclick="showHome()">
     <span class="logo-hic">HIC</span>
     <span class="logo-line"></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#" onclick="showHome()" id="nl-home" class="on" data-tr="Anasayfa" data-en="Home">Home</a></li>
+    <li><a href="javascript:void(0)" onclick="showHome()" id="nl-home" class="on" data-tr="Anasayfa" data-en="Home">Home</a></li>
     <li><a href="#" onclick="navTo('haberlerim');return false;" id="nl-haberlerim" data-tr="Haberlerim" data-en="News">News</a></li>
     <li><a href="#" onclick="navTo('perspektif');return false;" id="nl-perspektif" data-tr="Perspektif" data-en="Perspective">Perspective</a></li>
     <li><a href="#" onclick="navTo('vodcast');return false;" id="nl-vodcast" data-tr="Vodcast" data-en="Vodcast">Vodcast</a></li>
@@ -1558,7 +1559,7 @@ footer { padding:32px 80px; border-top:1px solid var(--border2); display:flex; a
 
 
 <div class="mob-m" id="mob-m">
-  <a href="#" onclick="showHome();toggleMob();return false;" data-tr="Anasayfa" data-en="Home">Home</a>
+  <a href="javascript:void(0)" onclick="showHome();toggleMob();return false;" data-tr="Anasayfa" data-en="Home">Home</a>
   <a href="#" onclick="navTo('haberlerim');toggleMob();return false;" data-tr="Haberlerim" data-en="News">News</a>
   <a href="#" onclick="navTo('perspektif');toggleMob();return false;" data-tr="Perspektif" data-en="Perspective">Perspective</a>
   <a href="#" onclick="navTo('vodcast');toggleMob();return false;" data-tr="Vodcast" data-en="Vodcast">Vodcast</a>
@@ -2573,7 +2574,7 @@ function showHome(){
   document.documentElement.scrollTop=0;
   document.body.scrollTop=0;
     // Use hash-based routing to avoid 404 on GitHub Pages
-    var cleanPath=location.pathname.replace(/\/index\.html$/,'/'); if(cleanPath!==location.pathname)history.replaceState(null,'',cleanPath);
+    var cleanPath=location.pathname.replace(/\/index\.html$/,'').replace(/\/$/,''); if(!cleanPath||cleanPath==='')cleanPath='/hic'; history.replaceState(null,'',cleanPath);
   return false;
 }
 function navTo(page,noHistory){
@@ -2601,7 +2602,7 @@ function navTo(page,noHistory){
   if(page==='hakkimda'){setTimeout(function(){window.dispatchEvent(new Event('ab-init'));},100);}
     // Hash güncelle
   // Clean URL: push new history entry so back button works
-  if(!noHistory){var base=location.pathname.replace(/\/index\.html$/,'/').replace(/\/(haberlerim|perspektif|vodcast|podcast|hayatim|hakkimda)$/,'/');
+  if(!noHistory){var base='/hic';
   history.pushState({page:page},'',base+page);}
   return false;
 }
