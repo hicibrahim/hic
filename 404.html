@@ -2,21 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Redirecting...</title>
 <script>
-// GitHub Pages SPA redirect
-// Converts /hic/podcast → /hic/#podcast and redirects to index.html
 (function(){
-  var base='/hic';
-  var path=window.location.pathname;
-  var seg=path.replace(base,'').replace(/^\//,'').replace(/\/$/,'');
-  var pages=['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda'];
-  if(seg==='about'||seg==='about.html'){
-    var lang=new URLSearchParams(window.location.search).get('lang')||'en';
-    window.location.replace(base+'/about.html?lang='+lang);
-  } else if(pages.indexOf(seg)>=0){
-    window.location.replace(base+'/index.html#'+seg);
+  var seg = window.location.pathname.replace('/hic', '').replace(/^\//, '').replace(/\/$/, '');
+  var pages = ['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda'];
+  
+  if(seg === 'about.html' || seg === 'about') {
+    var lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+    // about.html should be served directly - if 404, it means the file is missing
+    // Redirect to index with a flag to show about
+    window.location.replace('/hic/index.html?goto=profile&lang=' + lang);
+  } else if(pages.indexOf(seg) >= 0) {
+    window.location.replace('/hic/index.html#' + seg);
   } else {
-    window.location.replace(base+'/index.html');
+    window.location.replace('/hic/index.html');
   }
 })();
 </script>

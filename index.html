@@ -3170,8 +3170,15 @@ document.addEventListener('DOMContentLoaded',()=>{
   buildTicker();
   buildHomeNews();
   buildPlaylists();
-  // Hash'e göre doğru sayfayı yükle
+  // Route on load
   (function(){
+    var params=new URLSearchParams(location.search);
+    // Handle 404 redirect for goto=profile
+    if(params.get('goto')==='profile'){
+      var l=params.get('lang')||lang;
+      window.location.href='/hic/about.html?lang='+l;
+      return;
+    }
     var pages=['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda'];
     var page=(location.hash||'').replace('#','');
     if(pages.indexOf(page)>=0){navTo(page);}else{showHome();}
@@ -3502,9 +3509,7 @@ function hidePodCursor(){
 
 /* ── Global podcast channel nav ── */
 function goToProfile(){
-  // Pass current lang to about.html via URL param
-  var base=location.pathname.replace(/\/index\.html$/,'').replace(/\/[^/]*$/,'').replace(/\/$/,'');
-  window.location.href=base+'/about.html?lang='+lang;
+  window.location.href='/hic/about.html?lang='+lang;
 }
 function goToChannel(channelId){
   navTo('podcast');
