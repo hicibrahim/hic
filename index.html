@@ -2,6 +2,13 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
+  <script>
+    // Remove trailing slash from URL immediately on load
+    if(location.pathname.slice(-1)==='/'){
+      var p=location.pathname.slice(0,-1)||'/';
+      history.replaceState(null,'',p+(location.search||'')+(location.hash||''));
+    }
+  </script>
   <meta property="og:title" content="Halil İbrahim Ciğer">
   <meta property="og:description" content="Journalist · Georgetown DC · Anadolu Agency">
   <meta property="og:image" content="https://hicibrahim.github.io/hic/og_preview_v2.jpg">
