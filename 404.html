@@ -6,14 +6,12 @@
 <script>
 (function(){
   var path = window.location.pathname;
-  var search = window.location.search;
-  
-  // Extract segment after /hic/
+  // Remove /hic prefix
   var seg = path.replace(/^\/hic\/?/, '').replace(/\/$/, '');
   var pages = ['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda'];
   
   if(seg === 'about.html' || seg === 'about') {
-    var lang = new URLSearchParams(search).get('lang') || 'en';
+    var lang = new URLSearchParams(window.location.search).get('lang') || 'en';
     window.location.replace('/hic/index.html?goto=profile&lang=' + lang);
   } else if(pages.indexOf(seg) >= 0) {
     window.location.replace('/hic/index.html#' + seg);
