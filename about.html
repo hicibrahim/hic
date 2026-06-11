@@ -1387,6 +1387,8 @@ window.addEventListener('load',function(){
     },120);
   }
 
+  var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
   document.querySelectorAll('.pillar[data-pillar]').forEach(function(p){
     p.addEventListener('click',function(e){
       e.stopPropagation();
@@ -1394,7 +1396,10 @@ window.addEventListener('load',function(){
       if(activeP===key){hideNote();activeP=null;return;}
       showNote(key,p.getBoundingClientRect());
     });
-    p.addEventListener('mouseleave',hideNote);
+    // Only hide on mouse leave for non-touch devices
+    if(!isTouchDevice){
+      p.addEventListener('mouseleave',hideNote);
+    }
   });
   document.addEventListener('click',function(e){
     if(!e.target.closest('.pillar[data-pillar]'))hideNote();
