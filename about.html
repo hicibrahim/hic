@@ -1381,31 +1381,56 @@ window.addEventListener('load',function(){
     activeP=pillar;
   }
   function hideNote(){
+    var capturedP=activeP;
     hideTimer=setTimeout(function(){
-      if(noteEl)noteEl.classList.remove('vis');
-      activeP=null;
-    },120);
+      // Only hide if no new pillar was activated after hideNote was called
+      if(activeP===capturedP && noteEl){
+        noteEl.classList.remove('vis');
+        activeP=null;
+      }
+    },150);
   }
 
   var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
   var _pillarJustClicked = false;
 
   document.querySelectorAll('.pillar[data-pillar]').forEach(function(p){
-    p.addEventListener('click',function(e){
-      e.stopPropagation();
-      _pillarJustClicked = true;
-      setTimeout(function(){ _pillarJustClicked = false; }, 100);
-      var key=p.getAttribute('data-pillar');
-      if(activeP===key){hideNote();activeP=null;return;}
-      showNote(key,p.getBoundingClientRect());
-    });
-    if(!isTouchDevice){
+    if(isTouchDevice){
+      // Mobile: use touchend to avoid mouseleave interference
+      p.addEventListener('touchend',function(e){
+        e.preventDefault(); // prevent ghost click
+        e.stopPropagation();
+        clearTimeout(hideTimer);
+        var key=p.getAttribute('data-pillar');
+        if(activeP===key){
+          if(noteEl)noteEl.classList.remove('vis');
+          activeP=null;
+          return;
+        }
+        showNote(key,p.getBoundingClientRect());
+      });
+    } else {
+      // Desktop: click + mouseleave
+      p.addEventListener('click',function(e){
+        e.stopPropagation();
+        _pillarJustClicked=true;
+        setTimeout(function(){_pillarJustClicked=false;},100);
+        var key=p.getAttribute('data-pillar');
+        if(activeP===key){hideNote();activeP=null;return;}
+        showNote(key,p.getBoundingClientRect());
+      });
       p.addEventListener('mouseleave',hideNote);
     }
   });
   document.addEventListener('click',function(e){
-    if(_pillarJustClicked) return;
+    if(_pillarJustClicked)return;
     if(!e.target.closest('.pillar[data-pillar]'))hideNote();
+  });
+  document.addEventListener('touchend',function(e){
+    if(!e.target.closest('.pillar[data-pillar]')){
+      if(noteEl)noteEl.classList.remove('vis');
+      activeP=null;
+    }
   });
 })();
 
