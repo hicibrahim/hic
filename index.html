@@ -2582,7 +2582,7 @@ function showHome(){
   document.body.scrollTop=0;
     // Use hash-based routing to avoid 404 on GitHub Pages
     history.replaceState(null,'','/hic');
-    sessionStorage.removeItem('hic_page');
+    localStorage.removeItem('hic_page');
   return false;
 }
 function navTo(page,noHistory){
@@ -2611,7 +2611,7 @@ function navTo(page,noHistory){
     // Hash güncelle
   // Clean URL: push new history entry so back button works
   if(!noHistory){history.pushState({page:page},'','/hic#'+page);}
-  sessionStorage.setItem('hic_page',page);
+  localStorage.setItem('hic_page',page);
   return false;
 }
 function toggleMob(){document.getElementById('mob-m').classList.toggle('open');}
@@ -3170,14 +3170,17 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     var pages=['haberlerim','perspektif','vodcast','podcast','hayatim','hakkimda'];
     var h=window.location.hash.replace('#','');
-    var page=pages.indexOf(h)>=0 ? h : (sessionStorage.getItem('hic_page')||'');
+    var page=pages.indexOf(h)>=0 ? h : (localStorage.getItem('hic_page')||'');
     if(pages.indexOf(page)>=0){
-      sessionStorage.setItem('hic_page',page);
-      // Hide home immediately before navTo
+      localStorage.setItem('hic_page',page);
+      // Immediately hide ALL pages except target, then show it
+      document.querySelectorAll('.ip').forEach(function(el){
+        el.style.display = el.id==='page-'+page ? 'block' : 'none';
+      });
       document.getElementById('page-home').style.display='none';
       navTo(page,true);
     } else {
-      sessionStorage.removeItem('hic_page');
+      localStorage.removeItem('hic_page');
       showHome();
     }
   })();
