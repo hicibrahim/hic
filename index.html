@@ -3158,10 +3158,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const enVal=el.getAttribute('data-en');
     if(enVal)el.textContent=enVal;
   });
-  buildTicker();
-  buildHomeNews();
-  buildPlaylists();
-  // Route: hash → sessionStorage → home
+  // Route FIRST before building home content
   (function(){
     var params=new URLSearchParams(location.search);
     if(params.get('goto')==='profile'){
@@ -3173,17 +3170,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     var page=pages.indexOf(h)>=0 ? h : (localStorage.getItem('hic_page')||'');
     if(pages.indexOf(page)>=0){
       localStorage.setItem('hic_page',page);
-      // Immediately hide ALL pages except target, then show it
-      document.querySelectorAll('.ip').forEach(function(el){
-        el.style.display = el.id==='page-'+page ? 'block' : 'none';
-      });
-      document.getElementById('page-home').style.display='none';
       navTo(page,true);
     } else {
       localStorage.removeItem('hic_page');
       showHome();
     }
   })();
+  buildTicker();
+  buildHomeNews();
+  buildPlaylists();
 });
 
 // ── Click sound ──
