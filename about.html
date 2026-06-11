@@ -1388,20 +1388,23 @@ window.addEventListener('load',function(){
   }
 
   var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  var _pillarJustClicked = false;
 
   document.querySelectorAll('.pillar[data-pillar]').forEach(function(p){
     p.addEventListener('click',function(e){
       e.stopPropagation();
+      _pillarJustClicked = true;
+      setTimeout(function(){ _pillarJustClicked = false; }, 100);
       var key=p.getAttribute('data-pillar');
       if(activeP===key){hideNote();activeP=null;return;}
       showNote(key,p.getBoundingClientRect());
     });
-    // Only hide on mouse leave for non-touch devices
     if(!isTouchDevice){
       p.addEventListener('mouseleave',hideNote);
     }
   });
   document.addEventListener('click',function(e){
+    if(_pillarJustClicked) return;
     if(!e.target.closest('.pillar[data-pillar]'))hideNote();
   });
 })();
