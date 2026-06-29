@@ -28,42 +28,42 @@
 <style>
 /* ════ THEME TOKENS ════ */
 :root {
-  --gold:  #b8892a;
-  --gold2: #d4a840;
-  --green: #3d7033;
+  --gold:  #115e59;
+  --gold2: #0d9488;
+  --green: #0f766e;
 
   /* LIGHT */
-  --bg:      #f5f2eb;
-  --bg2:     #ede9e0;
-  --bg3:     #e4dfd4;
-  --surf:    #dcd7cc;
-  --ink:     #1c1a14;
-  --ink2:    #3a3628;
-  --muted:   rgba(28,26,20,0.48);
-  --muted2:  rgba(28,26,20,0.24);
-  --border:  rgba(184,137,42,0.20);
-  --border2: rgba(28,26,20,0.10);
-  --nav-bg:  rgba(245,242,235,0.94);
-  --nav-ink: #1c1a14;
-  --card:    #f5f2eb;
-  --void-c:  rgba(28,26,20,0.06);
-  --hero-overlay: linear-gradient(to top, rgba(10,9,6,0.88) 0%, rgba(10,9,6,0.55) 35%, rgba(10,9,6,0.15) 65%, transparent 100%), linear-gradient(to right, rgba(10,9,6,0.5) 0%, transparent 55%);
+  --bg:      #f0fdfb;
+  --bg2:     #e6faf7;
+  --bg3:     #d5f5ef;
+  --surf:    #c4ede6;
+  --ink:     #0d1f1e;
+  --ink2:    #1e3a38;
+  --muted:   rgba(13,31,30,0.48);
+  --muted2:  rgba(13,31,30,0.24);
+  --border:  rgba(17,94,89,0.22);
+  --border2: rgba(13,31,30,0.10);
+  --nav-bg:  rgba(240,253,251,0.94);
+  --nav-ink: #0d1f1e;
+  --card:    #f0fdfb;
+  --void-c:  rgba(13,31,30,0.06);
+  --hero-overlay: linear-gradient(to top, rgba(6,10,10,0.88) 0%, rgba(6,10,10,0.55) 35%, rgba(6,10,10,0.15) 65%, transparent 100%), linear-gradient(to right, rgba(6,10,10,0.5) 0%, transparent 55%);
 }
 [data-theme="dark"] {
-  --bg:      #0e0d0a;
-  --bg2:     #141310;
-  --bg3:     #1b1916;
-  --surf:    #232018;
-  --ink:     #f0e8d6;
-  --ink2:    #c8bfa8;
-  --muted:   rgba(240,232,214,0.42);
-  --muted2:  rgba(240,232,214,0.20);
-  --border:  rgba(184,137,42,0.22);
-  --border2: rgba(240,232,214,0.09);
-  --nav-bg:  rgba(14,13,10,0.93);
-  --nav-ink: #f0e8d6;
-  --card:    #1b1916;
-  --void-c:  rgba(240,232,214,0.05);
+  --bg:      #061412;
+  --bg2:     #0a1e1c;
+  --bg3:     #0f2825;
+  --surf:    #163330;
+  --ink:     #d5f5ef;
+  --ink2:    #99d9d0;
+  --muted:   rgba(213,245,239,0.42);
+  --muted2:  rgba(213,245,239,0.20);
+  --border:  rgba(17,94,89,0.30);
+  --border2: rgba(213,245,239,0.09);
+  --nav-bg:  rgba(6,20,18,0.93);
+  --nav-ink: #d5f5ef;
+  --card:    #0f2825;
+  --void-c:  rgba(213,245,239,0.05);
 }
 
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
@@ -3460,21 +3460,9 @@ function loadAnalizEps2(elId){
 }
 
 
-/* ══ PODCAST EMOJI CURSOR ══ */
+/* ══ PODCAST EMOJI CURSOR — disabled ══ */
 var podCursorEl=null;
-function initPodCursor(){
-  if(podCursorEl)return;
-  podCursorEl=document.createElement('div');
-  podCursorEl.id='pod-cursor';
-  podCursorEl.textContent='🎙️';
-  podCursorEl.style.cssText='position:fixed;pointer-events:none;z-index:99999;font-size:28px;transform:translate(-4px,-28px);transition:font-size .12s;display:none;line-height:1;user-select:none;';
-  document.body.appendChild(podCursorEl);
-  document.addEventListener('mousemove',movePodCursor,{passive:true});
-  document.addEventListener('mousedown',pressPodCursor);
-  document.addEventListener('mouseup',releasePodCursor);
-  document.addEventListener('mouseleave',()=>{if(podCursorEl)podCursorEl.style.display='none';});
-  document.addEventListener('mouseenter',()=>{if(podCursorEl&&podCursorEl._active)podCursorEl.style.display='block';});
-}
+function initPodCursor(){ return; }
 function movePodCursor(e){
   if(!podCursorEl||!podCursorEl._active)return;
   // Hide cursor on episode items and play buttons
@@ -3494,21 +3482,8 @@ function movePodCursor(e){
 }
 function pressPodCursor(){if(podCursorEl&&podCursorEl._active)podCursorEl.style.fontSize='42px';}
 function releasePodCursor(){if(podCursorEl&&podCursorEl._active)podCursorEl.style.fontSize='28px';}
-function showPodCursor(){
-  initPodCursor();
-  podCursorEl._active=true;
-  podCursorEl.style.display='block';
-  podCursorEl.style.opacity='1';
-  document.body.style.cursor='none';
-  document.documentElement.style.cursor='none';
-  document.body.classList.add('pod-cursor-active');
-}
+function showPodCursor(){ }
 function hidePodCursor(){
-  if(podCursorEl){
-    podCursorEl._active=false;
-    podCursorEl.style.display='none';
-    podCursorEl.style.opacity='0';
-  }
   document.body.style.cursor='';
   document.documentElement.style.cursor='';
   document.body.classList.remove('pod-cursor-active');
