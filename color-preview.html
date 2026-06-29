@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turkuaz Ton Önizleme</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Josefin Sans', sans-serif; background: #f0f0f0; padding: 40px 20px; }
+h1 { font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 8px; font-size: 28px; color: #222; }
+p.sub { text-align: center; color: #666; font-size: 13px; letter-spacing: .1em; margin-bottom: 40px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+.card-top {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.card-top .swatch-row {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.swatch-row div {
+  flex: 1;
+}
+
+.card-logo {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+
+.card-body {
+  padding: 18px 20px;
+}
+
+.card-num {
+  font-size: 10px;
+  letter-spacing: .2em;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.swatches-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.swatch span {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.swatch-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.nav-preview {
+  background: #1c1c1c;
+  border-radius: 6px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.nav-logo-p { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: .08em; }
+.nav-links-p { display: flex; gap: 12px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #aaa; }
+
+.btn-preview {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-top: 4px;
+}
+
+.text-preview {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
+  margin: 8px 0;
+}
+
+.dark-preview {
+  background: #0e0d0a;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 8px;
+}
+
+.dark-preview .text-preview { color: #e0d8c8; }
+.dark-preview .nav-links-p { color: #888; }
+</style>
+</head>
+<body>
+
+<h1>Turkuaz Ton Önizlemeleri</h1>
+<p class="sub">HIC website için 10 farklı turkuaz palet — her kart sitenin gerçek görünümünü simüle eder</p>
+
+<div class="grid">
+
+  <!-- 1: Deep Ocean -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#0e7490"></div>
+        <div style="background:#0c6478"></div>
+        <div style="background:#155e75"></div>
+        <div style="background:#cffafe"></div>
+        <div style="background:#f0f9ff"></div>
+      </div>
+      <span class="card-logo" style="color:#fff">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">01</div>
+      <div class="card-name">Deep Ocean</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#0e7490">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#0e7490">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#0e7490">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2: Teal Classic -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#0d9488"></div>
+        <div style="background:#0f766e"></div>
+        <div style="background:#115e59"></div>
+        <div style="background:#ccfbf1"></div>
+        <div style="background:#f0fdfb"></div>
+      </div>
+      <span class="card-logo">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">02</div>
+      <div class="card-name">Teal Classic</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#0d9488">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#0d9488">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#0d9488">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: Aqua Marine -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#06b6d4"></div>
+        <div style="background:#0891b2"></div>
+        <div style="background:#0e7490"></div>
+        <div style="background:#cffafe"></div>
+        <div style="background:#ecfeff"></div>
+      </div>
+      <span class="card-logo">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">03</div>
+      <div class="card-name">Aqua Marine</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#06b6d4">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#06b6d4">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#06b6d4">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4: Jade Mist -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#14b8a6"></div>
+        <div style="background:#0d9488"></div>
+        <div style="background:#0f766e"></div>
+        <div style="background:#99f6e4"></div>
+        <div style="background:#f0fdfb"></div>
+      </div>
+      <span class="card-logo">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">04</div>
+      <div class="card-name">Jade Mist</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#14b8a6">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#14b8a6">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#14b8a6">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: Steel Turquoise -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#0891b2"></div>
+        <div style="background:#0369a1"></div>
+        <div style="background:#075985"></div>
+        <div style="background:#bae6fd"></div>
+        <div style="background:#f0f9ff"></div>
+      </div>
+      <span class="card-logo">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">05</div>
+      <div class="card-name">Steel Turquoise</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#0891b2">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#0891b2">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#0891b2">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6: Peacock -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#0f766e"></div>
+        <div style="background:#0c5c55"></div>
+        <div style="background:#134e4a"></div>
+        <div style="background:#99f6e4"></div>
+        <div style="background:#f0fdfb"></div>
+      </div>
+      <span class="card-logo">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">06</div>
+      <div class="card-name">Peacock</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#0f766e">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#0f766e">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#0f766e">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7: Mint Breeze -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#2dd4bf"></div>
+        <div style="background:#14b8a6"></div>
+        <div style="background:#0d9488"></div>
+        <div style="background:#ccfbf1"></div>
+        <div style="background:#f0fdfb"></div>
+      </div>
+      <span class="card-logo" style="color:#0f766e">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">07</div>
+      <div class="card-name">Mint Breeze</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#2dd4bf">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#2dd4bf; color:#0f4f4a;">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#2dd4bf">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8: Cerulean Teal -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#1a7a8a"></div>
+        <div style="background:#156373"></div>
+        <div style="background:#0f4d5c"></div>
+        <div style="background:#a5f0f8"></div>
+        <div style="background:#edfafc"></div>
+      </div>
+      <span class="card-logo">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">08</div>
+      <div class="card-name">Cerulean Teal</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#1a7a8a">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#1a7a8a">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#1a7a8a">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9: Ice Turquoise -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#67e8f9"></div>
+        <div style="background:#22d3ee"></div>
+        <div style="background:#06b6d4"></div>
+        <div style="background:#e0f9fe"></div>
+        <div style="background:#f8feff"></div>
+      </div>
+      <span class="card-logo" style="color:#0369a1">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">09</div>
+      <div class="card-name">Ice Turquoise</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#22d3ee">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#22d3ee; color:#0a4a5a;">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#22d3ee">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10: Forest Teal -->
+  <div class="card">
+    <div class="card-top">
+      <div class="swatch-row">
+        <div style="background:#115e59"></div>
+        <div style="background:#0d4d48"></div>
+        <div style="background:#083d38"></div>
+        <div style="background:#99f6e4"></div>
+        <div style="background:#f0fdfb"></div>
+      </div>
+      <span class="card-logo">HIC</span>
+    </div>
+    <div class="card-body">
+      <div class="card-num">10</div>
+      <div class="card-name">Forest Teal</div>
+      <div class="nav-preview">
+        <span class="nav-logo-p" style="color:#2dd4bf">HIC</span>
+        <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span><span>Hakkımda</span></div>
+      </div>
+      <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      <span class="btn-preview" style="background:#115e59">Tüm Haberler →</span>
+      <div class="dark-preview">
+        <div class="nav-preview" style="background:#0a0a0a; border-radius:4px;">
+          <span class="nav-logo-p" style="color:#2dd4bf">HIC</span>
+          <div class="nav-links-p"><span>Haberlerim</span><span>Podcast</span></div>
+        </div>
+        <div class="text-preview">"Yeşil ve tatlı Dünya'dan hoş sadâlar"</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center; margin-top:40px; color:#aaa; font-size:11px; letter-spacing:.1em;">Bir ton seçin · Değişiklikler index.html ve about.html'e uygulanacak</p>
+</body>
+</html>
