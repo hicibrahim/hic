@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profesyonel Palet Seçenekleri</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Josefin Sans', sans-serif; background: #111; padding: 40px 20px; }
+h1 { font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 8px; font-size: 26px; color: #eee; }
+p.sub { text-align: center; color: #666; font-size: 12px; letter-spacing: .1em; margin-bottom: 48px; text-transform: uppercase; }
+
+.options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; }
+
+.opt { border-radius: 14px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+
+/* ─── OPTION 1: MIDNIGHT NAVY ─── */
+.opt1 { background: #f4f6f9; }
+.opt1 .nav-bar { background: rgba(10,18,35,0.97); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+.opt1 .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: .08em; color: #c8a84a; }
+.opt1 .nav-links { display: flex; gap: 16px; font-size: 11px; letter-spacing: .08em; color: rgba(255,255,255,.55); }
+.opt1 .hero { background: linear-gradient(135deg, #0a1223 0%, #1a2d52 60%, #0a1223 100%); padding: 48px 28px 36px; }
+.opt1 .hero-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #c8a84a; margin-bottom: 10px; }
+.opt1 .hero-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+.opt1 .hero-sub { font-size: 13px; color: rgba(255,255,255,.5); letter-spacing: .06em; }
+.opt1 .roller { background: linear-gradient(to bottom, #0a1223, #1a2d52, #253f6e, #1a2d52, #0a1223); height: 32px; display: flex; align-items: center; justify-content: center; }
+.opt1 .roller span { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(200,168,74,.7); }
+.opt1 .body-sec { background: #eef1f7; padding: 24px 28px; }
+.opt1 .sec-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #c8a84a; margin-bottom: 14px; }
+.opt1 .timeline { display: flex; gap: 0; border-bottom: 1px solid rgba(10,18,35,.15); padding-bottom: 20px; margin-bottom: 20px; justify-content: space-between; }
+.opt1 .tl-item { text-align: center; }
+.opt1 .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #c8a84a; margin: 0 auto 6px; }
+.opt1 .tl-yr { font-size: 11px; color: #c8a84a; font-weight: 700; }
+.opt1 .tl-t { font-size: 10px; color: #0a1223; letter-spacing: .05em; }
+.opt1 .card { background: #fff; border: .5px solid rgba(10,18,35,.10); border-radius: 8px; padding: 16px; margin-bottom: 12px; border-left: 3px solid #c8a84a; }
+.opt1 .card-yr { font-size: 9px; color: #c8a84a; letter-spacing: .1em; }
+.opt1 .card-title { font-family: 'Playfair Display', serif; font-size: 18px; color: #0a1223; margin: 4px 0; }
+.opt1 .card-body { font-size: 12px; color: rgba(10,18,35,.55); line-height: 1.6; }
+.opt1 .btn { display: inline-block; background: #c8a84a; color: #0a1223; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-top: 8px; font-weight: 700; }
+.opt1 .swatches { display: flex; padding: 16px 28px; gap: 8px; background: #eef1f7; }
+.opt1 .sw { width: 32px; height: 32px; border-radius: 6px; }
+.opt1 .sw-label { font-size: 9px; color: #666; margin-top: 4px; text-align: center; }
+.opt1 .sw-wrap { text-align: center; }
+
+/* ─── OPTION 2: SLATE ANTHRACITE ─── */
+.opt2 { background: #f2f2f0; }
+.opt2 .nav-bar { background: rgba(28,28,26,0.97); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+.opt2 .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: .08em; color: #e8c97a; }
+.opt2 .nav-links { display: flex; gap: 16px; font-size: 11px; letter-spacing: .08em; color: rgba(255,255,255,.45); }
+.opt2 .hero { background: linear-gradient(135deg, #1c1c1a 0%, #2e2e2a 50%, #1c1c1a 100%); padding: 48px 28px 36px; }
+.opt2 .hero-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #e8c97a; margin-bottom: 10px; }
+.opt2 .hero-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #f5f5f0; line-height: 1.2; margin-bottom: 8px; }
+.opt2 .hero-sub { font-size: 13px; color: rgba(245,245,240,.45); letter-spacing: .06em; }
+.opt2 .roller { background: linear-gradient(to bottom, #1c1c1a, #2e2e2a, #3a3a36, #2e2e2a, #1c1c1a); height: 32px; display: flex; align-items: center; justify-content: center; }
+.opt2 .roller span { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(232,201,122,.65); }
+.opt2 .body-sec { background: #f2f2f0; padding: 24px 28px; }
+.opt2 .sec-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #8a7a50; margin-bottom: 14px; }
+.opt2 .timeline { display: flex; gap: 0; border-bottom: 1px solid rgba(28,28,26,.12); padding-bottom: 20px; margin-bottom: 20px; justify-content: space-between; }
+.opt2 .tl-item { text-align: center; }
+.opt2 .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #e8c97a; margin: 0 auto 6px; }
+.opt2 .tl-yr { font-size: 11px; color: #8a7a50; font-weight: 700; }
+.opt2 .tl-t { font-size: 10px; color: #1c1c1a; letter-spacing: .05em; }
+.opt2 .card { background: #fff; border: .5px solid rgba(28,28,26,.10); border-radius: 8px; padding: 16px; margin-bottom: 12px; border-left: 3px solid #8a7a50; }
+.opt2 .card-yr { font-size: 9px; color: #8a7a50; letter-spacing: .1em; }
+.opt2 .card-title { font-family: 'Playfair Display', serif; font-size: 18px; color: #1c1c1a; margin: 4px 0; }
+.opt2 .card-body { font-size: 12px; color: rgba(28,28,26,.50); line-height: 1.6; }
+.opt2 .btn { display: inline-block; background: #1c1c1a; color: #e8c97a; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-top: 8px; font-weight: 700; }
+.opt2 .swatches { display: flex; padding: 16px 28px; gap: 8px; background: #f2f2f0; }
+.opt2 .sw { width: 32px; height: 32px; border-radius: 6px; }
+
+/* ─── OPTION 3: DEEP BORDEAUX ─── */
+.opt3 { background: #f6f2f4; }
+.opt3 .nav-bar { background: rgba(32,8,18,0.97); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+.opt3 .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: .08em; color: #d4a060; }
+.opt3 .nav-links { display: flex; gap: 16px; font-size: 11px; letter-spacing: .08em; color: rgba(255,255,255,.45); }
+.opt3 .hero { background: linear-gradient(135deg, #200812 0%, #3d1020 55%, #200812 100%); padding: 48px 28px 36px; }
+.opt3 .hero-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #d4a060; margin-bottom: 10px; }
+.opt3 .hero-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fdf0e8; line-height: 1.2; margin-bottom: 8px; }
+.opt3 .hero-sub { font-size: 13px; color: rgba(253,240,232,.45); letter-spacing: .06em; }
+.opt3 .roller { background: linear-gradient(to bottom, #200812, #3d1020, #5a1830, #3d1020, #200812); height: 32px; display: flex; align-items: center; justify-content: center; }
+.opt3 .roller span { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(212,160,96,.65); }
+.opt3 .body-sec { background: #f6f2f4; padding: 24px 28px; }
+.opt3 .sec-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #8a4a30; margin-bottom: 14px; }
+.opt3 .timeline { display: flex; gap: 0; border-bottom: 1px solid rgba(32,8,18,.12); padding-bottom: 20px; margin-bottom: 20px; justify-content: space-between; }
+.opt3 .tl-item { text-align: center; }
+.opt3 .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #d4a060; margin: 0 auto 6px; }
+.opt3 .tl-yr { font-size: 11px; color: #8a4a30; font-weight: 700; }
+.opt3 .tl-t { font-size: 10px; color: #200812; letter-spacing: .05em; }
+.opt3 .card { background: #fff; border: .5px solid rgba(32,8,18,.10); border-radius: 8px; padding: 16px; margin-bottom: 12px; border-left: 3px solid #d4a060; }
+.opt3 .card-yr { font-size: 9px; color: #8a4a30; letter-spacing: .1em; }
+.opt3 .card-title { font-family: 'Playfair Display', serif; font-size: 18px; color: #200812; margin: 4px 0; }
+.opt3 .card-body { font-size: 12px; color: rgba(32,8,18,.50); line-height: 1.6; }
+.opt3 .btn { display: inline-block; background: #3d1020; color: #d4a060; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-top: 8px; font-weight: 700; }
+.opt3 .swatches { display: flex; padding: 16px 28px; gap: 8px; background: #f6f2f4; }
+.opt3 .sw { width: 32px; height: 32px; border-radius: 6px; }
+
+.opt-label { padding: 14px 28px 0; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #555; }
+.opt-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; padding: 4px 28px 14px; }
+.opt1 .opt-name { color: #0a1223; }
+.opt2 .opt-name { color: #1c1c1a; }
+.opt3 .opt-name { color: #200812; }
+
+.sw-wrap { text-align: center; }
+.sw-label { font-size: 8px; color: #888; margin-top: 3px; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+<h1>3 Profesyonel Palet Seçeneği</h1>
+<p class="sub">HIC — Gazeteci portfolyo sitesi</p>
+
+<div class="options">
+
+  <!-- OPT 1: MIDNIGHT NAVY -->
+  <div class="opt opt1">
+    <div class="opt-label">Seçenek 01</div>
+    <div class="opt-name">Midnight Navy</div>
+    <div class="nav-bar">
+      <span class="logo">HIC</span>
+      <div class="nav-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="hero">
+      <div class="hero-label">Gazeteci · Washington DC</div>
+      <div class="hero-title">Halil İbrahim<br>Ciğer</div>
+      <div class="hero-sub">Anadolu Agency</div>
+    </div>
+    <div class="roller"><span>Profil · Global Footprint</span></div>
+    <div class="body-sec">
+      <div class="sec-label">Deneyim Zaman Çizelgesi</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2006</div><div class="tl-t">BA</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2012</div><div class="tl-t">MA</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2015</div><div class="tl-t">ADV</div></div>
+        <div class="tl-item"><div class="tl-dot" style="background:#0a1223;border:2px solid #c8a84a"></div><div class="tl-yr">2016</div><div class="tl-t">AA</div></div>
+      </div>
+      <div class="card">
+        <div class="card-yr">2016 — present</div>
+        <div class="card-title">Journalist</div>
+        <div class="card-body">Anadolu Agency · Washington DC</div>
+        <div class="btn">Devamı →</div>
+      </div>
+    </div>
+    <div class="swatches">
+      <div class="sw-wrap"><div class="sw" style="background:#0a1223"></div><div class="sw-label">Lacivert</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#1a2d52"></div><div class="sw-label">Navy</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#c8a84a"></div><div class="sw-label">Altın</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#eef1f7"></div><div class="sw-label">Açık</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#f4f6f9;border:.5px solid #ddd"></div><div class="sw-label">Bg</div></div>
+    </div>
+  </div>
+
+  <!-- OPT 2: SLATE ANTHRACITE -->
+  <div class="opt opt2">
+    <div class="opt-label">Seçenek 02</div>
+    <div class="opt-name">Slate Anthracite</div>
+    <div class="nav-bar">
+      <span class="logo">HIC</span>
+      <div class="nav-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="hero">
+      <div class="hero-label">Gazeteci · Washington DC</div>
+      <div class="hero-title">Halil İbrahim<br>Ciğer</div>
+      <div class="hero-sub">Anadolu Agency</div>
+    </div>
+    <div class="roller"><span>Profil · Global Footprint</span></div>
+    <div class="body-sec">
+      <div class="sec-label">Deneyim Zaman Çizelgesi</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2006</div><div class="tl-t">BA</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2012</div><div class="tl-t">MA</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2015</div><div class="tl-t">ADV</div></div>
+        <div class="tl-item"><div class="tl-dot" style="background:#2e2e2a;border:2px solid #e8c97a"></div><div class="tl-yr">2016</div><div class="tl-t">AA</div></div>
+      </div>
+      <div class="card">
+        <div class="card-yr">2016 — present</div>
+        <div class="card-title">Journalist</div>
+        <div class="card-body">Anadolu Agency · Washington DC</div>
+        <div class="btn">Devamı →</div>
+      </div>
+    </div>
+    <div class="swatches">
+      <div class="sw-wrap"><div class="sw" style="background:#1c1c1a"></div><div class="sw-label">Antrasit</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#2e2e2a"></div><div class="sw-label">Slate</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#e8c97a"></div><div class="sw-label">Altın</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#f2f2f0;border:.5px solid #ddd"></div><div class="sw-label">Krem</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#fff;border:.5px solid #ddd"></div><div class="sw-label">Bg</div></div>
+    </div>
+  </div>
+
+  <!-- OPT 3: DEEP BORDEAUX -->
+  <div class="opt opt3">
+    <div class="opt-label">Seçenek 03</div>
+    <div class="opt-name">Deep Bordeaux</div>
+    <div class="nav-bar">
+      <span class="logo">HIC</span>
+      <div class="nav-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="hero">
+      <div class="hero-label">Gazeteci · Washington DC</div>
+      <div class="hero-title">Halil İbrahim<br>Ciğer</div>
+      <div class="hero-sub">Anadolu Agency</div>
+    </div>
+    <div class="roller"><span>Profil · Global Footprint</span></div>
+    <div class="body-sec">
+      <div class="sec-label">Deneyim Zaman Çizelgesi</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2006</div><div class="tl-t">BA</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2012</div><div class="tl-t">MA</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">2015</div><div class="tl-t">ADV</div></div>
+        <div class="tl-item"><div class="tl-dot" style="background:#200812;border:2px solid #d4a060"></div><div class="tl-yr">2016</div><div class="tl-t">AA</div></div>
+      </div>
+      <div class="card">
+        <div class="card-yr">2016 — present</div>
+        <div class="card-title">Journalist</div>
+        <div class="card-body">Anadolu Agency · Washington DC</div>
+        <div class="btn">Devamı →</div>
+      </div>
+    </div>
+    <div class="swatches">
+      <div class="sw-wrap"><div class="sw" style="background:#200812"></div><div class="sw-label">Bordo</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#3d1020"></div><div class="sw-label">Şarap</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#d4a060"></div><div class="sw-label">Bakır</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#f6f2f4;border:.5px solid #ddd"></div><div class="sw-label">Gül</div></div>
+      <div class="sw-wrap"><div class="sw" style="background:#fff;border:.5px solid #ddd"></div><div class="sw-label">Bg</div></div>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center;margin-top:40px;color:#444;font-size:11px;letter-spacing:.1em;">01 · Midnight Navy &nbsp;|&nbsp; 02 · Slate Anthracite &nbsp;|&nbsp; 03 · Deep Bordeaux</p>
+</body>
+</html>
