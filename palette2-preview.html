@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 Alternatif Palet</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Josefin Sans',sans-serif;background:#1a1a1a;padding:36px 24px}
+h1{font-family:'Playfair Display',serif;text-align:center;font-size:24px;color:#ddd;margin-bottom:6px}
+p.sub{text-align:center;color:#555;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:44px}
+
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;max-width:1400px;margin:0 auto}
+
+.card{border-radius:12px;overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,.55)}
+
+/* Shared nav mock */
+.mock-nav{padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
+.mock-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:.08em}
+.mock-links{display:flex;gap:10px;font-size:9px;letter-spacing:.07em}
+
+/* Shared roller */
+.mock-roller{height:26px;display:flex;align-items:center;justify-content:center}
+.mock-roller span{font-size:8px;letter-spacing:.18em;text-transform:uppercase;opacity:.65}
+
+/* Section */
+.mock-body{padding:18px}
+.mock-sec-lbl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+.mock-timeline{display:flex;justify-content:space-between;margin-bottom:14px;padding-bottom:12px}
+.mock-tl{text-align:center}
+.mock-dot{width:8px;height:8px;border-radius:50%;margin:0 auto 4px}
+.mock-yr{font-size:9px;font-weight:600}
+.mock-tt{font-size:8px;letter-spacing:.04em}
+
+/* Detail card */
+.mock-card{border-radius:6px;padding:12px;margin-bottom:10px}
+.mock-card-yr{font-size:8px;letter-spacing:.1em;margin-bottom:3px}
+.mock-card-title{font-family:'Playfair Display',serif;font-size:15px;margin-bottom:4px}
+.mock-card-body{font-size:10px;line-height:1.55;opacity:.6}
+
+/* Swatches */
+.mock-swatches{display:flex;gap:6px;padding:12px 18px}
+.mock-sw{flex:1;height:24px;border-radius:4px}
+
+/* Name */
+.mock-num{font-size:8px;letter-spacing:.2em;text-transform:uppercase;padding:12px 18px 3px;opacity:.55}
+.mock-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;padding:0 18px 10px}
+
+/* Accent line */
+.mock-accent-line{height:2px;width:40px;margin:0 18px 12px;border-radius:1px}
+
+/* ══ PALETTE 1: IVORY & INK ══ */
+.p1{background:#faf8f4}
+.p1 .mock-nav{background:#faf8f4;border-bottom:.5px solid rgba(30,25,18,.10)}
+.p1 .mock-logo{color:#1e1912}
+.p1 .mock-links{color:rgba(30,25,18,.42)}
+.p1 .mock-roller{background:linear-gradient(to bottom,#1e1912,#2e2820,#1e1912)}
+.p1 .mock-roller span{color:rgba(240,220,180,.7)}
+.p1 .mock-body{background:#faf8f4}
+.p1 .mock-sec-lbl{color:#9a7a50}
+.p1 .mock-timeline{border-bottom:.5px solid rgba(30,25,18,.10)}
+.p1 .mock-dot{background:#9a7a50}
+.p1 .mock-yr{color:#9a7a50}
+.p1 .mock-tt{color:#1e1912}
+.p1 .mock-card{background:#f2efe8;border-left:2px solid #9a7a50}
+.p1 .mock-card-yr{color:#9a7a50}
+.p1 .mock-card-title{color:#1e1912}
+.p1 .mock-swatches{background:#f2efe8}
+.p1 .mock-num{color:#1e1912}
+.p1 .mock-name{color:#1e1912}
+.p1 .mock-accent-line{background:#9a7a50}
+/* sw */
+.p1 .s1{background:#1e1912}
+.p1 .s2{background:#9a7a50}
+.p1 .s3{background:#faf8f4;border:.5px solid #ddd}
+.p1 .s4{background:#f2efe8;border:.5px solid #ddd}
+.p1 .s5{background:#2e2820}
+
+/* ══ PALETTE 2: FOREST INK ══ */
+.p2{background:#f4f7f4}
+.p2 .mock-nav{background:#f4f7f4;border-bottom:.5px solid rgba(15,40,20,.10)}
+.p2 .mock-logo{color:#162e1a}
+.p2 .mock-links{color:rgba(15,40,20,.40)}
+.p2 .mock-roller{background:linear-gradient(to bottom,#0d2211,#1a3d20,#2a5530,#1a3d20,#0d2211)}
+.p2 .mock-roller span{color:rgba(200,230,180,.65)}
+.p2 .mock-body{background:#f4f7f4}
+.p2 .mock-sec-lbl{color:#3a6e42}
+.p2 .mock-timeline{border-bottom:.5px solid rgba(15,40,20,.10)}
+.p2 .mock-dot{background:#3a6e42}
+.p2 .mock-yr{color:#3a6e42}
+.p2 .mock-tt{color:#162e1a}
+.p2 .mock-card{background:#e8f0e8;border-left:2px solid #3a6e42}
+.p2 .mock-card-yr{color:#3a6e42}
+.p2 .mock-card-title{color:#162e1a}
+.p2 .mock-swatches{background:#e8f0e8}
+.p2 .mock-num{color:#162e1a}
+.p2 .mock-name{color:#162e1a}
+.p2 .mock-accent-line{background:#3a6e42}
+.p2 .s1{background:#0d2211}
+.p2 .s2{background:#1a3d20}
+.p2 .s3{background:#3a6e42}
+.p2 .s4{background:#f4f7f4;border:.5px solid #ddd}
+.p2 .s5{background:#e8f0e8;border:.5px solid #ccc}
+
+/* ══ PALETTE 3: WARM GRAPHITE ══ */
+.p3{background:#f5f4f2}
+.p3 .mock-nav{background:#f5f4f2;border-bottom:.5px solid rgba(40,38,35,.10)}
+.p3 .mock-logo{color:#28261e}
+.p3 .mock-links{color:rgba(40,38,35,.38)}
+.p3 .mock-roller{background:linear-gradient(to bottom,#28261e,#3e3c32,#504e42,#3e3c32,#28261e)}
+.p3 .mock-roller span{color:rgba(230,220,200,.6)}
+.p3 .mock-body{background:#f5f4f2}
+.p3 .mock-sec-lbl{color:#6e6a5e}
+.p3 .mock-timeline{border-bottom:.5px solid rgba(40,38,35,.10)}
+.p3 .mock-dot{background:#3e3c32}
+.p3 .mock-yr{color:#6e6a5e}
+.p3 .mock-tt{color:#28261e}
+.p3 .mock-card{background:#eceae4;border-left:2px solid #6e6a5e}
+.p3 .mock-card-yr{color:#6e6a5e}
+.p3 .mock-card-title{color:#28261e}
+.p3 .mock-swatches{background:#eceae4}
+.p3 .mock-num{color:#28261e}
+.p3 .mock-name{color:#28261e}
+.p3 .mock-accent-line{background:#6e6a5e}
+.p3 .s1{background:#28261e}
+.p3 .s2{background:#3e3c32}
+.p3 .s3{background:#6e6a5e}
+.p3 .s4{background:#f5f4f2;border:.5px solid #ddd}
+.p3 .s5{background:#eceae4;border:.5px solid #ccc}
+
+/* ══ PALETTE 4: OXFORD DUSK ══ */
+.p4{background:#f3f5f8}
+.p4 .mock-nav{background:#f3f5f8;border-bottom:.5px solid rgba(22,34,58,.10)}
+.p4 .mock-logo{color:#16223a}
+.p4 .mock-links{color:rgba(22,34,58,.38)}
+.p4 .mock-roller{background:linear-gradient(to bottom,#0e1828,#16223a,#20304e,#16223a,#0e1828)}
+.p4 .mock-roller span{color:rgba(210,220,235,.6)}
+.p4 .mock-body{background:#f3f5f8}
+.p4 .mock-sec-lbl{color:#4a6080}
+.p4 .mock-timeline{border-bottom:.5px solid rgba(22,34,58,.10)}
+.p4 .mock-dot{background:#4a6080}
+.p4 .mock-yr{color:#4a6080}
+.p4 .mock-tt{color:#16223a}
+.p4 .mock-card{background:#e6eaf2;border-left:2px solid #4a6080}
+.p4 .mock-card-yr{color:#4a6080}
+.p4 .mock-card-title{color:#16223a}
+.p4 .mock-swatches{background:#e6eaf2}
+.p4 .mock-num{color:#16223a}
+.p4 .mock-name{color:#16223a}
+.p4 .mock-accent-line{background:#4a6080}
+.p4 .s1{background:#0e1828}
+.p4 .s2{background:#16223a}
+.p4 .s3{background:#4a6080}
+.p4 .s4{background:#f3f5f8;border:.5px solid #ddd}
+.p4 .s5{background:#e6eaf2;border:.5px solid #ccc}
+
+/* ══ PALETTE 5: WARM SAND ══ */
+.p5{background:#f8f5ef}
+.p5 .mock-nav{background:#f8f5ef;border-bottom:.5px solid rgba(45,36,22,.10)}
+.p5 .mock-logo{color:#2d2416}
+.p5 .mock-links{color:rgba(45,36,22,.38)}
+.p5 .mock-roller{background:linear-gradient(to bottom,#2d2416,#4a3c26,#604e34,#4a3c26,#2d2416)}
+.p5 .mock-roller span{color:rgba(235,215,180,.65)}
+.p5 .mock-body{background:#f8f5ef}
+.p5 .mock-sec-lbl{color:#7a6040}
+.p5 .mock-timeline{border-bottom:.5px solid rgba(45,36,22,.10)}
+.p5 .mock-dot{background:#7a6040}
+.p5 .mock-yr{color:#7a6040}
+.p5 .mock-tt{color:#2d2416}
+.p5 .mock-card{background:#ede8dc;border-left:2px solid #7a6040}
+.p5 .mock-card-yr{color:#7a6040}
+.p5 .mock-card-title{color:#2d2416}
+.p5 .mock-swatches{background:#ede8dc}
+.p5 .mock-num{color:#2d2416}
+.p5 .mock-name{color:#2d2416}
+.p5 .mock-accent-line{background:#7a6040}
+.p5 .s1{background:#2d2416}
+.p5 .s2{background:#4a3c26}
+.p5 .s3{background:#7a6040}
+.p5 .s4{background:#f8f5ef;border:.5px solid #ddd}
+.p5 .s5{background:#ede8dc;border:.5px solid #ccc}
+</style>
+</head>
+<body>
+<h1>5 Alternatif Profesyonel Palet</h1>
+<p class="sub">Okunaklı · Tek ton · Renk cümbüşü yok</p>
+
+<div class="grid">
+
+  <!-- 1 -->
+  <div class="card p1">
+    <div class="mock-num">01</div>
+    <div class="mock-name">Ivory & Ink</div>
+    <div class="mock-accent-line"></div>
+    <div class="mock-nav">
+      <span class="mock-logo">HIC</span>
+      <div class="mock-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="mock-roller p1"><span>Profil · Global Footprint</span></div>
+    <div class="mock-body">
+      <div class="mock-sec-lbl">Deneyim Zaman Çizelgesi</div>
+      <div class="mock-timeline">
+        <div class="mock-tl"><div class="mock-dot p1"></div><div class="mock-yr p1">2006</div><div class="mock-tt p1">BA</div></div>
+        <div class="mock-tl"><div class="mock-dot p1"></div><div class="mock-yr p1">2012</div><div class="mock-tt p1">MA</div></div>
+        <div class="mock-tl"><div class="mock-dot p1" style="background:#1e1912;border:1.5px solid #9a7a50"></div><div class="mock-yr p1">2016</div><div class="mock-tt p1">AA</div></div>
+      </div>
+      <div class="mock-card p1">
+        <div class="mock-card-yr p1">2016 — present</div>
+        <div class="mock-card-title p1">Journalist</div>
+        <div class="mock-card-body">Anadolu Agency · Washington DC. Pioneering audio journalism and digital content across international affairs.</div>
+      </div>
+    </div>
+    <div class="mock-swatches p1">
+      <div class="mock-sw s1"></div>
+      <div class="mock-sw s2"></div>
+      <div class="mock-sw s3"></div>
+      <div class="mock-sw s4"></div>
+      <div class="mock-sw s5"></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card p2">
+    <div class="mock-num">02</div>
+    <div class="mock-name">Forest Ink</div>
+    <div class="mock-accent-line"></div>
+    <div class="mock-nav">
+      <span class="mock-logo">HIC</span>
+      <div class="mock-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="mock-roller p2"><span>Profil · Global Footprint</span></div>
+    <div class="mock-body">
+      <div class="mock-sec-lbl">Deneyim Zaman Çizelgesi</div>
+      <div class="mock-timeline">
+        <div class="mock-tl"><div class="mock-dot p2"></div><div class="mock-yr p2">2006</div><div class="mock-tt p2">BA</div></div>
+        <div class="mock-tl"><div class="mock-dot p2"></div><div class="mock-yr p2">2012</div><div class="mock-tt p2">MA</div></div>
+        <div class="mock-tl"><div class="mock-dot p2" style="background:#162e1a;border:1.5px solid #3a6e42"></div><div class="mock-yr p2">2016</div><div class="mock-tt p2">AA</div></div>
+      </div>
+      <div class="mock-card p2">
+        <div class="mock-card-yr p2">2016 — present</div>
+        <div class="mock-card-title p2">Journalist</div>
+        <div class="mock-card-body">Anadolu Agency · Washington DC. Pioneering audio journalism and digital content across international affairs.</div>
+      </div>
+    </div>
+    <div class="mock-swatches p2">
+      <div class="mock-sw s1"></div>
+      <div class="mock-sw s2"></div>
+      <div class="mock-sw s3"></div>
+      <div class="mock-sw s4"></div>
+      <div class="mock-sw s5"></div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card p3">
+    <div class="mock-num">03</div>
+    <div class="mock-name">Warm Graphite</div>
+    <div class="mock-accent-line"></div>
+    <div class="mock-nav">
+      <span class="mock-logo">HIC</span>
+      <div class="mock-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="mock-roller p3"><span>Profil · Global Footprint</span></div>
+    <div class="mock-body">
+      <div class="mock-sec-lbl">Deneyim Zaman Çizelgesi</div>
+      <div class="mock-timeline">
+        <div class="mock-tl"><div class="mock-dot p3"></div><div class="mock-yr p3">2006</div><div class="mock-tt p3">BA</div></div>
+        <div class="mock-tl"><div class="mock-dot p3"></div><div class="mock-yr p3">2012</div><div class="mock-tt p3">MA</div></div>
+        <div class="mock-tl"><div class="mock-dot p3" style="background:#28261e;border:1.5px solid #6e6a5e"></div><div class="mock-yr p3">2016</div><div class="mock-tt p3">AA</div></div>
+      </div>
+      <div class="mock-card p3">
+        <div class="mock-card-yr p3">2016 — present</div>
+        <div class="mock-card-title p3">Journalist</div>
+        <div class="mock-card-body">Anadolu Agency · Washington DC. Pioneering audio journalism and digital content across international affairs.</div>
+      </div>
+    </div>
+    <div class="mock-swatches p3">
+      <div class="mock-sw s1"></div>
+      <div class="mock-sw s2"></div>
+      <div class="mock-sw s3"></div>
+      <div class="mock-sw s4"></div>
+      <div class="mock-sw s5"></div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card p4">
+    <div class="mock-num">04</div>
+    <div class="mock-name">Oxford Dusk</div>
+    <div class="mock-accent-line"></div>
+    <div class="mock-nav">
+      <span class="mock-logo">HIC</span>
+      <div class="mock-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="mock-roller p4"><span>Profil · Global Footprint</span></div>
+    <div class="mock-body">
+      <div class="mock-sec-lbl">Deneyim Zaman Çizelgesi</div>
+      <div class="mock-timeline">
+        <div class="mock-tl"><div class="mock-dot p4"></div><div class="mock-yr p4">2006</div><div class="mock-tt p4">BA</div></div>
+        <div class="mock-tl"><div class="mock-dot p4"></div><div class="mock-yr p4">2012</div><div class="mock-tt p4">MA</div></div>
+        <div class="mock-tl"><div class="mock-dot p4" style="background:#16223a;border:1.5px solid #4a6080"></div><div class="mock-yr p4">2016</div><div class="mock-tt p4">AA</div></div>
+      </div>
+      <div class="mock-card p4">
+        <div class="mock-card-yr p4">2016 — present</div>
+        <div class="mock-card-title p4">Journalist</div>
+        <div class="mock-card-body">Anadolu Agency · Washington DC. Pioneering audio journalism and digital content across international affairs.</div>
+      </div>
+    </div>
+    <div class="mock-swatches p4">
+      <div class="mock-sw s1"></div>
+      <div class="mock-sw s2"></div>
+      <div class="mock-sw s3"></div>
+      <div class="mock-sw s4"></div>
+      <div class="mock-sw s5"></div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card p5">
+    <div class="mock-num">05</div>
+    <div class="mock-name">Warm Sand</div>
+    <div class="mock-accent-line"></div>
+    <div class="mock-nav">
+      <span class="mock-logo">HIC</span>
+      <div class="mock-links"><span>Haberlerim</span><span>Podcast</span><span>Profil</span></div>
+    </div>
+    <div class="mock-roller p5"><span>Profil · Global Footprint</span></div>
+    <div class="mock-body">
+      <div class="mock-sec-lbl">Deneyim Zaman Çizelgesi</div>
+      <div class="mock-timeline">
+        <div class="mock-tl"><div class="mock-dot p5"></div><div class="mock-yr p5">2006</div><div class="mock-tt p5">BA</div></div>
+        <div class="mock-tl"><div class="mock-dot p5"></div><div class="mock-yr p5">2012</div><div class="mock-tt p5">MA</div></div>
+        <div class="mock-tl"><div class="mock-dot p5" style="background:#2d2416;border:1.5px solid #7a6040"></div><div class="mock-yr p5">2016</div><div class="mock-tt p5">AA</div></div>
+      </div>
+      <div class="mock-card p5">
+        <div class="mock-card-yr p5">2016 — present</div>
+        <div class="mock-card-title p5">Journalist</div>
+        <div class="mock-card-body">Anadolu Agency · Washington DC. Pioneering audio journalism and digital content across international affairs.</div>
+      </div>
+    </div>
+    <div class="mock-swatches p5">
+      <div class="mock-sw s1"></div>
+      <div class="mock-sw s2"></div>
+      <div class="mock-sw s3"></div>
+      <div class="mock-sw s4"></div>
+      <div class="mock-sw s5"></div>
+    </div>
+  </div>
+
+</div>
+<p style="text-align:center;margin-top:36px;color:#3a3a3a;font-size:10px;letter-spacing:.12em">01 Ivory & Ink · 02 Forest Ink · 03 Warm Graphite · 04 Oxford Dusk · 05 Warm Sand</p>
+</body>
+</html>
