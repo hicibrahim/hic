@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Palette 6 – Award-Winning Minimal B&W Designs</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a1a1a;font-family:'Georgia',serif;padding:40px 20px}
+h1{color:#fff;text-align:center;font-size:14px;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;font-weight:400}
+.sub{color:#666;text-align:center;font-size:11px;letter-spacing:2px;margin-bottom:50px;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1300px;margin:0 auto}
+.card{border:1px solid #333;overflow:hidden}
+.label{background:#111;color:#555;font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:8px 16px;border-bottom:1px solid #333}
+.label span{color:#fff}
+.preview{height:520px;overflow:hidden;position:relative}
+
+/* ============================================================
+   01 · EDITORIAL SWISS — Swiss International Style
+   ============================================================ */
+.d01{background:#fff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+.d01 .top-bar{display:flex;justify-content:space-between;align-items:center;padding:18px 32px;border-bottom:2px solid #000}
+.d01 .logo{font-size:12px;letter-spacing:4px;text-transform:uppercase;font-weight:700;color:#000}
+.d01 nav{display:flex;gap:28px}
+.d01 nav a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#000;text-decoration:none;font-weight:400}
+.d01 .hero{display:grid;grid-template-columns:1fr 1fr;height:360px}
+.d01 .hero-left{padding:48px 32px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid #000}
+.d01 .hero-left h2{font-size:52px;line-height:1;font-weight:900;color:#000;letter-spacing:-2px}
+.d01 .hero-left p{font-size:12px;line-height:1.8;color:#333;letter-spacing:0.5px;max-width:280px}
+.d01 .hero-right{background:#000;display:flex;flex-direction:column;justify-content:flex-end;padding:32px}
+.d01 .tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#fff;opacity:0.5;margin-bottom:12px}
+.d01 .role{font-size:28px;color:#fff;font-weight:300;line-height:1.3}
+.d01 .bar{display:flex;border-top:2px solid #000}
+.d01 .bar-item{flex:1;padding:16px 32px;border-right:1px solid #000;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#000}
+.d01 .bar-item:last-child{border-right:none}
+
+/* ============================================================
+   02 · BRUTAL GRID — Brutalist Magazine
+   ============================================================ */
+.d02{background:#fff;font-family:'Courier New',monospace}
+.d02 .top{background:#000;padding:12px 24px;display:flex;justify-content:space-between;align-items:center}
+.d02 .top .name{font-size:11px;letter-spacing:3px;color:#fff;text-transform:uppercase}
+.d02 .top nav{display:flex;gap:20px}
+.d02 .top nav a{font-size:10px;color:#fff;text-decoration:none;letter-spacing:2px;text-transform:uppercase}
+.d02 .main{display:grid;grid-template-columns:3fr 2fr;height:420px}
+.d02 .left{padding:32px 24px;border-right:3px solid #000;display:flex;flex-direction:column;gap:20px}
+.d02 .issue{font-size:10px;letter-spacing:3px;color:#000;text-transform:uppercase;border-top:3px solid #000;padding-top:12px}
+.d02 .headline{font-size:48px;line-height:0.9;font-weight:900;color:#000;letter-spacing:-1px;text-transform:uppercase}
+.d02 .sub-text{font-size:11px;line-height:1.7;color:#000;border-left:3px solid #000;padding-left:12px}
+.d02 .tags{display:flex;gap:8px;flex-wrap:wrap}
+.d02 .tag{background:#000;color:#fff;font-size:9px;letter-spacing:2px;padding:4px 10px;text-transform:uppercase}
+.d02 .right{padding:24px}
+.d02 .block{border:3px solid #000;padding:16px;margin-bottom:16px}
+.d02 .block-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#000;border-bottom:1px solid #000;padding-bottom:8px;margin-bottom:8px}
+.d02 .block-val{font-size:22px;font-weight:900;color:#000}
+.d02 .block-sub{font-size:9px;color:#555;letter-spacing:1px}
+
+/* ============================================================
+   03 · MUSEUM QUIET — Gallery/Museum Aesthetic
+   ============================================================ */
+.d03{background:#fafafa;font-family:'Georgia',Times,serif}
+.d03 .nav{padding:28px 48px;display:flex;justify-content:space-between;align-items:center}
+.d03 .name{font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#000;font-weight:400}
+.d03 nav{display:flex;gap:36px}
+.d03 nav a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#000;text-decoration:none}
+.d03 .center{text-align:center;padding:40px 48px 32px}
+.d03 .eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:20px}
+.d03 .title{font-size:58px;line-height:1.05;color:#000;font-weight:400;font-style:italic}
+.d03 .divider{width:40px;height:1px;background:#000;margin:24px auto}
+.d03 .meta{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#555}
+.d03 .row{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #ccc}
+.d03 .cell{padding:20px 48px;border-right:1px solid #ccc;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#555}
+.d03 .cell:last-child{border-right:none}
+.d03 .cell strong{display:block;font-size:20px;color:#000;letter-spacing:-0.5px;font-style:italic;font-weight:400;margin-bottom:4px;text-transform:none;font-size:18px}
+
+/* ============================================================
+   04 · INK & PAPER — Japanese Minimal
+   ============================================================ */
+.d04{background:#fff;font-family:'Georgia',serif}
+.d04 .wrap{display:grid;grid-template-columns:56px 1fr;height:100%}
+.d04 .sidebar{background:#000;display:flex;flex-direction:column;align-items:center;padding:24px 0;gap:0}
+.d04 .side-name{writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#fff;flex:1;display:flex;align-items:center}
+.d04 .side-dot{width:4px;height:4px;background:#fff;border-radius:50%;margin:12px 0}
+.d04 .side-num{font-size:9px;color:#555;letter-spacing:1px}
+.d04 .content{padding:40px 36px}
+.d04 .eyebrow{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:32px}
+.d04 h2{font-size:46px;line-height:1.1;color:#000;font-weight:400;font-style:italic;margin-bottom:24px}
+.d04 .line{width:100%;height:1px;background:#e0e0e0;margin:24px 0}
+.d04 .bio{font-size:12px;line-height:1.9;color:#333;max-width:340px}
+.d04 .pill-row{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.d04 .pill{border:1px solid #000;font-size:9px;letter-spacing:2px;padding:5px 12px;text-transform:uppercase;color:#000}
+.d04 .footer-strip{position:absolute;bottom:0;left:56px;right:0;border-top:1px solid #e0e0e0;padding:14px 36px;display:flex;justify-content:space-between;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#999}
+
+/* ============================================================
+   05 · KINETIC TYPE — Bold Typography Hero
+   ============================================================ */
+.d05{background:#000;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+.d05 .nav{display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid #222}
+.d05 .logo{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#fff;font-weight:700}
+.d05 nav{display:flex;gap:24px}
+.d05 nav a{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888;text-decoration:none}
+.d05 .hero{padding:32px 32px 0}
+.d05 .big{font-size:88px;line-height:0.85;font-weight:900;color:#fff;letter-spacing:-4px;text-transform:uppercase}
+.d05 .big em{color:#000;-webkit-text-stroke:1px #fff;font-style:normal}
+.d05 .under{display:flex;align-items:flex-end;justify-content:space-between;padding:20px 32px;border-top:1px solid #222;margin-top:16px}
+.d05 .desc{font-size:11px;line-height:1.7;color:#666;max-width:260px}
+.d05 .cta{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;border:1px solid #fff;padding:10px 20px}
+.d05 .ticker{background:#fff;padding:10px 32px;display:flex;gap:40px;overflow:hidden}
+.d05 .tick-item{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#000;white-space:nowrap}
+
+/* ============================================================
+   06 · GRID ARCHIVE — Archival/Index Catalog
+   ============================================================ */
+.d06{background:#fff;font-family:'Courier New',monospace}
+.d06 .header{padding:16px 24px;border-bottom:1px solid #000;display:flex;justify-content:space-between;align-items:center}
+.d06 .logo{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#000}
+.d06 .header nav{display:flex;gap:20px}
+.d06 .header nav a{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#000;text-decoration:none}
+.d06 .index{display:grid;grid-template-columns:40px 1fr 80px 100px;border-bottom:1px solid #000}
+.d06 .index-head{background:#000;color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:8px 12px}
+.d06 .row2{display:grid;grid-template-columns:40px 1fr 80px 100px;border-bottom:1px solid #ddd}
+.d06 .row2:hover{background:#f5f5f5}
+.d06 .cell2{padding:10px 12px;font-size:10px;color:#000;letter-spacing:0.5px;border-right:1px solid #ddd}
+.d06 .cell2:last-child{border-right:none}
+.d06 .cell2.num{color:#999;font-size:9px}
+.d06 .cell2.cat{color:#666;font-size:9px;letter-spacing:1px;text-transform:uppercase}
+.d06 .cell2.yr{color:#000;font-size:9px;text-align:right}
+.d06 .footer{padding:16px 24px;border-top:1px solid #000;display:flex;justify-content:space-between;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#999}
+
+/* ============================================================
+   07 · NIGHT EDITORIAL — Dark Newspaper
+   ============================================================ */
+.d07{background:#0d0d0d;font-family:'Georgia',Times,serif}
+.d07 .masthead{border-bottom:1px solid #333;padding:16px 32px;display:flex;justify-content:space-between;align-items:center}
+.d07 .pub{font-size:28px;color:#fff;font-weight:700;letter-spacing:-1px}
+.d07 .date{font-size:9px;color:#555;letter-spacing:2px;text-transform:uppercase}
+.d07 .hero-grid{display:grid;grid-template-columns:2fr 1fr;height:360px}
+.d07 .main-story{padding:32px;border-right:1px solid #333}
+.d07 .kicker{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:12px}
+.d07 h2{font-size:40px;line-height:1.1;color:#fff;font-weight:700;margin-bottom:16px}
+.d07 .deck{font-size:12px;line-height:1.7;color:#888;border-top:1px solid #333;padding-top:14px}
+.d07 .sidebar2{display:flex;flex-direction:column}
+.d07 .side-art{flex:1;background:#1a1a1a;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #333}
+.d07 .side-art .monogram{font-size:72px;font-weight:900;color:#fff;line-height:1;letter-spacing:-3px}
+.d07 .side-meta{padding:20px;display:flex;flex-direction:column;gap:8px}
+.d07 .meta-item{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;display:flex;justify-content:space-between}
+.d07 .meta-item span{color:#fff}
+.d07 .bottom-bar{border-top:1px solid #333;padding:12px 32px;display:flex;gap:32px}
+.d07 .bottom-tag{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555}
+
+/* ============================================================
+   08 · STARK LINES — Geometric Lines Accent
+   ============================================================ */
+.d08{background:#fff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+.d08 .nav{display:flex;justify-content:space-between;align-items:center;padding:20px 36px}
+.d08 .logo{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#000;font-weight:700;display:flex;align-items:center;gap:10px}
+.d08 .logo-line{width:28px;height:2px;background:#000}
+.d08 nav a{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#000;text-decoration:none;margin-left:24px}
+.d08 .hero{display:grid;grid-template-columns:1fr 1fr;height:380px}
+.d08 .h-left{padding:40px 36px;display:flex;flex-direction:column;justify-content:center}
+.d08 .label{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.d08 .label::before{content:'';display:block;width:24px;height:1px;background:#999}
+.d08 h2{font-size:54px;line-height:1;color:#000;font-weight:900;letter-spacing:-2px;margin-bottom:24px}
+.d08 .desc{font-size:11px;line-height:1.8;color:#666}
+.d08 .h-right{position:relative;overflow:hidden}
+.d08 .geo-bg{width:100%;height:100%;background:#000;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.d08 .geo-q{display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:3px;text-transform:uppercase}
+.d08 .geo-q.a{background:#000;color:#fff;border-right:1px solid #222;border-bottom:1px solid #222}
+.d08 .geo-q.b{background:#fff;color:#000;border-left:1px solid #000;border-bottom:1px solid #000}
+.d08 .geo-q.c{background:#000;color:#fff;border-right:1px solid #222;border-top:1px solid #222}
+.d08 .geo-q.d{background:#fff;color:#000;font-size:32px;font-weight:900;color:#000;letter-spacing:-1px}
+.d08 .strip{border-top:2px solid #000;display:flex}
+.d08 .strip-item{flex:1;padding:14px 36px;border-right:1px solid #000;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#000}
+.d08 .strip-item:last-child{border-right:none}
+
+/* ============================================================
+   09 · MONOCHROME LUXE — Luxury/Fashion Editorial
+   ============================================================ */
+.d09{background:#f0ede8;font-family:'Georgia',Times,serif}
+.d09 .nav{display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-bottom:1px solid #c8c3bc}
+.d09 .name{font-size:20px;letter-spacing:6px;text-transform:uppercase;color:#000;font-weight:400}
+.d09 nav a{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#000;text-decoration:none;margin-left:28px}
+.d09 .hero{display:grid;grid-template-columns:1fr 2fr 1fr;height:380px}
+.d09 .aside-l{padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid #c8c3bc}
+.d09 .aside-r{padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between;border-left:1px solid #c8c3bc}
+.d09 .aside-label{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#888}
+.d09 .aside-val{font-size:13px;color:#000;line-height:1.5}
+.d09 .center2{padding:40px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.d09 .center2 .overline{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#888}
+.d09 .center2 h2{font-size:50px;line-height:1;color:#000;font-weight:400;font-style:italic;letter-spacing:-1px}
+.d09 .center2 .rule{width:32px;height:1px;background:#000}
+.d09 .center2 p{font-size:11px;line-height:1.8;color:#555;max-width:240px;text-align:center}
+.d09 .bottom{border-top:1px solid #c8c3bc;padding:14px 40px;display:flex;justify-content:space-between;align-items:center}
+.d09 .bottom-left{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#999}
+.d09 .bottom-right{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#999}
+
+/* ============================================================
+   10 · PURE SIGNAL — Ultra Minimal Single Focus
+   ============================================================ */
+.d10{background:#fff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+.d10 .wrap{height:100%;display:flex;flex-direction:column}
+.d10 .top10{display:flex;justify-content:space-between;align-items:center;padding:20px 36px;border-bottom:1px solid #000}
+.d10 .logo10{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#000;font-weight:700}
+.d10 nav a{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#000;text-decoration:none;margin-left:20px}
+.d10 .main10{flex:1;display:grid;grid-template-columns:1fr 1fr}
+.d10 .left10{display:flex;flex-direction:column;justify-content:center;padding:48px 36px;border-right:1px solid #000}
+.d10 .nr{font-size:120px;font-weight:900;color:#f0f0f0;line-height:1;letter-spacing:-6px;margin-bottom:-20px}
+.d10 h2{font-size:36px;font-weight:900;color:#000;line-height:1.1;letter-spacing:-1px;position:relative;z-index:1}
+.d10 .sep{width:36px;height:3px;background:#000;margin:20px 0}
+.d10 .desc10{font-size:11px;line-height:1.8;color:#444}
+.d10 .right10{display:grid;grid-template-rows:1fr 1fr}
+.d10 .r-top{padding:32px 36px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid #000}
+.d10 .r-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#999;margin-bottom:10px}
+.d10 .r-val{font-size:22px;color:#000;font-weight:700;letter-spacing:-0.5px}
+.d10 .r-bot{padding:32px 36px;display:flex;flex-direction:column;justify-content:center}
+.d10 .tags10{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.d10 .t10{background:#000;color:#fff;font-size:8px;letter-spacing:2px;padding:5px 12px;text-transform:uppercase}
+.d10 .bottom10{border-top:1px solid #000;padding:14px 36px;display:flex;justify-content:space-between;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#999}
+</style>
+</head>
+<body>
+
+<h1>Palette 6 — Award-Winning Minimal B&W</h1>
+<p class="sub">Ödül Almış Tasarımlardan İlham · Siyah &amp; Beyaz · Minimal &amp; Şık</p>
+
+<div class="grid">
+
+<!-- 01 -->
+<div class="card">
+  <div class="label"><span>01 · SWISS EDITORIAL</span> — Helvetica Grid · Pure Black &amp; White</div>
+  <div class="preview">
+    <div class="d01">
+      <div class="top-bar">
+        <div class="logo">H. İbrahim Çiçek</div>
+        <nav><a href="#">Hakkımda</a><a href="#">Araştırma</a><a href="#">Yayınlar</a><a href="#">İletişim</a></nav>
+      </div>
+      <div class="hero">
+        <div class="hero-left">
+          <h2>Akademisyen<br>&amp; Araştırmacı</h2>
+          <p>Uluslararası ilişkiler, küresel politika ve bölgesel çatışmalar üzerine akademik çalışmalar yürüten bir araştırmacı.</p>
+        </div>
+        <div class="hero-right">
+          <div class="tag">Uzmanlık Alanı</div>
+          <div class="role">Uluslararası<br>İlişkiler<br>Uzmanı</div>
+        </div>
+      </div>
+      <div class="bar">
+        <div class="bar-item">Ankara Üniversitesi</div>
+        <div class="bar-item">25+ Yayın</div>
+        <div class="bar-item">Podcast</div>
+        <div class="bar-item">2024</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 -->
+<div class="card">
+  <div class="label"><span>02 · BRUTAL GRID</span> — Courier Brutalism · High Contrast</div>
+  <div class="preview">
+    <div class="d02">
+      <div class="top">
+        <div class="name">H. İbrahim Çiçek</div>
+        <nav><a href="#">Ana Sayfa</a><a href="#">Profil</a><a href="#">Yayınlar</a><a href="#">Podcast</a></nav>
+      </div>
+      <div class="main">
+        <div class="left">
+          <div class="issue">Vol. 01 — Akademik Profil</div>
+          <div class="headline">Uluslararası<br>İlişkiler</div>
+          <div class="sub-text">Bölgesel çatışmalar, küresel politika ve stratejik analizler üzerine derinlemesine araştırmalar.</div>
+          <div class="tags">
+            <div class="tag">Akademi</div>
+            <div class="tag">Araştırma</div>
+            <div class="tag">Politika</div>
+            <div class="tag">Podcast</div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="block">
+            <div class="block-title">Üniversite</div>
+            <div class="block-val">Ankara</div>
+            <div class="block-sub">Siyasal Bilgiler</div>
+          </div>
+          <div class="block">
+            <div class="block-title">Yayın Sayısı</div>
+            <div class="block-val">25+</div>
+            <div class="block-sub">Hakemli Makale</div>
+          </div>
+          <div class="block">
+            <div class="block-title">Podcast</div>
+            <div class="block-val">Aktif</div>
+            <div class="block-sub">Haftalık Bölüm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 -->
+<div class="card">
+  <div class="label"><span>03 · MUSEUM QUIET</span> — Gallery Serif · Off-White Warmth</div>
+  <div class="preview">
+    <div class="d03">
+      <div class="nav">
+        <div class="name">H. İbrahim Çiçek</div>
+        <nav><a href="#">Hakkımda</a><a href="#">Araştırma</a><a href="#">Yayınlar</a><a href="#">İletişim</a></nav>
+      </div>
+      <div class="center">
+        <div class="eyebrow">Akademisyen · Araştırmacı · Podcast Yapımcısı</div>
+        <div class="title">Uluslararası<br>İlişkiler Uzmanı</div>
+        <div class="divider"></div>
+        <div class="meta">Ankara Üniversitesi · Siyasal Bilgiler Fakültesi</div>
+      </div>
+      <div class="row">
+        <div class="cell"><strong>25+</strong>Hakemli Yayın</div>
+        <div class="cell"><strong>10+</strong>Yıl Deneyim</div>
+        <div class="cell"><strong>Aktif</strong>Podcast Serisi</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 -->
+<div class="card">
+  <div class="label"><span>04 · INK &amp; PAPER</span> — Vertical Sidebar · Japanese Minimal</div>
+  <div class="preview" style="position:relative">
+    <div class="d04" style="height:100%">
+      <div class="wrap">
+        <div class="sidebar">
+          <div class="side-name">H. İbrahim Çiçek</div>
+          <div class="side-dot"></div>
+          <div class="side-num">©24</div>
+        </div>
+        <div class="content">
+          <div class="eyebrow">Akademisyen &amp; Araştırmacı</div>
+          <h2>Uluslararası<br>İlişkiler<br>Uzmanı</h2>
+          <div class="line"></div>
+          <div class="bio">Uluslararası ilişkiler, küresel güç dengesi ve bölgesel çatışmalar üzerine akademik çalışmalar. Ankara Üniversitesi Siyasal Bilgiler Fakültesi.</div>
+          <div class="pill-row">
+            <div class="pill">Araştırma</div>
+            <div class="pill">Yayınlar</div>
+            <div class="pill">Podcast</div>
+            <div class="pill">İletişim</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-strip">
+        <span>Ankara, Türkiye</span>
+        <span>2024</span>
+        <span>25+ Yayın</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 -->
+<div class="card">
+  <div class="label"><span>05 · KINETIC TYPE</span> — Oversized Bold Typography · Dark Mode</div>
+  <div class="preview">
+    <div class="d05">
+      <div class="nav">
+        <div class="logo">HİC</div>
+        <nav><a href="#">Hakkımda</a><a href="#">Araştırma</a><a href="#">Yayınlar</a><a href="#">Podcast</a></nav>
+      </div>
+      <div class="hero">
+        <div class="big">AKADE<br><em>MİSYEN</em></div>
+      </div>
+      <div class="ticker">
+        <div class="tick-item">Uluslararası İlişkiler</div>
+        <div class="tick-item">—</div>
+        <div class="tick-item">Küresel Politika</div>
+        <div class="tick-item">—</div>
+        <div class="tick-item">Stratejik Analiz</div>
+        <div class="tick-item">—</div>
+        <div class="tick-item">Podcast</div>
+      </div>
+      <div class="under">
+        <div class="desc">Bölgesel çatışmalar ve uluslararası güç dengesi üzerine derinlemesine araştırmalar yürüten akademisyen.</div>
+        <div class="cta">Araştırmaları İncele</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 -->
+<div class="card">
+  <div class="label"><span>06 · GRID ARCHIVE</span> — Index/Catalog List · Monospace</div>
+  <div class="preview">
+    <div class="d06">
+      <div class="header">
+        <div class="logo">H. İbrahim Çiçek — Akademik Arşiv</div>
+        <nav><a href="#">Ana Sayfa</a><a href="#">Profil</a><a href="#">İletişim</a></nav>
+      </div>
+      <div class="index">
+        <div class="index-head">#</div>
+        <div class="index-head">Başlık</div>
+        <div class="index-head">Tür</div>
+        <div class="index-head">Yıl</div>
+      </div>
+      <div class="row2"><div class="cell2 num">001</div><div class="cell2">Uluslararası İlişkilerde Güç Dengesi</div><div class="cell2 cat">Makale</div><div class="cell2 yr">2024</div></div>
+      <div class="row2"><div class="cell2 num">002</div><div class="cell2">Bölgesel Çatışmalar ve Diplomatik Süreçler</div><div class="cell2 cat">Kitap</div><div class="cell2 yr">2023</div></div>
+      <div class="row2"><div class="cell2 num">003</div><div class="cell2">Küresel Politikada Yeni Aktörler</div><div class="cell2 cat">Makale</div><div class="cell2 yr">2023</div></div>
+      <div class="row2"><div class="cell2 num">004</div><div class="cell2">Stratejik Denge Teorisi Üzerine</div><div class="cell2 cat">Tez</div><div class="cell2 yr">2022</div></div>
+      <div class="row2"><div class="cell2 num">005</div><div class="cell2">Orta Doğu'da Değişen Dinamikler</div><div class="cell2 cat">Makale</div><div class="cell2 yr">2022</div></div>
+      <div class="row2"><div class="cell2 num">006</div><div class="cell2">NATO Genişlemesi ve Etkileri</div><div class="cell2 cat">Makale</div><div class="cell2 yr">2021</div></div>
+      <div class="row2"><div class="cell2 num">007</div><div class="cell2">Podcast: Dünya Siyasetini Anlamak</div><div class="cell2 cat">Ses</div><div class="cell2 yr">2021–</div></div>
+      <div class="footer"><span>25+ Yayın · Ankara Üniversitesi</span><span>Tümü Görüntüle →</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 07 -->
+<div class="card">
+  <div class="label"><span>07 · NIGHT EDITORIAL</span> — Dark Newspaper · Serif · Dramatic</div>
+  <div class="preview">
+    <div class="d07">
+      <div class="masthead">
+        <div class="pub">HİÇ</div>
+        <div class="date">Akademik Profil · 2024 · Ankara</div>
+      </div>
+      <div class="hero-grid">
+        <div class="main-story">
+          <div class="kicker">Uluslararası İlişkiler Uzmanı</div>
+          <h2>Küresel Politikayı<br>Şekillendiren<br>Akademik Ses</h2>
+          <div class="deck">Bölgesel çatışmalar, güç dengesi ve diplomatik süreçler üzerine on yılı aşan akademik deneyimiyle H. İbrahim Çiçek, uluslararası ilişkiler literatürüne önemli katkılar sunmaktadır.</div>
+        </div>
+        <div class="sidebar2">
+          <div class="side-art"><div class="monogram">HİÇ</div></div>
+          <div class="side-meta">
+            <div class="meta-item">Üniversite <span>Ankara</span></div>
+            <div class="meta-item">Fakülte <span>SBF</span></div>
+            <div class="meta-item">Yayınlar <span>25+</span></div>
+            <div class="meta-item">Podcast <span>Aktif</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar">
+        <div class="bottom-tag">Araştırma</div>
+        <div class="bottom-tag">·</div>
+        <div class="bottom-tag">Yayınlar</div>
+        <div class="bottom-tag">·</div>
+        <div class="bottom-tag">Podcast</div>
+        <div class="bottom-tag">·</div>
+        <div class="bottom-tag">İletişim</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 -->
+<div class="card">
+  <div class="label"><span>08 · STARK LINES</span> — Geometric Split · Black &amp; White Quadrant</div>
+  <div class="preview">
+    <div class="d08">
+      <div class="nav">
+        <div class="logo"><div class="logo-line"></div>H. İbrahim Çiçek</div>
+        <div><nav><a href="#">Hakkımda</a><a href="#">Araştırma</a><a href="#">Podcast</a><a href="#">İletişim</a></nav></div>
+      </div>
+      <div class="hero">
+        <div class="h-left">
+          <div class="label">Akademisyen &amp; Araştırmacı</div>
+          <h2>Uluslararası<br>İlişkiler<br>Uzmanı</h2>
+          <div class="desc">Küresel politika, bölgesel çatışmalar ve stratejik denge üzerine derinlemesine akademik araştırmalar.</div>
+        </div>
+        <div class="h-right">
+          <div class="geo-bg">
+            <div class="geo-q a">Araştırma</div>
+            <div class="geo-q b">Yayınlar</div>
+            <div class="geo-q c">Podcast</div>
+            <div class="geo-q d">25+</div>
+          </div>
+        </div>
+      </div>
+      <div class="strip">
+        <div class="strip-item">Ankara Üniversitesi</div>
+        <div class="strip-item">Siyasal Bilgiler</div>
+        <div class="strip-item">25+ Yayın</div>
+        <div class="strip-item">Aktif Podcast</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 09 -->
+<div class="card">
+  <div class="label"><span>09 · MONOCHROME LUXE</span> — Warm Off-White · Fashion/Luxury Editorial</div>
+  <div class="preview">
+    <div class="d09">
+      <div class="nav">
+        <div class="name">H. İbrahim Çiçek</div>
+        <nav><a href="#">Hakkımda</a><a href="#">Araştırma</a><a href="#">Yayınlar</a><a href="#">Podcast</a><a href="#">İletişim</a></nav>
+      </div>
+      <div class="hero">
+        <div class="aside-l">
+          <div>
+            <div class="aside-label">Pozisyon</div>
+            <div class="aside-val" style="margin-top:6px">Akademisyen<br>&amp; Araştırmacı</div>
+          </div>
+          <div>
+            <div class="aside-label">Üniversite</div>
+            <div class="aside-val" style="margin-top:6px">Ankara<br>Üniversitesi</div>
+          </div>
+          <div>
+            <div class="aside-label">Fakülte</div>
+            <div class="aside-val" style="margin-top:6px">Siyasal<br>Bilgiler</div>
+          </div>
+        </div>
+        <div class="center2">
+          <div class="overline">Akademik Profil</div>
+          <h2>Uluslararası<br>İlişkiler</h2>
+          <div class="rule"></div>
+          <p>Küresel politika ve bölgesel çatışmalar üzerine derinlemesine araştırmalar yürüten akademisyen.</p>
+        </div>
+        <div class="aside-r">
+          <div>
+            <div class="aside-label">Yayın Sayısı</div>
+            <div class="aside-val" style="margin-top:6px;font-size:28px;font-weight:400">25+</div>
+          </div>
+          <div>
+            <div class="aside-label">Uzmanlık</div>
+            <div class="aside-val" style="margin-top:6px">Güç Dengesi<br>Stratejik Analiz</div>
+          </div>
+          <div>
+            <div class="aside-label">Medya</div>
+            <div class="aside-val" style="margin-top:6px">Podcast<br>Aktif</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="bottom-left">© 2024 H. İbrahim Çiçek</div>
+        <div class="bottom-right">Ankara · Türkiye</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 -->
+<div class="card">
+  <div class="label"><span>10 · PURE SIGNAL</span> — Ultra Minimal Grid · Maximum Clarity</div>
+  <div class="preview">
+    <div class="d10">
+      <div class="wrap">
+        <div class="top10">
+          <div class="logo10">H. İbrahim Çiçek</div>
+          <nav><a href="#">Hakkımda</a><a href="#">Araştırma</a><a href="#">Yayınlar</a><a href="#">İletişim</a></nav>
+        </div>
+        <div class="main10">
+          <div class="left10">
+            <div class="nr">01</div>
+            <h2>Uluslararası<br>İlişkiler<br>Uzmanı</h2>
+            <div class="sep"></div>
+            <div class="desc10">Bölgesel çatışmalar, küresel güç dengesi ve uluslararası politika üzerine akademik araştırmalar. Ankara Üniversitesi Siyasal Bilgiler Fakültesi.</div>
+          </div>
+          <div class="right10">
+            <div class="r-top">
+              <div class="r-label">Kurum</div>
+              <div class="r-val">Ankara Üniversitesi</div>
+            </div>
+            <div class="r-bot">
+              <div class="r-label">Uzmanlık Alanları</div>
+              <div class="tags10">
+                <div class="t10">Araştırma</div>
+                <div class="t10">Yayın</div>
+                <div class="t10">Politika</div>
+                <div class="t10">Podcast</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom10">
+          <span>© 2024</span>
+          <span>25+ Hakemli Yayın</span>
+          <span>Ankara · Türkiye</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /grid -->
+
+</body>
+</html>
