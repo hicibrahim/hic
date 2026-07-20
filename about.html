@@ -87,6 +87,9 @@ nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--nav-bg);bac
 }
 .roller-top{background:linear-gradient(to bottom,#000,#222,#444,#222,#000);border-bottom:3px solid #000;}
 .roller-bot{background:linear-gradient(to bottom,#000,#222,#444,#222,#000);border-top:3px solid #000;}
+/* Cover content before JS runs so there's no flash of inner content */
+#roller1-top,#roller2-top{height:calc(50vh - 31px);}
+#roller1-bot,#roller2-bot{height:calc(50vh - 31px);}
 .roller-label{
   font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.28em;text-transform:uppercase;
   color:rgba(255,235,170,.85);text-align:center;
@@ -1078,9 +1081,9 @@ function goPane(n){
 }
 
 
-// Open pane1 on load with smooth center animation
+// Open pane1 on load with smooth center animation — no delay needed since CSS pre-covers content
 window.addEventListener('load',function(){
-  setTimeout(function(){goPane(1);},150);
+  goPane(1);
 });
 
 /* ── WORLDWIDE MAP — Leaflet ── */
