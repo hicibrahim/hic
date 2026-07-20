@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8">
   <script>
-    // Redirect root to about page
+    // Minimal head script: only fix trailing slash
     (function(){
       if(location.pathname.slice(-1)==='/'){
         history.replaceState(null,'',location.pathname.slice(0,-1)||'/hic');
-      }
-      // If arriving directly (not from internal nav), go to about page
-      if(!document.referrer || !document.referrer.includes(location.hostname)){
-        window.location.replace('about.html');
       }
     })();
   </script>  <meta property="og:title" content="Halil İbrahim Ciğer">
