@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8">
   <script>
-    // Minimal head script: only fix trailing slash
     (function(){
       if(location.pathname.slice(-1)==='/'){
         history.replaceState(null,'',location.pathname.slice(0,-1)||'/hic');
+      }
+      // Redirect to about page unless navigating from within the site
+      var ref=document.referrer;
+      var internal=ref && ref.includes(location.hostname);
+      if(!internal){
+        var base=location.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'');
+        window.location.replace(base+'/about.html');
       }
     })();
   </script>  <meta property="og:title" content="Halil İbrahim Ciğer">
